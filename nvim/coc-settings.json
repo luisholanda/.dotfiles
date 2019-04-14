@@ -1,0 +1,18 @@
+{
+  "suggest.enablePreview": true,
+  "suggest.triggerAfterInsertEnter": true,
+  "codeLens.enable": true,
+  "suggest.echodocSupport": true,
+  "languageserver": {
+    "golang": {
+      "command": "bingo",
+      "args": ["--diagnostics-style=instant", "--cache-style=always"],
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    }
+  },
+  "python.jediEnabled": false,
+  "python.venvPath": "~/.virtualenvs/",
+  "python.pythonPath": "/Users/luiscm/.virtualenvs/fides_processing/bin/python"
+}
+
