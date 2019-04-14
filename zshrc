@@ -59,7 +59,10 @@ function __set_alias {
   alias vim='nvim'
   alias cat='bat'
 
-  alias date="gdate"
+  if hash gdate 2>/dev/null; then
+    alias date="gdate"
+  fi
+
   alias -- -="cd -"
   alias ..="cd .."
   alias ...="cd ../.."
