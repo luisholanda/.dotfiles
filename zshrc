@@ -1,59 +1,11 @@
 #!/bin/zsh
-function tm-env {
-	source activate terramagna
-	export PS1=$PROMPT
-}
-
-function login-node {
-  local port=22
-  if [ "$4" -ne "" ]; then
-    port=$4
-  fi
-  ssh -p $port -i ~/TerraMagna/chaves/$1.pem $2@$3 -o StrictHostKeyChecking=no
-}
-
-function tm-repo {
-  local firstfolder=~/TerraMagna/repositories/$1
-  local secondfolder=~/TerraMagna/repositories/terramagna_$1
-  if [ -d $firstfolder ]; then
-	  cd $firstfolder
-  elif [ -d $secondfolder ]; then
-    cd $secondfolder
-  else
-    echo "Repository not found!"
-  fi
-}
-
-function cp-rem-env {
-  if [ "$#" -ne 3 ]; then
-    printf "Usage [local|remote] origin destiny"
-    return 1
-  fi
-
-  local src=""
-  local rem=""
-
-  if [ "$1" = "local" ]; then
-    src="$2"
-    rem="root@35.202.214.227:$3"
-  elif [ "$1" = "remote" ]; then
-    src="root@35.202.214.227:$2"
-    rem="$3"
-  else
-    printf "Bad argument, should be 'local' or 'remote'"
-    return 1
-  fi
-
-  rsync -azvh -e "ssh -i ~/TerraMagna/keys/dev_key -p 30302" --progress $src $rem
-}
-
 function __set_path {
   export GOPATH=$HOME/.gopath
 
   export PATH=/usr/local/opt/libxml2/bin:$PATH
   export PATH=/usr/local/opt/texinfo/bin:$PATH
-  export PATH=/Users/luiscm/.local/bin:$PATH
-  export PATH=/Users/luiscm/.miniconda2/bin:$PATH
+  export PATH=$HOME/.local/bin:$PATH
+  export PATH=$HOME/.miniconda2/bin:$PATH
   export PATH=$HOME/.cargo/bin:$PATH
   export PATH=$GOPATH/bin:$PATH
 
@@ -84,7 +36,7 @@ function __zsh_opts {
 	zstyle ':completion:*' completer _list _expand _complete _ignored _correct _approximate
 	zstyle ':completion:*' group-name ''
 	zstyle ':completion:*' max-errors 2
-	zstyle :compinstall filename '/Users/luiscm/.zshrc'
+	zstyle :compinstall filename '$HOME/.zshrc'
 
     bindkey -v
     export KEYTIMEOUT=1
@@ -151,7 +103,7 @@ function __set_spark {
 
   export PYSPARK_DRIVER_PYTHON=jupyter
   export PYSPARK_DRIVER_PYTHON_OPTS=notebook
-  export PYSPARK_PYTHON=/Users/luiscm/.miniconda2/envs/terramagna/bin/python
+  export PYSPARK_PYTHON=$HOME/.miniconda2/envs/terramagna/bin/python
 }
 
 function __set_java {
@@ -226,7 +178,7 @@ function __shell_init {
   __set_nvm
   __set_spark
 
-  if [ -e /Users/luiscm/.nix-profile/etc/profile.d/nix.sh ]; then . /Users/luiscm/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+  if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 }
 
 __shell_init
