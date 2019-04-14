@@ -56,11 +56,11 @@ function __set_path {
   export PATH=/Users/luiscm/.miniconda2/bin:$PATH
   export PATH=$HOME/.cargo/bin:$PATH
   export PATH=$GOPATH/bin:$PATH
-  
+
   export LDFLAGS="-L/usr/local/opt/zlib/lib $LDFLAGS"
   export CPPFLAGS="-I/usr/local/opt/zlib/include $CPPFLAGS"
   export LDFLAGS="-L/usr/local/opt/flex/lib $LDFLAGS"
-  export CPPFLAGS="-I/usr/local/opt/flex/include $CPPFLAGS" 
+  export CPPFLAGS="-I/usr/local/opt/flex/include $CPPFLAGS"
   export LC_ALL=en_US.UTF-8
   export LANG=en_US.UTF-8
   export LC_CTYPE=en_US.UTF-8
@@ -107,6 +107,7 @@ function __set_alias {
   alias vim='nvim'
   alias cat='bat'
 
+  alias date="gdate"
   alias -- -="cd -"
   alias ..="cd .."
   alias ...="cd ../.."
@@ -167,20 +168,11 @@ function __colorls {
 	alias lt="lsd --tree"
 }
 
-function zle-line-init zle-keymap-select {
-  PROMPT=`~/Sources/purs/target/release/purs prompt -k "$KEYMAP" -r "$?"`
-  zle reset-prompt
-}
+function __set_prompt {
+  SILVER=(status:black:white dir:blue:black git:green:black)
+  export SILVER_SHELL=zsh
 
-function _prompt_purs_precmd {
-  ~/Sources/purs/target/release/purs precmd
-}
-
-function __set_purs_prompt {
-  zle -N zle-line-init
-  zle -N zle-keymap-select
-
-  add-zsh-hook precmd _prompt_purs_precmd
+  eval "$(~/Sources/silver/target/release/silver init)"
 }
 
 function _check_node {
@@ -222,7 +214,7 @@ function __set_nvm {
 
 function __shell_init {
   autoload -Uz add-zsh-hook
-	__set_purs_prompt
+	__set_prompt
 
   source ~/.zsh_dirhistory
 
