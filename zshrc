@@ -38,15 +38,20 @@ function __zsh_opts {
 	zstyle ':completion:*' max-errors 2
 	zstyle :compinstall filename '$HOME/.zshrc'
 
-    bindkey -v
-    export KEYTIMEOUT=1
+  bindkey -v
+  export KEYTIMEOUT=1
 
 	autoload -Uz compinit
 	compinit
 	setopt appendhistory autocd extendedglob correctall
 
-	source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-	source ~/Sources/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+  if [ -d ~/.zsh/zsh-autosuggestions ]; then
+    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+  fi
+
+  if [ -d ~/Sources/fast-syntax-highlighting ]; then
+    source ~/Sources/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+  fi
 }
 
 function __set_alias {
@@ -187,5 +192,9 @@ function __shell_init {
 __shell_init
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-eval "$(pyenv init -)"
+
+if hash pyenv 2>/dev/null; then
+  eval "$(pyenv init -)"
+fi
+
 export PATH="/usr/local/sbin:$PATH"
