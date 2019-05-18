@@ -1,3 +1,15 @@
+:: default : chunkc border::width 0; chunkc border::clear
+:: resize  : chunkc border::width 4; chunkc border::color 0xff24ccaa
+
+alt - r ; resize
+resize < escape ; default
+resize < h : chunkc tiling::window -r 0.05 -e west; chunkc tiling::window -r -0.05 -e east;
+resize < j : chunkc tiling::window -r 0.05 -e south; chunkc tiling::window -r -0.05 -e north;
+resize < k : chunkc tiling::window -r 0.05 -e north; chunkc tiling::window -r -0.05 -e south;
+resize < l : chunkc tiling::window -r 0.05 -e east; chunkc tiling::window -r -0.05 -e west;
+
+alt - return : open -na 'Alacritty'
+
 # enter fullscreen mode for the focused container
 alt - f : chunkc tiling::window --toggle fullscreen
 
@@ -26,8 +38,6 @@ shift + alt - j : chunkc tiling::window --warp south
 shift + alt - k : chunkc tiling::window --warp north
 shift + alt - l : chunkc tiling::window --warp east
 
-alt - r : chunkc tiling::desktop --rotate 90
-
 # change focused monitor
 shift + alt - p : chunkc tiling::monitor prev
 shift + alt - n : chunkc tiling::monitor next
@@ -39,3 +49,11 @@ shift + alt - 3 : chunkc tiling::window --send-to-desktop 3
 shift + alt - 4 : chunkc tiling::window --send-to-desktop 4
 shift + alt - 5 : chunkc tiling::window --send-to-desktop 5
 shift + alt - 6 : chunkc tiling::window --send-to-desktop 6
+
+# move focus to workspace
+alt - 1 : chunkc tiling::desktop --focus 1
+alt - 2 : chunkc tiling::desktop --focus 2
+alt - 3 : chunkc tiling::desktop --focus 3
+alt - 4 : chunkc tiling::desktop --focus 4
+alt - 5 : chunkc tiling::desktop --focus 5
+alt - 6 : chunkc tiling::desktop --focus 6
