@@ -13,6 +13,8 @@ function __set_path {
   export CPPFLAGS="-I/usr/local/opt/zlib/include $CPPFLAGS"
   export LDFLAGS="-L/usr/local/opt/flex/lib $LDFLAGS"
   export CPPFLAGS="-I/usr/local/opt/flex/include $CPPFLAGS"
+  export LDFLAGS="-L/usr/local/opt/openssl/lib $LDFLAGS"
+  export CPPFLAGS="-I/usr/local/opt/openssl/include $CPPFLAGS"
   export LC_ALL=en_US.UTF-8
   export LANG=en_US.UTF-8
   export LC_CTYPE=en_US.UTF-8
@@ -198,3 +200,4 @@ if hash pyenv 2>/dev/null; then
 fi
 
 export PATH="/usr/local/sbin:$PATH"
+clear
