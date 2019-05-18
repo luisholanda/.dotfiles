@@ -2,6 +2,8 @@ set shell=/bin/zsh
 syntax enable
 filetype plugin indent on
 
+let mapleader=";"
+
 " Basic VIM configuration
 " drop vi support - kept for vim compatibility but not needed for nvim
 set nocompatible
@@ -47,7 +49,7 @@ set showmode showcmd
 
 " make scrolling and painting fast
 " ttyfast kept for vim compatibility but not needed for nvim
-set ttyfast lazyredraw
+set lazyredraw
 
 " highlight matching parens, braces, brackets, etc
 set showmatch
@@ -67,6 +69,8 @@ set wildignore+=target/**
 set foldmethod=indent
 set nofoldenable
 
+set synmaxcol=240
+
 " StatusLine always visible, display full path
 " http://learnvimscriptthehardway.stevelosh.com/chapters/17.html
 set laststatus=2 statusline=%F
@@ -75,13 +79,17 @@ set laststatus=2 statusline=%F
 " http://vim.wikia.com/wiki/Accessing_the_system_clipboard
 set clipboard=unnamedplus
 
-" Show character column
-highlight ColorColumn ctermbg=DarkBlue
-set colorcolumn=80
+" Always show at least one line below/above the cursor
+if !&scrolloff
+  set scrolloff=1
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
 
 " CursorLine - sometimes autocmds are not performant; turn off if so
 " http://vim.wikia.com/wiki/Highlight_current_line
-set cursorline
+set nocursorline
 " Normal mode
 highlight CursorLine ctermbg=None
 autocmd InsertEnter * highlight  CursorLine ctermbg=17 ctermfg=None
@@ -112,37 +120,48 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Spacegray ColorScheme
-Plug 'ajh17/spacegray.vim'
+Plug 'liuchengxu/space-vim-theme'
 
-Plug 'neoclide/coc.nvim', { 'tag': '*', 'do': { -> coc#util#install()} }
+Plug 'Shougo/denite.nvim'
+Plug 'neoclide/coc.nvim', { 'do': 'yarn install --frozen-lockfile' }
 
 Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-startify'
 Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-surround'
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
 Plug 'itchyny/lightline.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'matze/vim-move'
-Plug 'ap/vim-buftabline'
 Plug 'justincampbell/vim-eighties'
-Plug 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for': ['vue', 'html'] }
 Plug 'Shougo/echodoc.vim'
-Plug 'rhysd/devdocs.vim'
+Plug 'rhysd/devdocs.vim', { 'on': ['DevDocs', 'DevDocsAll'] }
 Plug 'myusuf3/numbers.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'felikZ/ctrlp-py-matcher'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'for': 'nerdtree' }
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'RRethy/vim-illuminate'
+Plug 'tpope/vim-fugitive'
+Plug 'sodapopcan/vim-twiggy', { 'on': 'Twiggy' }
+Plug 'junegunn/gv.vim', { 'on': 'GV' }
+Plug 'tpope/vim-sleuth'
+Plug 'markonm/traces.vim'
 
-Plug 'neovim/node-host', { 'do': 'npm install' }
-Plug 'billyvg/tigris.nvim', { 'do': './install.sh' }
+Plug 'TaDaa/vimade'
 
 call plug#end()
 
+noremap :w<CR> :up<CR>
+noremap :W<CR> :w<CR>
+noremap :WQ<CR> :wq<CR>
+noremap :wQ<CR> :wq<CR>
+noremap :Wq<CR> :wq<CR>
+noremap :Q<CR> :q<CR>
+
+noremap ! :!
 noremap <leader>ws :rightbelow split<CR>
 noremap <leader>wv :rightbelow vsplit<CR>
 noremap <leader>wh :wincmd h<CR>
@@ -161,14 +180,23 @@ noremap <leader>bc :enew<CR>
 
 noremap <leader>d <Plug>(devdocs-under-cursor)
 
+" Vim Fugitive
+noremap <leader>gs :Gstatus<CR>
+noremap <leader>gb :Gblame<CR>
+noremap <leader>gd :Gdiff<CR>
+noremap <leader>gt :Twiggy<CR>
+noremap <leader>gl :GV<CR>
+noremap <leader>gc :Twiggy<space>
+noremap <leader>gp :Gpull --rebase<CR>
+noremap <leader>gP :Gpush<CR>
+noremap <leader>gf :Gfetch<CR>
+noremap <leader>ga :Gwrite<CR>
+
 tmap <ESC> <C-\><C-n>
 
 noremap <leader>ft :NERDTreeToggle<CR>
 
-let g:spacegray_use_italics = 1
-let g:spacegray_low_contrast = 1
-
-colorscheme spacegray
+colorscheme space_vim_theme
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -180,11 +208,46 @@ let g:trigis#on_the_fly_enabled = 1
 let g:trigis#delay = 500
 
 " GitGutter things
-let g:gitgutter_map_keys = 0
+let  g:gitgutter_map_keys = 0
+"
+" Better glyphs
+let g:gitgutter_sign_added='┃'
+let g:gitgutter_sign_modified='┃'
+let g:gitgutter_sign_removed='◢'
+let g:gitgutter_sign_removed_first_line='◥'
+let g:gitgutter_sign_modified_removed='◢'
+let g:gitgutter_override_sign_column_highlight = 0
 
-" CtrlP things
-nmap <leader>sf :CtrlP<CR>
-nmap <leader>sb :CtrlPBuffer<CR>
+" Removing background for a e s t h e t i c s
+hi! GitGutterAdd ctermbg=NONE guibg=NONE
+hi! GitGutterChange ctermbg=NONE guibg=NONE
+hi! GitGutterDelete ctermbg=NONE guibg=NONE
+hi! GitGutterChangeDelete ctermbg=NONE guibg=NONE
+
+" Update changes faster
+set updatetime=100
+
+" Better behaviour from autocomplete popup
+set completeopt=noinsert,menuone,noselect
+
+"- Startify -"
+let g:startify_custom_header = [
+            \ '   ███╗   ██╗    ███████╗     ██████╗     ██╗   ██╗    ██╗    ███╗   ███╗' ,
+            \ '   ████╗  ██║    ██╔════╝    ██╔═══██╗    ██║   ██║    ██║    ████╗ ████║' ,
+            \ '   ██╔██╗ ██║    █████╗      ██║   ██║    ██║   ██║    ██║    ██╔████╔██║' ,
+            \ '   ██║╚██╗██║    ██╔══╝      ██║   ██║    ╚██╗ ██╔╝    ██║    ██║╚██╔╝██║' ,
+            \ '   ██║ ╚████║    ███████╗    ╚██████╔╝     ╚████╔╝     ██║    ██║ ╚═╝ ██║' ,
+            \ '   ╚═╝  ╚═══╝    ╚══════╝     ╚═════╝       ╚═══╝      ╚═╝    ╚═╝     ╚═╝' ,
+            \ ]
+
+" Ctrl things
+nmap <leader>sf :Leaderf file --fuzzy<CR>
+nmap <leader>sb :Leaderf buffer<CR>
+nmap <leader>sg :Leaderf rg -S<CR>
+nmap <leader>sc :noh<CR>
+let g:Lf_WindowHeight = 0.3
+let g:Lf_StlColorscheme = 'one'
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
 " EasyMotion things
 let g:EasyMotion_do_mapping = 1
@@ -198,14 +261,39 @@ endif
 
 let g:lightline = {
   \ 'colorscheme': 'one',
+  \ 'enable': {
+  \   'statusline': 1,
+  \   'tabline': 0
+  \ },
   \ 'active': {
-  \   'left': [ [ 'mode', 'paste' ],
-  \             [ 'cocstatus', 'readonly', 'filename', 'modified']]
+  \   'left':  [ [ 'mode', 'paste' ],
+  \              [ 'gitbranch' ],
+  \              [ 'cocstatus', 'filename', 'modified']],
+  \   'right': [ ['lineinfo'],
+  \              ['percent'],
+  \              ['fileformat', 'fileencoding', 'readonly', 'filetype']]
   \ },
   \ 'component_function': {
-  \   'cocstatus': 'coc#status'
+  \   'cocstatus': 'coc#status',
+  \   'gitbranch': 'fugitive#head'
   \ },
+  \ 'separator': { 'left': '', 'right': '' },
+  \ 'subseparator': { 'left': '', 'right': '' }
   \ }
+
+function! LightlineReadonly()
+  return &readonly ? '' : ''
+endfunction
+
+function! LightlineGitBranch()
+  if exists('*fugitive#head')
+    let branch = fugitive#head(8)
+    if branch !=# ''
+      return ''.branch
+    endif
+  endif
+  return ''
+endfunction
 
 " coc.nvim things
 
@@ -244,7 +332,7 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if &filetype == 'vim'
+  if (index(['vim', 'help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
@@ -255,16 +343,15 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 nmap <leader>rn <Plug>(coc-rename)
 
-vmap <leader>f <Plug>(coc-format-selected)
+xmap <leader>f <Plug>(coc-format-selected)
 nmap <leader>f <Plug>(coc-format-selected)
 
-augroup cocgroup
+augroup coc_nvimgroup
   autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-vmap <leader>a <Plug>(coc-codeaction-selected)
+xmap <leader>a <Plug>(coc-codeaction-selected)
 nmap <leader>a <Plug>(coc-codeaction-selected)
 
 nmap <leader>c <Plug>(coc-codeaction)
@@ -365,33 +452,7 @@ function! s:Bclose(bang, buffer)
 endfunction
 command! -bang -complete=buffer -nargs=? Bclose call <SID>Bclose(<q-bang>, <q-args>)
 
-set conceallevel=2
-
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_0\ze_?>', 10, -1, {'conceal': '₀'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_1\ze_?>', 10, -1, {'conceal': '₁'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_2\ze_?>', 10, -1, {'conceal': '₂'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_3\ze_?>', 10, -1, {'conceal': '₃'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_4\ze_?>', 10, -1, {'conceal': '₄'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_5\ze_?>', 10, -1, {'conceal': '₅'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_6\ze_?>', 10, -1, {'conceal': '₆'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_7\ze_?>', 10, -1, {'conceal': '₇'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_8\ze_?>', 10, -1, {'conceal': '₈'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_9\ze_?>', 10, -1, {'conceal': '₉'})
-
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_0\ze_?>', 10, -1, {'conceal': '₀'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_1\ze_?>', 10, -1, {'conceal': '₁'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_2\ze_?>', 10, -1, {'conceal': '₂'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_3\ze_?>', 10, -1, {'conceal': '₃'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_4\ze_?>', 10, -1, {'conceal': '₄'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_5\ze_?>', 10, -1, {'conceal': '₅'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_6\ze_?>', 10, -1, {'conceal': '₆'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_7\ze_?>', 10, -1, {'conceal': '₇'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_8\ze_?>', 10, -1, {'conceal': '₈'})
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v<[[:alpha:]_]+\zs_9\ze_?>', 10, -1, {'conceal': '₉'})
-
-autocmd BufReadPre,FileReadPre * call matchadd('Conceal', '\v[^_ ]\zs_\ze>', 10, -1, {'conceal': '′'})
-
-inoremap <BS> <Nop>
-inoremap <Del> <Nop>
-
 autocmd BufWritePre * %s/\s\+$//e
+
+let g:vimade = {}
+let g:vimade.enablesigns = 1

@@ -1,8 +1,9 @@
 {
-  "suggest.enablePreview": true,
+  "coc.preferences.jumpCommand": "vsplit",
+  "diagnostic.messageTarget": "float",
+  "signature.target": "float",
+  "signature.preferShownAbove": false,
   "suggest.triggerAfterInsertEnter": true,
-  "codeLens.enable": true,
-  "suggest.echodocSupport": true,
   "languageserver": {
     "golang": {
       "command": "bingo",
@@ -12,6 +13,8 @@
     }
   },
   "python.jediEnabled": false,
+  "python.linting.mypyEnabled": true,
+  "python.linting.pydocstyleEnabled": true,
   "python.venvPath": "~/.virtualenvs/",
   "python.pythonPath": "/Users/luiscm/.virtualenvs/fides_processing/bin/python"
 }
