@@ -134,7 +134,7 @@ function __set_prompt {
   SILVER=(status:black:white dir:blue:black git:green:black)
   export SILVER_SHELL=zsh
 
-  eval "$(~/Sources/silver/target/release/silver init)"
+  eval "$(~/.local/bin/silver init)"
 }
 
 function _check_node {
@@ -200,4 +200,3 @@ if hash pyenv 2>/dev/null; then
 fi
 
 export PATH="/usr/local/sbin:$PATH"
-clear
