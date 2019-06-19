@@ -54,3 +54,7 @@ inoremap <down> <nop>
 nnoremap <left> :bp<CR>
 nnoremap <right> :bn<CR>
 nnoremap <leader><leader> <c-^>
+
+inoremap ( ()<left>
+inoremap { {}<left>
+inoremap [ []<left>

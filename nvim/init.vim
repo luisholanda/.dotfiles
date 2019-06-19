@@ -3,23 +3,17 @@ source ~/.dotfiles/nvim/plugins.vim
 source ~/.dotfiles/nvim/bclose.vim
 source ~/.dotfiles/nvim/coc.vim
 source ~/.dotfiles/nvim/keymaps.vim
+source ~/.dotfiles/nvim/status-line.vim
 
 syntax enable
 filetype plugin indent on
 
-
-" autocmd ColorScheme jana highlight Normal ctermbg=235
-colorscheme janah
-" colorscheme space_vim_theme
-" let g:seoul256_backgroud = 235
-" let g:seoul256_srgb = 1
-" colorscheme seoul256
-
-autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+colorscheme gruvbox8_soft
+let g:gruvbox8_italic = 1
+let g:gruvbox8_gruvbox_plugin_hi_groups = 1
+let g:gruvbox_filetype_hi_groups = 1
 
 autocmd BufNew,BufNewFile,BufRead *.lalrpop :setlocal filetype=rust
-
-let g:deoplete#enable_at_startup = 1
 
 " GitGutter things
 let g:gitgutter_map_keys = 0
@@ -32,11 +26,7 @@ let g:gitgutter_sign_removed_first_line='◥'
 let g:gitgutter_sign_modified_removed='◢'
 let g:gitgutter_override_sign_column_highlight = 0
 
-" Removing background for a e s t h e t i c s
-hi! GitGutterAdd ctermbg=NONE guibg=NONE
-hi! GitGutterChange ctermbg=NONE guibg=NONE
-hi! GitGutterDelete ctermbg=NONE guibg=NONE
-hi! GitGutterChangeDelete ctermbg=NONE guibg=NONE
+let g:indentLine_char = '▏'
 
 " Update changes faster
 set updatetime=100
@@ -44,18 +34,6 @@ set updatetime=100
 " Better behaviour from autocomplete popup
 set completeopt=noinsert,menuone,noselect
 
-"- Startify -"
-let g:startify_custom_header = [
-            \ '',
-            \ '',
-            \ '',
-            \ '   ███╗   ██╗    ███████╗     ██████╗     ██╗   ██╗    ██╗    ███╗   ███╗' ,
-            \ '   ████╗  ██║    ██╔════╝    ██╔═══██╗    ██║   ██║    ██║    ████╗ ████║' ,
-            \ '   ██╔██╗ ██║    █████╗      ██║   ██║    ██║   ██║    ██║    ██╔████╔██║' ,
-            \ '   ██║╚██╗██║    ██╔══╝      ██║   ██║    ╚██╗ ██╔╝    ██║    ██║╚██╔╝██║' ,
-            \ '   ██║ ╚████║    ███████╗    ╚██████╔╝     ╚████╔╝     ██║    ██║ ╚═╝ ██║' ,
-            \ '   ╚═╝  ╚═══╝    ╚══════╝     ╚═════╝       ╚═══╝      ╚═╝    ╚═╝     ╚═╝' ,
-            \ ]
 
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, extend(fzf#vim#with_preview(), { 'source': 'rg --files' }), <bang>0)
@@ -76,9 +54,9 @@ nmap <leader>sb :Buffers<CR>
 nmap <leader>sg :Rg<CR>
 nmap <leader>sc :noh<CR>
 
-let g:fzf_layout = { 'down': '~20%' }
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
+let g:fzf_layout = { 'down': '~16%' }
+let g:fzf_colors = {
+  \ 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
   \ 'hl':      ['fg', 'Comment'],
   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
@@ -95,63 +73,6 @@ let g:fzf_colors =
 " EasyMotion things
 let g:EasyMotion_do_mapping = 1
 
-" lightline thigs
-set noshowmode
-
-if !has('gui_running')
-  set t_Co=256
-endif
-
-let g:lightline = {
-  \ 'colorscheme': 'wombat',
-  \ 'enable': {
-  \   'statusline': 1,
-  \   'tabline': 0
-  \ },
-  \ 'active': {
-  \   'left':  [ [ 'mode', 'paste' ],
-  \              [ 'cocstatus' ],
-  \              [ 'gitbranch' ],
-  \              [ 'filename', 'readonly', 'modified']],
-  \   'right': [ ['lineinfo', 'backjobs'],
-  \              ['percent'],
-  \              ['filetype']]
-  \ },
-  \ 'component_function': {
-  \   'cocstatus': 'coc#status',
-  \   'gitbranch': 'LightlineGitBranch',
-  \   'readonly': 'LightlineReadonly',
-  \   'backjobs': 'BackgroundJobs',
-  \ },
-  \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '', 'right': '' }
-  \ }
-
-function! LightlineReadonly()
-  return &readonly ? '' : ''
-endfunction
-
-function! LightlineGitBranch()
-  if exists('*fugitive#head')
-    let branch = fugitive#head(8)
-    if branch !=# ''
-      return ' '.branch
-    endif
-  endif
-  return ''
-endfunction
-
-function! BackgroundJobs()
-  if !exists('g:asyncrun_status')
-    return ''
-  elseif g:asyncrun_status == 'running'
-    return 'running'
-  elseif g:asyncrun_status == 'failure'
-    return 'failed'
-  else
-    return ''
-  endif
-endfunction
 
 autocmd BufWritePre * %s/\s\+$//e
 autocmd FileType help wincmd L

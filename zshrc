@@ -123,11 +123,11 @@ function __set_java {
 }
 
 function __colorls {
-  alias ls="lsd"
-	alias ll="lsd -l"
-	alias la="lsd -a"
-  alias lla="lsd -la"
-	alias lt="lsd --tree"
+  alias ls="exa"
+  alias ll="ls -lh"
+  alias la="ls -a"
+  alias lla="ls -lha"
+  alias lt="ls --tree"
 }
 
 function __set_prompt {
