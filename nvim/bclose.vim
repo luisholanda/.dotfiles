@@ -63,7 +63,7 @@ function! s:Bclose(bang, buffer)
       if bjump > 0
         execute 'buffer '.bjump
       else
-        execute 'Startify'
+        execute 'enew'.a:bang
       endif
     endif
   endfor

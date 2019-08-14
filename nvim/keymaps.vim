@@ -25,36 +25,51 @@ noremap <leader>bs :new<CR>
 noremap <leader>bv :vnew<CR>
 noremap <leader>bc :enew<CR>
 
-noremap <leader>d <Plug>(devdocs-under-cursor)
+if dein#tap('vim-easymotion')
+  nmap <leader><leader>w <Plug>(easymotion-bd-w)
+  nmap <leader><leader>f <Plug>(easymotion-bd-f)
+  nmap <leader><leader>e <Plug>(easymotion-bd-e)
+  nmap <leader><leader>s <Plug>(easymotion-sn)
+endif
 
-noremap <leader>sj :SplitjoinJoin<CR>
-noremap <leader>ss :SplitjoinSplit<CR>
+if dein#tap('comfortable-motion.vim')
+    nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
+    nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
+    nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
+    nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
 
-noremap <leader>vsr <Plug>(Visual-Split-VSResize)
-noremap <leader>vss <Plug>(Visual-Split-VSSplit)
-noremap <leader>vsa <Plug>(Visual-Split-VSSplitAbove)
-noremap <leader>vsb <Plug>(Visual-Split-VSSplitBelow)
+    nnoremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
+    nnoremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
+endif
 
 " Vim Fugitive
-noremap <leader>gs :Gstatus<CR>
-noremap <leader>gb :Gblame<CR>
-noremap <leader>gd :Gdiff<CR>
-noremap <leader>gt :Twiggy<CR>
-noremap <leader>gl :GV<CR>
-noremap <leader>gc :Twiggy<space>
-noremap <leader>gp :Gpull --rebase<CR>
-noremap <leader>gP :Gpush<CR>
-noremap <leader>gf :Gfetch<CR>
-noremap <leader>ga :Gwrite<CR>
+if dein#tap('vim-fugitive')
+  noremap <leader>gs :Gstatus<CR>
+  noremap <leader>gb :Gblame<CR>
+  noremap <leader>gd :Gdiff<CR>
+  noremap <leader>gp :Gpull --rebase<CR>
+  noremap <leader>gP :Gpush<CR>
+  noremap <leader>gf :Gfetch<CR>
+  noremap <leader>ga :Gwrite<CR>
+endif
 
-noremap <leader>ft :NERDTreeToggle<CR>
+if dein#tap('vim-twiggy')
+  noremap <leader>gt :Twiggy<CR>
+  noremap <leader>gc :Twiggy<space>
+endif
+
+if dein#tap('gv.vim')
+  noremap <leader>gl :GV<CR>
+endif
 
 inoremap <up> <nop>
 inoremap <down> <nop>
 nnoremap <left> :bp<CR>
 nnoremap <right> :bn<CR>
-nnoremap <leader><leader> <c-^>
+nnoremap <CR><CR> <c-^>
 
 inoremap ( ()<left>
 inoremap { {}<left>
 inoremap [ []<left>
+
+nnoremap Y y$

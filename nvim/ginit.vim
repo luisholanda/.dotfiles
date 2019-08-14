@@ -1,4 +1,14 @@
+set guicursor+=a:blinkwait800-blinkon600-blinkoff400
+
 if exists('g:fvim_loaded')
-  set guifont=FuraCode\ Nerd\ Font:h16
-  call rpcnotify(1, 'SetCursorAnimation', v:true, v:true)
+  set guifont=PragmataPro:h12
+  nnoremap <silent> <C-ScrollWheelUp> :set guifont=+<CR>
+  nnoremap <silent> <C-ScrollWheelDown> :set guifont=+<CR>
+  nnoremap <A-CR> :FVimToggleFullScreen<CR>
+
+  FVimCursorSmoothBlink v:true
+  FVimCursorSmoothMove v:false
+
+  FVimFontNormalWeight 300
+  FVimFontBoldWeight 800
 endif

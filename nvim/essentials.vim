@@ -21,10 +21,6 @@ set nobackup
 " don't create temp files
 set noswapfile
 
-" line numbers and distances
-set relativenumber
-set number
-
 " dont give |ins-completion-menu| messages.
 set shortmess+=c
 

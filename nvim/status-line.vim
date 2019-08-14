@@ -6,7 +6,7 @@ if !has('gui_running')
 endif
 
 let g:lightline = {
-  \ 'colorscheme': 'gruvbox',
+  \ 'colorscheme': 'srcery',
   \ 'enable': {
   \   'statusline': 1,
   \   'tabline': 0

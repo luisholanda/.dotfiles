@@ -9,42 +9,45 @@ if dein#load_state('~/.local/share/nvim/dein')
 
   " call dein#add('liuchengxu/space-vim-theme')
   " call dein#add('mhinz/vim-janah')
-  call dein#add('lifepillar/vim-gruvbox8')
-  call dein#add('shinchu/lightline-gruvbox.vim')
+  " call dein#add('lifepillar/vim-gruvbox8')
+  " call dein#add('shinchu/lightline-gruvbox.vim')
   " call dein#add('junegunn/seoul256.vim')
+  call dein#add('srcery-colors/srcery-vim')
 
-  " call dein#add('mhinz/vim-startify')
   call dein#add('ryanoasis/vim-devicons')
   call dein#add('Yggdroot/indentLine')
 
-  call dein#add('Shougo/neco-vim')
-  call dein#add('neoclide/coc-neco')
   call dein#add('neoclide/coc.nvim', {
         \ 'build': 'yarn install --frozen-lockfile',
+        \ })
+  call dein#add('liuchengxu/vista.vim', { 'on_cmd': ['Vista', 'Vista!', 'Vista!!'] })
+
+  call dein#add('yuttie/comfortable-motion.vim', {
+        \ 'on_func': ['comfortable_motion#flick'],
+        \ 'hook_source': join(['let g:comfortable_motion_no_default_key_mappings = 1',
+        \                   'let g:comfortable_motion_impulse_multiplier = 1'], '\n')
         \ })
 
   call dein#add('skywind3000/asyncrun.vim', { 'on_cmd': 'AsyncRun' })
   call dein#add('airblade/vim-gitgutter', { 'on_event': 'BufReadPost' })
   call dein#add('sheerun/vim-polyglot')
   call dein#add('tpope/vim-surround')
-  call dein#add('junegunn/vim-easy-align', { 'on_cmd': 'EasyAlign' })
   call dein#add('itchyny/lightline.vim')
-  call dein#add('easymotion/vim-easymotion', { 'on_cmd': 'EasyMotion' })
+  call dein#add('easymotion/vim-easymotion', {
+        \ 'on_map': '<Plug>',
+        \ 'hook_source': join(['let g:EasyMotion_do_mapping = 0',
+        \                      'let g:EasyMotion_prompt = "Jump to → "',
+        \                      'let g:EasyMotion_keys = "fjdkswbeoavn"',
+        \                      'let g:EasyMotion_smartcase = 1',
+        \                      'let g:EasyMotion_use_smartsign_us = 1'], '\n')
+        \ })
   call dein#add('terryma/vim-multiple-cursors')
   call dein#add('matze/vim-move')
-  call dein#add('justincampbell/vim-eighties', { 'on_event': 'WinNew' })
-  call dein#add('mattn/emmet-vim', { 'on_ft': ['vue', 'html'] })
-  call dein#add('rhysd/devdocs.vim', {
-        \ 'on_cmd': ['DevDocs', 'DevDocsAll'],
-        \ 'on_map': '<Plug>(devdocs'
-        \ })
-  call dein#add('myusuf3/numbers.vim')
-  call dein#add('RRethy/vim-illuminate')
   call dein#add('tpope/vim-fugitive', { 'on_event': 'BufReadPost' })
   call dein#add('sodapopcan/vim-twiggy', { 'on_cmd': 'Twiggy' })
   call dein#add('junegunn/gv.vim', { 'on_cmd': 'GV' })
-  call dein#add('tpope/vim-sleuth', { 'on_event': 'BufReadPost' })
   call dein#add('markonm/traces.vim', { 'on_event': 'BufReadPost' })
+  call dein#add('terryma/vim-expand-region', { 'on_map':  '<Plug>' })
 
   call dein#add('TaDaa/vimade', { 'on_event': 'WinNew' })
 
@@ -56,9 +59,6 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('aklt/plantuml-syntax')
   call dein#add('weirongxu/plantuml-previewer.vim', { 'on_ft': ['plantuml'] })
 
-  call dein#add('AndrewRadev/splitjoin.vim', {
-        \ 'on_cmd': ['SplitjoinJoin', 'SplitjoinSplit']
-        \ })
   call dein#add('wellle/visual-split.vim', {
         \ 'name': 'Visual-Split',
         \ 'on_map': '<Plug>'
@@ -68,7 +68,11 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('mhinz/vim-rfc', { 'on_cmd': ['RFC', 'RFC!'] })
 
   call dein#add('junegunn/fzf', { 'build': './install --bin' })
-  call dein#add('junegunn/fzf.vim')
+  call dein#add('junegunn/fzf.vim', {
+        \ 'depends': 'fzf',
+        \ 'on_cmd': ['Colors', 'Rg', 'Buffers', 'Files'],
+        \ 'on_func': 'Fzf_dev'
+        \ })
 
   call dein#end()
   call dein#save_state()
