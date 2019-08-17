@@ -1,4 +1,4 @@
-set shell=/usr/local/bin/zsh
+set shell=/usr/local/bin/fish
 let mapleader=";"
 
 " number of lines at the beginning and end of files checked for file-specific vars
