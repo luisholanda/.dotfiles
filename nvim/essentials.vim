@@ -18,9 +18,6 @@ set backspace=indent,eol,start
 " don't create `filename~` backups
 set nobackup
 
-" don't create temp files
-set noswapfile
-
 " dont give |ins-completion-menu| messages.
 set shortmess+=c
 
@@ -34,9 +31,6 @@ set expandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " Indent new line the same as the preceding line
 set autoindent
-
-" statusline indicates insert or normal mode
-set showmode showcmd
 
 " make scrolling and painting fast
 " ttyfast kept for vim compatibility but not needed for nvim
@@ -93,8 +87,6 @@ if !&sidescrolloff
   set sidescrolloff=5
 endif
 
-" CursorLine - sometimes autocmds are not performant; turn off if so
-" http://vim.wikia.com/wiki/Highlight_current_line
 set nocursorline
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
