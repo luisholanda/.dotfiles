@@ -1,6 +1,5 @@
 " coc.nvim things
 
-echo "coc.nvim will load"
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -31,15 +30,12 @@ augroup coc_nvimgroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-command! -nargs=0 Format :call CocAction('format')
-
-command! -nargs=? Fold :call CocAction('fold', <f-args>)
-
 nnoremap <silent> <leader>la :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <leader>le :<C-u>CocList extensions<cr>
 nnoremap <silent> <leader>lc :<C-u>CocList commands<cr>
 nnoremap <silent> <leader>lo :<C-u>CocList outline<cr>
 nnoremap <silent> <leader>ls :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>lf :call CocAction('format')<cr>
 nnoremap <silent> <leader>lj :<C-u>CocNext<cr>
 nnoremap <silent> <leader>lk :<C-u>CocPrev<cr>
 nnoremap <silent> <leader>lp :<C-u>CocListResume<cr>
