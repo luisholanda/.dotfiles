@@ -1,13 +1,22 @@
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --follow'
+  set grepprg=rg\ --vimgrep
+
+  command! -bang -nargs=* Rg
+    \ call fzf#vim#grep(
+    \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+    \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter: --nth 4..'}, 'up:60%')
+    \           : fzf#vim#with_preview({'options': '--delimiter: --nth 4..'}, 'right:50%:hidden', '?'),
+    \   <bang>0)
+endif
 
 function! FloatingFZF()
   let buf = nvim_create_buf(v:false, v:true)
@@ -34,46 +43,12 @@ function! FloatingFZF()
   cal setwinvar(win, '&relativenumber', 0)
 endfunction
 
-function! Fzf_dev()
-  let l:fzf_file_options =  ' --preview "rougify {2..-1} | head -'.&lines.'"'
-
-  function! s:files()
-    let l:files = split(system('rg --files --hidden --follow'), '\n')
-
-    return s:prepend_icon(l:files)
-  endfunction
-
-  function! s:prepend_icon(candidates)
-    let l:result = []
-
-    for l:candidate in a:candidates
-      let l:filename = fnamemodify(l:candidate, ':p:t')
-      let l:icon = WebDevIconsGetFileTypeSymbol(l:filename, isdirectory(l:filename))
-      call add(l:result, printf('%s %s', l:icon, l:candidate))
-    endfor
-
-    return l:result
-  endfunction
-
-  function! s:edit_file(item)
-    let l:pos = stridx(a:item, '  ')
-    let l:file_path = a:item[pos+1:-1]
-    execute 'silent e' l:file_path
-  endfunction
-
-  call fzf#run(fzf#wrap({
-      \ 'source': <sid>files(),
-      \ 'sink': function('s:edit_file'),
-      \ 'options': '-m ' . l:fzf_file_options,
-      \ 'down': '10%',
-      \ 'window': 'call FloatingFZF()'
-      \ }))
-endfunction
-
 nmap <leader>sf :Files<CR>
 nmap <leader>sb :Buffers<CR>
 nmap <leader>sg :Rg<CR>
 nmap <leader>sc :noh<CR>
+
+let $FZF_DEFAULT_OPTS='--layout=reverse'
 
 let g:fzf_action = {
       \ 'ctrl-t': 'tap split',

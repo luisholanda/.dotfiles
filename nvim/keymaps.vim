@@ -1,42 +1,52 @@
-noremap :w<CR> :up<CR>
-noremap :W<CR> :w<CR>
-noremap :WQ<CR> :wq<CR>
-noremap :wQ<CR> :wq<CR>
-noremap :Wq<CR> :wq<CR>
-noremap :Q<CR> :q<CR>
+noremap <silent> :w<CR> :up<CR>
+noremap <silent> :W<CR> :w<CR>
+noremap <silent> :WQ<CR> :wq<CR>
+noremap <silent> :wQ<CR> :wq<CR>
+noremap <silent> :Wq<CR> :wq<CR>
+noremap <silent> :Q<CR> :q<CR>
 
-noremap <leader>w :up<CR>
-noremap <leader>q :q<CR>
+noremap <silent> <leader>bd :Bclose<CR>
+noremap <silent> <leader>q :q<CR>
 
-noremap ! :AsyncRun<space>
-noremap <leader>ws :rightbelow split<CR>
-noremap <leader>wv :rightbelow vsplit<CR>
-noremap <leader>wh :wincmd h<CR>
-noremap <leader>wj :wincmd j<CR>
-noremap <leader>wk :wincmd k<CR>
-noremap <leader>wl :wincmd l<CR>
-noremap <leader>ww :wincmd w<CR>
-noremap <leader>wq :wincmd c<CR>
+noremap <silent> <leader>ww :up<CR>
+noremap <silent> <leader>ws :rightbelow split<CR>
+noremap <silent> <leader>wv :rightbelow vsplit<CR>
+noremap <silent> <leader>wh :wincmd h<CR>
+noremap <silent> <leader>wj :wincmd j<CR>
+noremap <silent> <leader>wk :wincmd k<CR>
+noremap <silent> <leader>wl :wincmd l<CR>
+noremap <silent> <leader>ww :wincmd w<CR>
+noremap <silent> <leader>wq :wincmd c<CR>
 
-noremap <leader>bn :bnext<CR>
-noremap <leader>bp :bprev<CR>
-noremap <leader>bd :Bclose<CR>
-noremap <leader>bs :new<CR>
-noremap <leader>bv :vnew<CR>
-noremap <leader>bc :enew<CR>
+if dein#tap('asyncrun.vim')
+  noremap ! :AsyncRun<space>
+endif
 
 if dein#tap('vim-easymotion')
   nmap <leader><leader>w <Plug>(easymotion-bd-w)
-  nmap <leader><leader>f <Plug>(easymotion-bd-f)
+  nmap <leader><leader>f <Plug>(easymotion-bd-f2)
+  nmap <leader><leader>t <Plug>(easymotion-bd-t2)
   nmap <leader><leader>e <Plug>(easymotion-bd-e)
   nmap <leader><leader>s <Plug>(easymotion-sn)
+
+  xmap <leader><leader>w <Plug>(easymotion-bd-w)
+  xmap <leader><leader>f <Plug>(easymotion-bd-f2)
+  xmap <leader><leader>t <Plug>(easymotion-bd-t2)
+  xmap <leader><leader>e <Plug>(easymotion-bd-e)
+  xmap <leader><leader>s <Plug>(easymotion-sn)
+
+  omap <leader><leader>w <Plug>(easymotion-bd-w)
+  omap <leader><leader>f <Plug>(easymotion-bd-f2)
+  omap <leader><leader>t <Plug>(easymotion-bd-t2)
+  omap <leader><leader>e <Plug>(easymotion-bd-e)
+  omap <leader><leader>s <Plug>(easymotion-sn)
 endif
 
 if dein#tap('comfortable-motion.vim')
-    nnoremap <silent> <C-d> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 2)<CR>
-    nnoremap <silent> <C-u> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -2)<CR>
-    nnoremap <silent> <C-f> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * 4)<CR>
-    nnoremap <silent> <C-b> :call comfortable_motion#flick(g:comfortable_motion_impulse_multiplier * winheight(0) * -4)<CR>
+    nnoremap <silent> <C-d> :call motion#flick(2)<CR>
+    nnoremap <silent> <C-u> :call motion#flick(-2)<CR>
+    nnoremap <silent> <C-f> :call motion#flick(4)<CR>
+    nnoremap <silent> <C-b> :call motion#flick(-4)<CR>
 
     nnoremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
     nnoremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
@@ -64,8 +74,8 @@ endif
 
 inoremap <up> <nop>
 inoremap <down> <nop>
-nnoremap <left> :bp<CR>
-nnoremap <right> :bn<CR>
+nnoremap <silent> <left> :bp<CR>
+nnoremap <silent> <right> :bn<CR>
 nnoremap <CR><CR> <c-^>
 
 inoremap ( ()<left>
