@@ -3,10 +3,10 @@
 
 alt - r ; resize
 resize < escape ; default
-resize < h : chunkc tiling::window -r 0.05 -e west; chunkc tiling::window -r -0.05 -e east;
-resize < j : chunkc tiling::window -r 0.05 -e south; chunkc tiling::window -r -0.05 -e north;
-resize < k : chunkc tiling::window -r 0.05 -e north; chunkc tiling::window -r -0.05 -e south;
-resize < l : chunkc tiling::window -r 0.05 -e east; chunkc tiling::window -r -0.05 -e west;
+resize < h : chunkc tiling::window -r 0.025 -e west ; chunkc tiling::window -r -0.025 -e east
+resize < j : chunkc tiling::window -r 0.025 -e south; chunkc tiling::window -r -0.025 -e north
+resize < k : chunkc tiling::window -r 0.025 -e north; chunkc tiling::window -r -0.025 -e south
+resize < l : chunkc tiling::window -r 0.025 -e east ; chunkc tiling::window -r -0.025 -e west
 
 alt - return : open -na 'Alacritty'
 
