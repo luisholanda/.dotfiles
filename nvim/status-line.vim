@@ -7,10 +7,6 @@ endif
 
 let g:lightline = {
   \ 'colorscheme': 'srcery',
-  \ 'enable': {
-  \   'statusline': 1,
-  \   'tabline': 0
-  \ },
   \ 'active': {
   \   'left':  [ ['mode'],
   \              ['gitbranch'],
