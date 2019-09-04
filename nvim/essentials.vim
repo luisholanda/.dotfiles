@@ -58,6 +58,7 @@ set wildignore+=node_modules/**
 set wildignore+=target/**
 
 set foldmethod=syntax
+set nofoldenable
 
 " Only show sign column when needed.
 set signcolumn=auto:2

@@ -39,7 +39,6 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ 'on_map': '<Plug>',
         \ 'hook_source': 'call hooks#plugins#easymotion()'
         \ })
-  call dein#add('terryma/vim-multiple-cursors', { 'on_cmd': 'MultipleCursorsFind' })
 
   call dein#add('tpope/vim-fugitive', { 'on_event': 'BufReadPost' })
   call dein#add('airblade/vim-gitgutter', {
@@ -54,7 +53,10 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('wellle/targets.vim')
   call dein#add('gcmt/wildfire.vim', { 'on_map': '<Plug>' })
 
-  call dein#add('rust-lang/rust.vim', { 'on_ft': 'rust' })
+  call dein#add('rust-lang/rust.vim', {
+        \ 'on_ft': 'rust',
+        \ 'hook_source': 'call hooks#plugins#rust()'
+        \ })
 
   call dein#add('mhinz/vim-rfc', { 'on_cmd': ['RFC', 'RFC!'] })
 

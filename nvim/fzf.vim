@@ -1,4 +1,3 @@
-
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
@@ -18,31 +17,6 @@ if executable('rg')
     \   <bang>0)
 endif
 
-function! FloatingFZF()
-  let buf = nvim_create_buf(v:false, v:true)
-  call setbufvar(buf, 'number', 'no')
-  call setbufvar(buf, '&signcolumn', 'no')
-
-  let height = float2nr(&lines/2)
-  let width = float2nr(&columns - (&columns * 2 / 10))
-
-  let row = float2nr(&lines / 3)
-  let col = float2nr((&columns - width) / 2)
-
-  let opts = {
-      \ 'relative': 'editor',
-      \ 'row': row,
-      \ 'col': col,
-      \ 'width': width,
-      \ 'height': height,
-      \ }
-
-  let win = nvim_open_win(buf, v:true, opts)
-
-  cal setwinvar(win, '&number', 0)
-  cal setwinvar(win, '&relativenumber', 0)
-endfunction
-
 nmap <leader>sf :Files<CR>
 nmap <leader>sb :Buffers<CR>
 nmap <leader>sg :Rg<CR>
@@ -55,7 +29,7 @@ let g:fzf_action = {
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit'
       \}
-let g:fzf_layout = { 'window':  'call FloatingFZF()' }
+let g:fzf_layout = { 'window':  'call floating_fzf#FloatingFZF()' }
 let g:fzf_colors = {
   \ 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],

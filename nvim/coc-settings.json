@@ -1,6 +1,7 @@
 {
   "coc.preferences.jumpCommand": "vsplit",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.formatOnSaveFiletypes": ["rust"],
   "diagnostic.messageTarget": "float",
   "diagnostic.virtualText": true,
   "diagnostic.errorSign": " ",
@@ -44,11 +45,6 @@
       "args": ["--diagnostics-style=instant", "--cache-style=always"],
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
-    },
-    "rust": {
-      "command": "~/.cargo/bin/ra_lsp_server",
-      "filetypes": ["rust"],
-      "rootPatterns": ["Cargo.toml"]
     }
   },
   "python.jediEnabled": false,
@@ -57,6 +53,6 @@
   "python.venvPath": "~/.virtualenvs/",
   "python.pythonPath": "/Users/luiscm/.virtualenvs/fides_processing/bin/python",
   "suggest.enablePreview": true,
-  "suggest.minTriggerInputLength": 3
+  "suggest.minTriggerInputLength": 2
 }
 
