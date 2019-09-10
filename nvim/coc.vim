@@ -23,6 +23,14 @@ function! s:show_documentation()
   endif
 endfunction
 
+function! s:select_current_word()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  else
+    return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+  endif
+endfunction
+
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 augroup coc_nvimgroup
@@ -41,8 +49,7 @@ nnoremap <silent> <leader>lk :<C-u>CocPrev<cr>
 nnoremap <silent> <leader>lp :<C-u>CocListResume<cr>
 
 nmap <silent> <C-c> <Plug>(coc-cursor-position)
-nmap <silent> <C-d> <Plug>(coc-cursors-word)*
-xmap <silent> <C-d> y/\V<C-r>=escape(@",'/\')<CR><CR>gN<Plug>(coc-cursors-range)gn
+nmap <expr> <silent> <C-d> <SID>select_current_word()
 nmap <leader>x <Plug>(coc-cursors-operator)
 
 xmap <silent> <leader>a <Plug>(coc-codeaction-selected)
@@ -52,7 +59,8 @@ nmap <silent> <leader>c <Plug>(coc-codeaction)
 nmap <silent> <leader>qf <plug>(coc-fix-current)
 nmap <silent> <leader>lr <Plug>(coc-rename)
 nmap <silent> <leader>lf <Plug>(coc-refactor)
-nmap <silent> <leader>ls :execute 'CocSearc -w '.expand('<cword>')
+nmap <silent> <leader>ls :execute 'CocSearch -w '.expand('<cword>')<CR>
+nmap <silent> <leader>lt :Vista coc<CR>
 nmap <silent> [c <Plug>(coc-definition-prev)
 nmap <silent> [c <Plug>(coc-definition-next)
 
@@ -65,3 +73,5 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 let g:vista_default_executive = 'coc'
 let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#ctags = 'kind'
+let g:vista_sidebar_width = 50
