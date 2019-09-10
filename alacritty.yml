@@ -9,8 +9,8 @@ window:
     lines: 48
 
   padding:
-    x: 4
-    y: 4
+    x: 16
+    y: 8
 
   dynamic_padding: true
 
@@ -35,7 +35,7 @@ font:
     family: mononoki Nerd Font Mono
     style: Italic
 
-  size: 13.0
+  size: 12.0
 
   offset:
     x: 0
@@ -74,7 +74,7 @@ colors:
 
 visual_bell:
   animation: EaseOutExpo
-  duration: 1
+  duration: 0
 
 background_opacity: 1
 
