@@ -8,14 +8,14 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('airblade/vim-rooter')
   call dein#add('skywind3000/asyncrun.vim', {
         \ 'on_cmd': 'AsyncRun',
-        \ 'hook_source': join([
-        \     'let g:asyncrun_open = 14',
-        \     'command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>'], '\n')
+        \ 'hook_source': 'let g:asyncrun_open = 14',
         \ })
   call dein#add('Shougo/deol.nvim', { 'on_cmd': ['Deol', 'DeolCd', 'DeolEdit'] })
   call dein#add('TaDaa/vimade', { 'on_event': 'WinEnter', 'on_if': 'winnr("$") > 1' })
 
-  call dein#add('srcery-colors/srcery-vim')
+  " call dein#add('srcery-colors/srcery-vim')
+  " call dein#add('nightsense/cosmic_latte')
+  call dein#add('nightsense/snow')
 
   call dein#add('ryanoasis/vim-devicons')
   call dein#add('Yggdroot/indentLine', { 'hook_add': 'let g:indentLine_char="▏"' })
@@ -27,6 +27,7 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ 'hook_source': 'source /Users/luiscm/.dotfiles/nvim/coc.vim'
         \ })
   call dein#add('liuchengxu/vista.vim', { 'on_cmd': ['Vista', 'Vista!', 'Vista!!'] })
+  call dein#add('Shougo/echodoc.vim')
 
   call dein#add('yuttie/comfortable-motion.vim', {
         \ 'on_func': ['comfortable_motion#flick'],
