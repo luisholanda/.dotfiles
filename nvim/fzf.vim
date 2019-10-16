@@ -29,7 +29,6 @@ let g:fzf_action = {
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit'
       \}
-let g:fzf_layout = { 'window':  'call floating_fzf#FloatingFZF()' }
 let g:fzf_colors = {
   \ 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],

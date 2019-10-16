@@ -1,8 +1,8 @@
 {
+  "suggest.echodocSupport": true,
   "coc.preferences.jumpCommand": "vsplit",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnSaveFiletypes": ["rust"],
-  "diagnostic.messageTarget": "float",
   "diagnostic.virtualText": true,
   "diagnostic.errorSign": " ",
   "diagnostic.infoSign": " ",
@@ -36,23 +36,15 @@
 		"default": "\uf29c"
 	},
   "suggest.disableMenu": true,
-  "signature.target": "float",
   "signature.preferShownAbove": false,
   "suggest.triggerAfterInsertEnter": true,
-  "languageserver": {
-    "golang": {
-      "command": "bingo",
-      "args": ["--diagnostics-style=instant", "--cache-style=always"],
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-      "filetypes": ["go"]
-    }
-  },
   "python.jediEnabled": false,
   "python.linting.mypyEnabled": true,
   "python.linting.pydocstyleEnabled": true,
   "python.venvPath": "~/.virtualenvs/",
   "python.pythonPath": "/Users/luiscm/.virtualenvs/fides_processing/bin/python",
   "suggest.enablePreview": true,
-  "suggest.minTriggerInputLength": 2
+  "suggest.minTriggerInputLength": 2,
+  "vetur.experimental.templateInterpolationService": true
 }
 

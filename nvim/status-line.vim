@@ -3,26 +3,24 @@ set noshowmode
 
 if !has('gui_running')
   set t_Co=256
-endif
 
-let g:lightline = {
-  \ 'colorscheme': 'srcery',
-  \ 'active': {
-  \   'left':  [ ['mode'],
-  \              ['gitbranch'],
-  \              ['filename', 'modified']],
-  \   'right': [ ['percent', 'lineinfo', 'backjobs'],
-  \              ['diagnostic']]
-  \ },
-  \ 'component_function': {
-  \   'diagnostic': 'LightlineDiagnostic',
-  \   'gitbranch': 'LightlineGitBranch',
-  \   'filename': 'LightlineFileName',
-  \   'backjobs': 'BackgroundJobs',
-  \ },
-  \ 'separator': { 'left': '', 'right': '' },
-  \ 'subseparator': { 'left': '', 'right': '' }
-  \ }
+  let g:lightline = {
+    \ 'colorscheme': 'snow_dark',
+    \ 'active': {
+    \   'left':  [ ['mode'],
+    \              ['gitbranch'],
+    \              ['filename', 'modified']],
+    \   'right': [ ['percent', 'lineinfo', 'backjobs'],
+    \              ['diagnostic']]
+    \ },
+    \ 'component_function': {
+    \   'diagnostic': 'LightlineDiagnostic',
+    \   'gitbranch': 'LightlineGitBranch',
+    \   'filename': 'LightlineFileName',
+    \   'backjobs': 'BackgroundJobs',
+    \ }
+    \ }
+endif
 
 function! LightlineDiagnostic() abort
   let info = get(b:, 'coc_diagnostic_info', {})

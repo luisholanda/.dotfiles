@@ -21,7 +21,7 @@ yabai -m config active_window_border_color   0xff775759
 yabai -m config normal_window_border_color   0xff505050
 yabai -m config insert_window_border_color   0xffd75f5f
 yabai -m config active_window_opacity        1.0
-yabai -m config normal_window_opacity        0.95
+yabai -m config normal_window_opacity        0.98
 yabai -m config split_ratio                  0.50
 yabai -m config auto_balance                 on
 yabai -m config mouse_modifier               fn
@@ -35,10 +35,10 @@ yabai -m config left_padding                 8
 yabai -m config right_padding                8
 
 # Make System Preferences float
-sys_pref="^(System Preferences)$"
+sys_pref="^(System\ Preferences)$"
 yabai -m rule --add app="${sys_pref}" manage=off grid=4:4:2:2:1:1
 
 # Make JetBrains Apps' secondary windows float
-jetbrains="^(CLion)$"
+jetbrains='^(CLion|DataGrip)$'
 yabai -m rule --add app="${jetbrains}" manage=off
 yabai -m signal --add event=window_created app="${jebrains}" action='$HOME/.dotfiles/yabai_scripts/jetbrains_float.sh'

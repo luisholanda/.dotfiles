@@ -68,3 +68,5 @@ end
 
 __set_path
 __set_alias
+
+source ~/.local/share/nvim/dein/repos/github.com/nightsense/snow/shell/snow_dark.fish
