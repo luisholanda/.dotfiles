@@ -6,6 +6,7 @@ function __set_path
   set -x PATH $HOME/.miniconda2/bin $PATH
   set -x PATH $HOME/.cargo/bin $PATH
   set -x PATH $GOPATH/bin $PATH
+  set -x PATH $HOME/flutter/bin $PATH
 
   set -x LDFLAGS "-L/usr/local/opt/zlib/lib $LDFLAGS"
   set -x CPPFLAGS "-I/usr/local/opt/zlib/include $CPPFLAGS"
