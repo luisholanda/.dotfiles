@@ -17,7 +17,7 @@ if dein#load_state('~/.local/share/nvim/dein')
   " call dein#add('nightsense/cosmic_latte')
   call dein#add('nightsense/snow')
 
-  call dein#add('ryanoasis/vim-devicons')
+  call dein#add('ryanoasis/vim-devicons', { 'hook_add': 'call hooks#plugins#webdevicons()' })
   call dein#add('Yggdroot/indentLine', { 'hook_add': 'let g:indentLine_char="▏"' })
   call dein#add('rbong/vim-crystalline', { 'hook_add': 'call hooks#plugins#crystalline()' })
 
