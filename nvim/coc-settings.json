@@ -1,5 +1,4 @@
 {
-  "suggest.echodocSupport": true,
   "coc.preferences.jumpCommand": "vsplit",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnSaveFiletypes": ["rust"],
@@ -45,6 +44,8 @@
   "python.pythonPath": "/Users/luiscm/.virtualenvs/fides_processing/bin/python",
   "suggest.enablePreview": true,
   "suggest.minTriggerInputLength": 2,
+  "suggest.echodocSupport": true,
+  "signature.hideOnTextChange": true,
   "vetur.experimental.templateInterpolationService": true
 }
 

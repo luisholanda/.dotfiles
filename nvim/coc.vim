@@ -38,15 +38,6 @@ augroup coc_nvimgroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-nnoremap <silent> <leader>la :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <leader>le :<C-u>CocList extensions<cr>
-nnoremap <silent> <leader>lc :<C-u>CocList commands<cr>
-nnoremap <silent> <leader>lo :<C-u>CocList outline<cr>
-nnoremap <silent> <leader>ls :<C-u>CocList -I symbols<cr>
-nnoremap <silent> <leader>lf :call CocAction('format')<cr>
-nnoremap <silent> <leader>lj :<C-u>CocNext<cr>
-nnoremap <silent> <leader>lk :<C-u>CocPrev<cr>
-nnoremap <silent> <leader>lp :<C-u>CocListResume<cr>
 
 nmap <silent> <C-c> <Plug>(coc-cursor-position)
 nmap <expr> <silent> <C-d> <SID>select_current_word()
@@ -55,14 +46,22 @@ nmap <leader>x <Plug>(coc-cursors-operator)
 xmap <silent> <leader>a <Plug>(coc-codeaction-selected)
 nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
 
-nmap <silent> <leader>c <Plug>(coc-codeaction)
-nmap <silent> <leader>qf <plug>(coc-fix-current)
-nmap <silent> <leader>lr <Plug>(coc-rename)
-nmap <silent> <leader>lf <Plug>(coc-refactor)
-nmap <silent> <leader>ls :execute 'CocSearch -w '.expand('<cword>')<CR>
-nmap <silent> <leader>lt :Vista coc<CR>
-nmap <silent> [c <Plug>(coc-definition-prev)
-nmap <silent> [c <Plug>(coc-definition-next)
+nnoremap <silent> <leader>c <Plug>(coc-codeaction)
+nnoremap <silent> <leader>qf <plug>(coc-fix-current)
+nnoremap <silent> <leader>lr <Plug>(coc-rename)
+nnoremap <silent> <leader>lf <Plug>(coc-refactor)
+nnoremap <silent> <leader>la :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>le :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>lc :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>lo :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>lf :call CocAction('format')<cr>
+nnoremap <silent> <leader>lj :<C-u>CocNext<cr>
+nnoremap <silent> <leader>lk :<C-u>CocPrev<cr>
+nnoremap <silent> <leader>lp :<C-u>CocListResume<cr>
+nnoremap <silent> <leader>ls :execute 'CocSearch -w '.expand('<cword>')<CR>
+nnoremap <silent> <leader>lt :Vista coc<CR>
+nnoremap <silent> [c <Plug>(coc-definition-prev)
+nnoremap <silent> ]c <Plug>(coc-definition-next)
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
