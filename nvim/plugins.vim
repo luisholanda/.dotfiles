@@ -19,7 +19,8 @@ if dein#load_state('~/.local/share/nvim/dein')
 
   call dein#add('ryanoasis/vim-devicons')
   call dein#add('Yggdroot/indentLine', { 'hook_add': 'let g:indentLine_char="▏"' })
-  call dein#add('itchyny/lightline.vim')
+  call dein#add('rbong/vim-crystalline', { 'hook_add': 'call hooks#plugins#crystalline()' })
+
 
   call dein#add('neoclide/coc.nvim', {
         \ 'build': 'yarn install --frozen-lockfile',

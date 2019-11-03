@@ -2,7 +2,6 @@ source ~/.dotfiles/nvim/essentials.vim
 source ~/.dotfiles/nvim/plugins.vim
 source ~/.dotfiles/nvim/fzf.vim
 source ~/.dotfiles/nvim/keymaps.vim
-source ~/.dotfiles/nvim/status-line.vim
 
 syntax enable
 filetype plugin indent on

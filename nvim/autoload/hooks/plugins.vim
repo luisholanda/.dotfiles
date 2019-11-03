@@ -25,3 +25,10 @@ function! hooks#plugins#rust()
   let g:rust_fold = 2
   let g:rustfmt_autosave_if_config_present = 1
 endfunction
+
+function! hooks#plugins#crystalline()
+  let g:crystalline_enable_sep = 1
+  let g:crystalline_separators = ['', '']
+  let g:crystalline_statusline_fn = 'sl#statusline'
+  let g:crystalline_theme = 'snow_dark'
+endfunction

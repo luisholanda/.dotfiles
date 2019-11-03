@@ -88,7 +88,11 @@ if !&sidescrolloff
   set sidescrolloff=5
 endif
 
+" Don't show cursor line
 set nocursorline
+
+" Don't show mode in cmdline
+set noshowmode
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 if has("nvim")
