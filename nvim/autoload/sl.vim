@@ -71,7 +71,10 @@ function! sl#bufferline()
   let l:lastbuf = bufnr('#')
   let l:buffers = s:list_buffers()
 
-  let l:s = crystalline#left_sep('Tab', 'TabFill') . ''
+  let l:curr_dir = ' '. fnamemodify(getcwd(), ':~')
+  let l:s = crystalline#left_sep('Tab', 'TabFill') . l:curr_dir . crystalline#right_sep('Tab', 'TabFill')
+
+  let l:s .= ' ' . crystalline#left_sep('Tab', 'TabFill') . 'ﯟ'
 
   let l:last_buf_status = 0
 
@@ -79,6 +82,8 @@ function! sl#bufferline()
     let l:buf_status = s:is_shown(l:buf) + s:is_same(l:buf, l:curbuf) + 4 * s:is_same(l:buf, l:lastbuf)
     if l:buf_status == 5
       let l:buf_status = 4
+    elseif l:buf_status == 6
+      let l:buf_status == 2
     endif
 
     let l:s .= s:bl_sep(l:last_buf_status, l:buf_status) . ' ' . s:filename_region(l:buf)
@@ -88,34 +93,35 @@ function! sl#bufferline()
 
   let l:s .= s:bl_sep(l:last_buf_status, 3) . '%='
 
-  let l:s .= crystalline#left_sep('Tab', 'TabFill') . '%{sl#gitbranch()}' . crystalline#right_sep('Tab', 'TabFill')
+  let l:gb_l_sep = crystalline#left_sep('TabType', 'TabFill')
+  let l:gb_r_sep = crystalline#right_sep('TabType', 'TabFill')
+  let l:s .=  l:gb_l_sep . '%{sl#gitbranch()}' . l:gb_r_sep
+
   return l:s
 endfunction
 
 function! sl#statusline(current, width)
   if !a:current
-    return '%#CrystallieInactive# %f %= %l, %c '
+    return ' %f %= %l, %c '
   endif
 
-  let l:s = '%#CrystallineFill# '
+  let l:s = '%#CrystallineFill#'
   let l:lsep = crystalline#left_sep('', 'Fill')
   let l:rsep = crystalline#right_sep('', 'Fill')
   let l:lmdsep = crystalline#left_mode_sep('Fill')
   let l:rmdsep = crystalline#right_mode_sep('Fill')
 
-  let l:s .= ' ' . l:lmdsep . '%{sl#current_filename_region()}' . l:rmdsep
+  let l:s .= l:lmdsep . crystalline#mode_label() . l:rmdsep
+  let l:s .= ' ' . l:lsep . ' %{sl#diagnostics()} ' . l:rsep
 
   let l:s .= '%='
-
-  let l:s .= l:lsep . ' %{sl#diagnostics()} ' . l:rsep
-  let l:s .= ' '
 
   let l:s .= l:lsep . ' %l, %c ' . l:rsep
   let l:s .= ' '
 
   let l:s .= l:lsep . ' %P, %L ' . l:rsep
 
-  return l:s . ' '
+  return l:s
 endfunction
 
 function! sl#gitbranch()
@@ -185,8 +191,9 @@ function! s:filename_region(buf)
       return 'No Name'
     endif
   else
+    let l:name = fnamemodify(l:name, ':.')
     if !has_key(a:buf['variables'], 'filename_with_icon')
-      let a:buf['variables']['filename_with_icon'] = system('echo "' . l:name . '" | devicon-lookup | tr "\n" " "')
+      let a:buf['variables']['filename_with_icon'] = system('echo "' . l:name . '" | devicon-lookup | tr "\n" " "')[:-1]
     endif
 
     let l:s = a:buf['variables']['filename_with_icon']

@@ -6,23 +6,24 @@ function! crystalline#theme#snow_dark#set_theme() abort
   let l:mgnt = [ "#a88cb3", 139 ]
   let l:gren = [ "#7f9d77", 108 ]
   let l:blue = [ "#759abd", 110 ]
+  let l:gold = [ "#ab916d", 137 ]
 
   call crystalline#generate_theme({
-        \ 'NormalMode':  crystalline#theme#snow_dark#generate_group(l:gry3, l:gry1),
-        \ 'InsertMode':  crystalline#theme#snow_dark#generate_group(l:blue, l:gry1),
-        \ 'VisualMode':  crystalline#theme#snow_dark#generate_group(l:gren, l:gry1),
-        \ 'ReplaceMode': crystalline#theme#snow_dark#generate_group(l:red, l:gry1),
-        \ '':            crystalline#theme#snow_dark#generate_group(l:gry3, l:gry1),
-        \ 'Inactive':    crystalline#theme#snow_dark#generate_group(l:gry3, l:gry1),
-        \ 'Fill':        crystalline#theme#snow_dark#generate_group(l:gry3, l:gry0),
-        \ 'Tab':         crystalline#theme#snow_dark#generate_group(l:gry3, l:gry1),
-        \ 'TabType':     crystalline#theme#snow_dark#generate_group(l:gry3, l:gry1),
-        \ 'TabSel':      crystalline#theme#snow_dark#generate_group(l:gry0, l:gren),
-        \ 'TabFill':     crystalline#theme#snow_dark#generate_group(l:gry3, l:gry0),
+        \ 'NormalMode':   s:generate_group(l:gry3, l:gry1),
+        \ 'InsertMode':   s:generate_group(l:blue, l:gry1),
+        \ 'VisualMode':   s:generate_group(l:gren, l:gry1),
+        \ 'ReplaceMode':  s:generate_group(l:red,  l:gry1),
+        \ '':             s:generate_group(l:gry3, l:gry1),
+        \ 'Inactive':     s:generate_group(l:gry3, l:gry1),
+        \ 'Fill':         s:generate_group(l:gry3, l:gry0),
+        \ 'Tab':          s:generate_group(l:gry3, l:gry1),
+        \ 'TabType':      s:generate_group(l:gold, l:gry1),
+        \ 'TabSel':       s:generate_group(l:gry0, l:gren),
+        \ 'TabFill':      s:generate_group(l:gry3, l:gry0),
         \ })
 endfunction
 
 
-function! crystalline#theme#snow_dark#generate_group(group1, group2)
+function! s:generate_group(group1, group2)
   return [[a:group1[1], a:group2[1]], [a:group1[0], a:group2[0]]]
 endfunction

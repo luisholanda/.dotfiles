@@ -21,8 +21,10 @@ set backspace=indent,eol,start
 " don't create `filename~` backups
 set nobackup
 
-" dont give |ins-completion-menu| messages.
+" don't give |ins-completion-menu| messages.
 set shortmess+=c
+" don't show statusline in unfocused buffers
+set shortmess+=F
 
 " number of lines offset when jumping
 set scrolloff=2

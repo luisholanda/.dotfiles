@@ -28,9 +28,10 @@ function! hooks#plugins#crystalline()
   let g:crystalline_tabline_fn = 'sl#bufferline'
   let g:crystalline_theme = 'snow_dark'
   let g:crystalline_supported_sep = {
-        \'InsertMode': ['', 'Fill', 'TabFill', 'Tab', 'TabSel'],
-        \'ReplaceMode': ['', 'Fill', 'TabFill', 'Tab', 'TabSel'],
-        \'TabSel': ['Tab', 'TabFill', 'InsertMode', 'ReplaceMode'],
+        \ 'InsertMode': ['', 'Fill', 'TabFill', 'Tab', 'TabSel'],
+        \ 'ReplaceMode': ['', 'Fill', 'TabFill', 'Tab', 'TabSel'],
+        \ 'TabSel': ['Tab', 'TabFill', 'InsertMode', 'ReplaceMode'],
+        \ 'TabFill': ['Tab', 'TabSel', 'TabFill', 'NormalMode', 'InsertMode', 'VisualMode', 'ReplaceMode'],
         \}
   set showtabline=2
 endfunction
