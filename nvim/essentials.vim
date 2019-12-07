@@ -1,6 +1,9 @@
 set shell=/usr/local/bin/fish
 let mapleader=";"
 
+" Show tabline
+set showtabline=2
+
 " number of lines at the beginning and end of files checked for file-specific vars
 set modelines=0
 

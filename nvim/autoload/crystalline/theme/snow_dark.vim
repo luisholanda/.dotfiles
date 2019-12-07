@@ -18,7 +18,7 @@ function! crystalline#theme#snow_dark#set_theme() abort
         \ 'Tab':         crystalline#theme#snow_dark#generate_group(l:gry3, l:gry1),
         \ 'TabType':     crystalline#theme#snow_dark#generate_group(l:gry3, l:gry1),
         \ 'TabSel':      crystalline#theme#snow_dark#generate_group(l:gry0, l:gren),
-        \ 'TabFill':     crystalline#theme#snow_dark#generate_group(l:gry3, l:gry1),
+        \ 'TabFill':     crystalline#theme#snow_dark#generate_group(l:gry3, l:gry0),
         \ })
 endfunction
 

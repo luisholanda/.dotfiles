@@ -25,7 +25,14 @@ function! hooks#plugins#crystalline()
   let g:crystalline_enable_sep = 1
   let g:crystalline_separators = ['', '']
   let g:crystalline_statusline_fn = 'sl#statusline'
+  let g:crystalline_tabline_fn = 'sl#bufferline'
   let g:crystalline_theme = 'snow_dark'
+  let g:crystalline_supported_sep = {
+        \'InsertMode': ['', 'Fill', 'TabFill', 'Tab', 'TabSel'],
+        \'ReplaceMode': ['', 'Fill', 'TabFill', 'Tab', 'TabSel'],
+        \'TabSel': ['Tab', 'TabFill', 'InsertMode', 'ReplaceMode'],
+        \}
+  set showtabline=2
 endfunction
 
 function! hooks#plugins#webdevicons()

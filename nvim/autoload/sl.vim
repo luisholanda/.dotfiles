@@ -1,3 +1,97 @@
+let s:curr_label = 'TabSel'
+let s:last_label = 'ReplaceMode'
+let s:shown_label = 'InsertMode'
+let s:unshown_label = 'Tab'
+let s:fill_label = 'TabFill'
+
+let s:bl_sep_cache = {}
+
+function! s:bl_sep(last_status, curr_status)
+  if a:last_status == a:curr_status
+    return ''
+  else
+    return s:bl_sep_cache[a:last_status . ' ' . a:curr_status]
+  endif
+endfunction
+
+function! s:build_bl_sep_cache()
+  if len(s:bl_sep_cache) != 0
+    return
+  endif
+
+  let l:c_to_s_sep = crystalline#right_sep(s:curr_label, s:shown_label)
+  let l:c_to_l_sep = crystalline#right_sep(s:curr_label, s:last_label)
+  let l:c_to_u_sep = crystalline#right_sep(s:curr_label, s:unshown_label)
+  let l:c_to_f_sep = crystalline#right_sep(s:curr_label, s:fill_label)
+
+  let l:s_to_c_sep = crystalline#right_sep(s:shown_label, s:curr_label)
+  let l:s_to_l_sep = crystalline#right_sep(s:shown_label, s:last_label)
+  let l:s_to_u_sep = crystalline#right_sep(s:shown_label, s:unshown_label)
+  let l:s_to_f_sep = crystalline#right_sep(s:shown_label, s:fill_label)
+
+  let l:u_to_c_sep = crystalline#right_sep(s:unshown_label, s:curr_label)
+  let l:u_to_l_sep = crystalline#right_sep(s:unshown_label, s:last_label)
+  let l:u_to_s_sep = crystalline#right_sep(s:unshown_label, s:shown_label)
+  let l:u_to_f_sep = crystalline#right_sep(s:unshown_label, s:fill_label)
+
+  let l:l_to_c_sep = crystalline#right_sep(s:unshown_label, s:curr_label)
+  let l:l_to_s_sep = crystalline#right_sep(s:unshown_label, s:shown_label)
+  let l:l_to_u_sep = crystalline#right_sep(s:unshown_label, s:last_label)
+  let l:l_to_f_sep = crystalline#right_sep(s:unshown_label, s:fill_label)
+
+  " 0 - unshown, 1 - shown, 2 - current, 3 - fill, 4 - last
+  let s:bl_sep_cache = {
+        \'0 1': l:u_to_s_sep,
+        \'0 2': l:u_to_c_sep,
+        \'0 3': l:u_to_f_sep,
+        \'0 4': l:u_to_l_sep,
+        \'1 0': l:s_to_u_sep,
+        \'1 2': l:s_to_c_sep,
+        \'1 3': l:s_to_f_sep,
+        \'1 4': l:s_to_l_sep,
+        \'2 0': l:c_to_u_sep,
+        \'2 1': l:c_to_s_sep,
+        \'2 3': l:c_to_f_sep,
+        \'2 4': l:c_to_l_sep,
+        \'4 0': l:l_to_u_sep,
+        \'4 1': l:l_to_s_sep,
+        \'4 2': l:l_to_c_sep,
+        \'4 3': l:l_to_f_sep,
+        \}
+endfunction
+
+function! sl#bufferline()
+  call s:build_bl_sep_cache()
+
+  let l:tablabel = 'crystalline#default_tablabel'
+  let l:tabwidth = crystalline#default_tabwidth()
+  let l:pad = 10
+
+  let l:curbuf = bufnr('%')
+  let l:lastbuf = bufnr('#')
+  let l:buffers = s:list_buffers()
+
+  let l:s = crystalline#left_sep('Tab', 'TabFill') . ''
+
+  let l:last_buf_status = 0
+
+  for l:buf in l:buffers
+    let l:buf_status = s:is_shown(l:buf) + s:is_same(l:buf, l:curbuf) + 4 * s:is_same(l:buf, l:lastbuf)
+    if l:buf_status == 5
+      let l:buf_status = 4
+    endif
+
+    let l:s .= s:bl_sep(l:last_buf_status, l:buf_status) . ' ' . s:filename_region(l:buf)
+
+    let l:last_buf_status = l:buf_status
+  endfor
+
+  let l:s .= s:bl_sep(l:last_buf_status, 3) . '%='
+
+  let l:s .= crystalline#left_sep('Tab', 'TabFill') . '%{sl#gitbranch()}' . crystalline#right_sep('Tab', 'TabFill')
+  return l:s
+endfunction
+
 function! sl#statusline(current, width)
   if !a:current
     return '%#CrystallieInactive# %f %= %l, %c '
@@ -9,9 +103,7 @@ function! sl#statusline(current, width)
   let l:lmdsep = crystalline#left_mode_sep('Fill')
   let l:rmdsep = crystalline#right_mode_sep('Fill')
 
-  let l:s .= ' ' . l:lmdsep . '%{sl#filetype_region()}' . l:rmdsep . ' '
-
-  let l:s .= l:lsep . ' %{sl#gitbranch()} ' . l:rsep
+  let l:s .= ' ' . l:lmdsep . '%{sl#current_filename_region()}' . l:rmdsep
 
   let l:s .= '%='
 
@@ -30,32 +122,15 @@ function! sl#gitbranch()
   if exists('*fugitive#head')
     let branch = fugitive#head(8)
     if branch !=# ''
-      return ' '.branch
+      return branch . ' '
     endif
   endif
 
   return ''
 endfunction
 
-function! sl#filetype_region()
-  if @% == ""
-    if &modified
-      return '[No Name ●]'
-    else
-      return '[No Name]'
-    endif
-  else
-    if !exists("b:filename_with_icon")
-       let b:filename_with_icon = system('echo "' . @% . '" | devicon-lookup | tr "\n" " "')
-    endif
-
-    let l:s = b:filename_with_icon
-
-    if &modified
-      let l:s .= ' ●'
-    endif
-
-    return l:s
+function! sl#current_filename_region()
+  return s:filename_region(getbufinfo(bufnr('%'))[0])
 endfunction
 
 function! sl#diagnostics()
@@ -82,4 +157,43 @@ function! sl#diagnostics()
   endif
 
   return status
+endfunction
+
+
+function! s:list_buffers()
+  let l:maxbufs = crystalline#calculate_max_tabs(2, 1, 4, 1)
+
+  return getbufinfo({ 'buflisted': 1 })[:l:maxbufs]
+endfunction
+
+function! s:is_shown(buf)
+  return len(a:buf.windows) != 0
+endfunction
+
+function! s:is_same(buf, buf_nr)
+  return a:buf.bufnr == a:buf_nr
+endfunction
+
+function! s:filename_region(buf)
+  let l:name = a:buf['name']
+  let l:modified = a:buf['changed']
+
+  if l:name == ""
+    if l:modified
+      return 'No Name ●'
+    else
+      return 'No Name'
+    endif
+  else
+    if !has_key(a:buf['variables'], 'filename_with_icon')
+      let a:buf['variables']['filename_with_icon'] = system('echo "' . l:name . '" | devicon-lookup | tr "\n" " "')
+    endif
+
+    let l:s = a:buf['variables']['filename_with_icon']
+
+    if l:modified
+      let l:s .= ' ●'
+    endif
+
+    return l:s
 endfunction
