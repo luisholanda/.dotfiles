@@ -1,8 +1,3 @@
-function! hooks#plugins#comfortable_motion()
-  let g:comfortable_motion_no_default_key_mappings = 1
-  let g:comfortable_motion_impulse_multiplier = 1
-endfunction
-
 function! hooks#plugins#easymotion()
   let g:EasyMotion_do_mapping = 0
   let g:EasyMotion_prompt = "Jump to →"
@@ -43,4 +38,30 @@ function! hooks#plugins#webdevicons()
   let g:webdevicons_enable_startify = 0
   let g:webdevicons_enable_flagship_statusline = 0
   let g:webdevicons_enable_denite = 0
+endfunction
+
+function! hooks#plugins#fzf()
+  let g:fzf_action = {
+        \ 'ctrl-t': 'tap split',
+        \ 'ctrl-x': 'split',
+        \ 'ctrl-v': 'vsplit'
+        \}
+  let g:fzf_colors = {
+    \ 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
+
+  let g:fzf_commits_log_options = '--graph --color=always
+    \ --format="%C(yellow)%h%C(read)%d%C(reset)"
+    \ - %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)'
 endfunction

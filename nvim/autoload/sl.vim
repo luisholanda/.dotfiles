@@ -4,20 +4,12 @@ function! sl#statusline(current, width)
   endif
 
   let l:s = '%#CrystallineFill# '
-  let l:lmdsep = crystalline#left_mode_sep('Fill')
-  let l:rmdsep = crystalline#right_mode_sep('Fill')
   let l:lsep = crystalline#left_sep('', 'Fill')
   let l:rsep = crystalline#right_sep('', 'Fill')
+  let l:lmdsep = crystalline#left_mode_sep('Fill')
+  let l:rmdsep = crystalline#right_mode_sep('Fill')
 
-  let l:s .= l:lmdsep . ' %{WebDevIconsGetFileTypeSymbol()} %f '
-
-  if &modified
-    let l:s .= ' ● '
-  endif
-
-  let l:s .= l:rmdsep
-
-  let l:s .= ' '
+  let l:s .= ' ' . l:lmdsep . '%{sl#filetype_region()}' . l:rmdsep . ' '
 
   let l:s .= l:lsep . ' %{sl#gitbranch()} ' . l:rsep
 
@@ -30,10 +22,6 @@ function! sl#statusline(current, width)
   let l:s .= ' '
 
   let l:s .= l:lsep . ' %P, %L ' . l:rsep
-
-  " if a:width > 80
-  "   let l:s .= ' ' . l:lmdsep . '%{sl#filetype()}' . ' ' . l:rmdsep
-  " endif
 
   return l:s . ' '
 endfunction
@@ -49,8 +37,25 @@ function! sl#gitbranch()
   return ''
 endfunction
 
-function! sl#filetype()
-  return WebDevIconsGetFileTypeSymbol() . ' ' . &filetype
+function! sl#filetype_region()
+  if @% == ""
+    if &modified
+      return '[No Name ●]'
+    else
+      return '[No Name]'
+    endif
+  else
+    if !exists("b:filename_with_icon")
+       let b:filename_with_icon = system('echo "' . @% . '" | devicon-lookup | tr "\n" " "')
+    endif
+
+    let l:s = b:filename_with_icon
+
+    if &modified
+      let l:s .= ' ●'
+    endif
+
+    return l:s
 endfunction
 
 function! sl#diagnostics()

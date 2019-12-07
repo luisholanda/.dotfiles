@@ -42,16 +42,6 @@ if dein#tap('vim-easymotion')
   omap <leader><leader>s <Plug>(easymotion-sn)
 endif
 
-if dein#tap('comfortable-motion.vim')
-    nnoremap <silent> <C-d> :call motion#flick(2)<CR>
-    nnoremap <silent> <C-u> :call motion#flick(-2)<CR>
-    nnoremap <silent> <C-f> :call motion#flick(4)<CR>
-    nnoremap <silent> <C-b> :call motion#flick(-4)<CR>
-
-    nnoremap <silent> <ScrollWheelDown> :call comfortable_motion#flick(40)<CR>
-    nnoremap <silent> <ScrollWheelUp>   :call comfortable_motion#flick(-40)<CR>
-endif
-
 " Vim Fugitive
 if dein#tap('vim-fugitive')
   noremap <leader>gs :Gstatus<CR>
@@ -77,9 +67,5 @@ inoremap <down> <nop>
 nnoremap <silent> <left> :bp<CR>
 nnoremap <silent> <right> :bn<CR>
 nnoremap <CR><CR> <c-^>
-
-inoremap ( ()<left>
-inoremap { {}<left>
-inoremap [ []<left>
 
 nnoremap Y y$

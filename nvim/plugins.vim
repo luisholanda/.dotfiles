@@ -17,14 +17,16 @@ if dein#load_state('~/.local/share/nvim/dein')
   " call dein#add('nightsense/cosmic_latte')
   call dein#add('nightsense/snow')
 
-  call dein#add('ryanoasis/vim-devicons', { 'hook_add': 'call hooks#plugins#webdevicons()' })
+  call dein#add('ryanoasis/vim-devicons', {
+        \ 'hook_add': 'call hooks#plugins#webdevicons()',
+        \ 'on_func': 'WebDevIconsGetFileTypeSymbol'
+        \ })
   call dein#add('Yggdroot/indentLine', { 'hook_add': 'let g:indentLine_char="▏"' })
   call dein#add('rbong/vim-crystalline', { 'hook_add': 'call hooks#plugins#crystalline()' })
 
-
   call dein#add('neoclide/coc.nvim', {
-        \ 'build': 'yarn install --frozen-lockfile',
-        \ 'on_ft': ['rust', 'python'],
+        \ 'build': 'yarn install',
+        \ 'on_ft': ['rust', 'python', 'json'],
         \ 'hook_source': 'source /Users/luiscm/.dotfiles/nvim/coc.vim'
         \ })
   call dein#add('liuchengxu/vista.vim', { 'on_cmd': ['Vista', 'Vista!', 'Vista!!'] })
@@ -63,11 +65,14 @@ if dein#load_state('~/.local/share/nvim/dein')
 
   call dein#add('mhinz/vim-rfc', { 'on_cmd': ['RFC', 'RFC!'] })
 
-  call dein#add('junegunn/fzf', { 'build': './install --bin', 'on_source': 'fzf.vim' })
+  call dein#add('junegunn/fzf', {
+        \ 'build': './install --bin',
+        \ 'on_source': 'fzf.vim',
+        \ 'hook_source': 'call hooks#plugins#fzf()'
+        \ })
   call dein#add('junegunn/fzf.vim', {
         \ 'depends': 'fzf',
-        \ 'on_cmd': ['Colors', 'Rg', 'Buffers', 'Files'],
-        \ 'on_func': 'Fzf_dev'
+        \ 'on_cmd': ['Colors', 'Rg', 'Buffers', 'Files']
         \ })
 
   call dein#end()

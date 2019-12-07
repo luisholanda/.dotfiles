@@ -36,6 +36,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup coc_nvimgroup
   autocmd!
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+  autocmd InsertEnter call coc#config('diagnostic', { 'virtualText': 0 })
+  autocmd InsertLeave call coc#config('diagnostic', { 'virtualText': 1 })
 augroup end
 
 

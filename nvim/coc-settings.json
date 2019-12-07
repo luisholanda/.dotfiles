@@ -1,11 +1,10 @@
 {
   "coc.preferences.jumpCommand": "vsplit",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "coc.preferences.formatOnSaveFiletypes": ["rust"],
   "diagnostic.virtualText": true,
-  "diagnostic.errorSign": " ",
-  "diagnostic.infoSign": " ",
-  "diagnostic.warningSign": " ",
+  "diagnostic.errorSign": "",
+  "diagnostic.infoSign": "",
+  "diagnostic.warningSign": "",
   "codeLens.enable": true,
   "suggest.completionItemKindLabels": {
 		"keyword": "\uf1de",
@@ -34,7 +33,6 @@
 		"typeParameter": "\uf728",
 		"default": "\uf29c"
 	},
-  "suggest.disableMenu": true,
   "signature.preferShownAbove": false,
   "suggest.triggerAfterInsertEnter": true,
   "python.jediEnabled": false,
@@ -46,6 +44,7 @@
   "suggest.minTriggerInputLength": 2,
   "suggest.echodocSupport": true,
   "signature.hideOnTextChange": true,
-  "vetur.experimental.templateInterpolationService": true
+  "vetur.experimental.templateInterpolationService": true,
+  "rust-analyzer.enableCargoWatchOnStartup": true
 }
 
