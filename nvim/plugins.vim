@@ -5,6 +5,8 @@ if dein#load_state('~/.local/share/nvim/dein')
 
   call dein#add('Shougo/dein.vim')
 
+  call dein#add('triglav/vim-visual-increment', { 'on_map': '<Plug>' })
+
   call dein#add('airblade/vim-rooter')
   call dein#add('skywind3000/asyncrun.vim', {
         \ 'on_cmd': 'AsyncRun',
@@ -17,12 +19,11 @@ if dein#load_state('~/.local/share/nvim/dein')
   " call dein#add('nightsense/cosmic_latte')
   call dein#add('nightsense/snow')
 
-  call dein#add('ryanoasis/vim-devicons', {
-        \ 'hook_add': 'call hooks#plugins#webdevicons()',
-        \ 'on_func': 'WebDevIconsGetFileTypeSymbol'
-        \ })
   call dein#add('Yggdroot/indentLine', { 'hook_add': 'let g:indentLine_char="▏"' })
-  call dein#add('rbong/vim-crystalline', { 'hook_add': 'call hooks#plugins#crystalline()' })
+  call dein#add('rbong/vim-crystalline', {
+        \ 'on_event': 'UIEnter',
+        \ 'hook_source': 'call hooks#plugins#crystalline()'
+        \ })
 
   call dein#add('neoclide/coc.nvim', {
         \ 'build': 'yarn install',
@@ -32,11 +33,6 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('liuchengxu/vista.vim', { 'on_cmd': ['Vista', 'Vista!', 'Vista!!'] })
   call dein#add('Shougo/echodoc.vim')
 
-  call dein#add('yuttie/comfortable-motion.vim', {
-        \ 'on_func': ['comfortable_motion#flick'],
-        \ 'hook_source': 'call hooks#plugins#comfortable_motion()'
-        \ })
-
   call dein#add('sheerun/vim-polyglot')
   call dein#add('neo4j-contrib/cypher-vim-syntax')
   call dein#add('tpope/vim-surround')
@@ -45,14 +41,16 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ 'hook_source': 'call hooks#plugins#easymotion()'
         \ })
 
-  call dein#add('tpope/vim-fugitive', { 'on_event': 'BufReadPost' })
+  call dein#add('tpope/vim-fugitive', {
+        \ 'on_event': 'BufReadPost'
+        \ })
   call dein#add('airblade/vim-gitgutter', {
         \ 'on_event': 'BufReadPost',
-        \ 'hook_source': 'call hooks#plugins#gitgutter()'
+        \ 'hook_source': 'call hooks#plugins#gitgutter()',
         \ })
   call dein#add('sodapopcan/vim-twiggy', { 'on_cmd': 'Twiggy' })
   call dein#add('junegunn/gv.vim', { 'on_cmd': 'GV' })
-  call dein#add('markonm/traces.vim', { 'on_event': 'BufReadPost' })
+  call dein#add('markonm/traces.vim', { 'on_event': 'CmdlineEnter' })
   call dein#add('terryma/vim-expand-region', { 'on_map':  '<Plug>' })
 
   call dein#add('wellle/targets.vim')
