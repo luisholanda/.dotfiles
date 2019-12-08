@@ -112,6 +112,11 @@ function! sl#statusline(current, width)
   let l:rmdsep = crystalline#right_mode_sep('Fill')
 
   let l:s .= l:lmdsep . crystalline#mode_label() . l:rmdsep
+
+  if exists('b:gitgutter')
+    let l:s .= ' ' . l:lsep . s:gitstatus_region() . l:rsep
+  endif
+
   let l:s .= ' ' . l:lsep . ' %{sl#diagnostics()} ' . l:rsep
 
   let l:s .= '%='
@@ -191,8 +196,8 @@ function! s:filename_region(buf)
       return 'No Name'
     endif
   else
-    let l:name = fnamemodify(l:name, ':.')
     if !has_key(a:buf['variables'], 'filename_with_icon')
+      let l:name = fnamemodify(l:name, ':.')
       let a:buf['variables']['filename_with_icon'] = system('echo "' . l:name . '" | devicon-lookup | tr "\n" " "')[:-1]
     endif
 
@@ -203,4 +208,10 @@ function! s:filename_region(buf)
     endif
 
     return l:s
+endfunction
+
+function! s:gitstatus_region()
+  let [l:added, l:changed, l:deleted] = get(b:gitgutter, 'summary', [0, 0, 0])
+
+  return '%#CrystallineVisualMode#  ' . l:added . ' %#CrystallineTabType# ' . l:changed . ' %#CrystallineReplaceMode# ' . l:deleted . ' '
 endfunction
