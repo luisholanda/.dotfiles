@@ -95,7 +95,7 @@ function! sl#bufferline()
 
   let l:gb_l_sep = crystalline#left_sep('TabType', 'TabFill')
   let l:gb_r_sep = crystalline#right_sep('TabType', 'TabFill')
-  let l:s .=  l:gb_l_sep . '%{sl#gitbranch()}' . l:gb_r_sep
+  let l:s .=  l:gb_l_sep . ' %{sl#gitbranch()} ' . l:gb_r_sep
 
   return l:s
 endfunction
@@ -112,11 +112,7 @@ function! sl#statusline(current, width)
   let l:rmdsep = crystalline#right_mode_sep('Fill')
 
   let l:s .= l:lmdsep . crystalline#mode_label() . l:rmdsep
-
-  if exists('b:gitgutter')
-    let l:s .= ' ' . l:lsep . s:gitstatus_region() . l:rsep
-  endif
-
+  let l:s .= ' ' . l:lsep . s:gitstatus_region() . l:rsep
   let l:s .= ' ' . l:lsep . ' %{sl#diagnostics()} ' . l:rsep
 
   let l:s .= '%='
@@ -131,13 +127,29 @@ endfunction
 
 function! sl#gitbranch()
   if exists('*fugitive#head')
-    let branch = fugitive#head(8)
-    if branch !=# ''
-      return branch . ' '
+    let l:repo = s:repository_name()
+    if l:repo !=# ''
+      let l:branch = fugitive#head(8)
+      if l:branch !=# ''
+        return l:repo . ' (' . l:branch . ') '
+      endif
+
     endif
   endif
 
-  return ''
+  return 'Not Versioned'
+endfunction
+
+function! s:repository_name()
+  if !has_key(b:, 'reponame')
+    let l:url = fugitive#RemoteUrl()
+    let l:user = fnamemodify(fnamemodify(l:url, ':h'), ':t')
+    let l:repo = fnamemodify(l:url, ':t:r')
+
+    let b:reponame = l:user . '/' . l:repo
+  endif
+
+  return b:reponame
 endfunction
 
 function! sl#current_filename_region()
@@ -211,7 +223,7 @@ function! s:filename_region(buf)
 endfunction
 
 function! s:gitstatus_region()
-  let [l:added, l:changed, l:deleted] = get(b:gitgutter, 'summary', [0, 0, 0])
+  let [l:added, l:changed, l:deleted] = get(get(b:, 'gitgutter', {}), 'summary', [0, 0, 0])
 
   return '%#CrystallineVisualMode#  ' . l:added . ' %#CrystallineTabType# ' . l:changed . ' %#CrystallineReplaceMode# ' . l:deleted . ' '
 endfunction
