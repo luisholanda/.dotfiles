@@ -15,14 +15,6 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 inoremap <silent><expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-function! s:show_documentation()
-  if (index(['vim', 'help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
 function! s:select_current_word()
   if !get(g:, 'coc_cursors_activated', 0)
     return "\<Plug>(coc-cursors-word)"
@@ -31,15 +23,12 @@ function! s:select_current_word()
   endif
 endfunction
 
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
 augroup coc_nvimgroup
   autocmd!
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
   autocmd InsertEnter call coc#config('diagnostic', { 'virtualText': 0 })
   autocmd InsertLeave call coc#config('diagnostic', { 'virtualText': 1 })
 augroup end
-
 
 nmap <silent> <C-c> <Plug>(coc-cursor-position)
 nmap <expr> <silent> <C-d> <SID>select_current_word()
@@ -50,16 +39,12 @@ nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
 
 nnoremap <silent> <leader>c <Plug>(coc-codeaction)
 nnoremap <silent> <leader>qf <plug>(coc-fix-current)
-nnoremap <silent> <leader>lr <Plug>(coc-rename)
-nnoremap <silent> <leader>lf <Plug>(coc-refactor)
+nnoremap <silent> <leader>lrn <Plug>(coc-rename)
+nnoremap <silent> <leader>lrf <Plug>(coc-refactor)
 nnoremap <silent> <leader>la :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <leader>le :<C-u>CocList extensions<cr>
 nnoremap <silent> <leader>lc :<C-u>CocList commands<cr>
-nnoremap <silent> <leader>lo :<C-u>CocList outline<cr>
 nnoremap <silent> <leader>lf :call CocAction('format')<cr>
-nnoremap <silent> <leader>lj :<C-u>CocNext<cr>
-nnoremap <silent> <leader>lk :<C-u>CocPrev<cr>
-nnoremap <silent> <leader>lp :<C-u>CocListResume<cr>
 nnoremap <silent> <leader>ls :execute 'CocSearch -w '.expand('<cword>')<CR>
 nnoremap <silent> <leader>lt :Vista coc<CR>
 nnoremap <silent> [c <Plug>(coc-definition-prev)
@@ -70,7 +55,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call CocAction('doHover')<CR>
 
 let g:vista_default_executive = 'coc'
 let g:vista#renderer#enable_icon = 1

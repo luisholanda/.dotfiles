@@ -10,10 +10,7 @@ if executable('rg')
     \   <bang>0)
 endif
 
-command! -bang -nargs=* Files
-      \ call fzf#files_with_dev_icons($FZF_DEFAULT_COMMAND)
-
-nmap <leader>sf :Files<CR>
+nmap <leader>sf :call fzf#files_with_dev_icons($FZF_DEFAULT_COMMAND)<CR>
 nmap <leader>sb :Buffers<CR>
 nmap <leader>sg :Rg<CR>
 nmap <leader>sc :noh<CR>

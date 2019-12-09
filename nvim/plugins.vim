@@ -13,7 +13,6 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ 'hook_source': 'let g:asyncrun_open = 14',
         \ })
   call dein#add('Shougo/deol.nvim', { 'on_cmd': ['Deol', 'DeolCd', 'DeolEdit'] })
-  call dein#add('TaDaa/vimade', { 'on_event': 'WinEnter', 'on_if': 'winnr("$") > 1' })
 
   " call dein#add('srcery-colors/srcery-vim')
   " call dein#add('nightsense/cosmic_latte')
@@ -27,7 +26,7 @@ if dein#load_state('~/.local/share/nvim/dein')
 
   call dein#add('neoclide/coc.nvim', {
         \ 'build': 'yarn install',
-        \ 'on_ft': ['rust', 'python', 'json'],
+        \ 'on_ft': ['vim', 'rust', 'python', 'json'],
         \ 'hook_source': 'source /Users/luiscm/.dotfiles/nvim/coc.vim'
         \ })
   call dein#add('liuchengxu/vista.vim', { 'on_cmd': ['Vista', 'Vista!', 'Vista!!'] })
@@ -41,11 +40,9 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ 'hook_source': 'call hooks#plugins#easymotion()'
         \ })
 
-  call dein#add('tpope/vim-fugitive', {
-        \ 'on_event': 'BufReadPost'
-        \ })
+  call dein#add('tpope/vim-fugitive')
   call dein#add('airblade/vim-gitgutter', {
-        \ 'on_event': 'BufReadPost',
+        \ 'on_event': 'BufWinEnter',
         \ 'hook_source': 'call hooks#plugins#gitgutter()',
         \ })
   call dein#add('sodapopcan/vim-twiggy', { 'on_cmd': 'Twiggy' })

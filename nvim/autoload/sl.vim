@@ -64,10 +64,6 @@ endfunction
 function! sl#bufferline()
   call s:build_bl_sep_cache()
 
-  let l:tablabel = 'crystalline#default_tablabel'
-  let l:tabwidth = crystalline#default_tabwidth()
-  let l:pad = 10
-
   let l:curbuf = bufnr('%')
   let l:lastbuf = bufnr('#')
   let l:buffers = s:list_buffers()
@@ -84,7 +80,7 @@ function! sl#bufferline()
     if l:buf_status == 5
       let l:buf_status = 4
     elseif l:buf_status == 6
-      let l:buf_status == 2
+      let l:buf_status = 2
     endif
 
     let l:s .= s:bl_sep(l:last_buf_status, l:buf_status) . ' ' . s:filename_region(l:buf)
@@ -104,14 +100,25 @@ endfunction
 function! sl#statusline(current, width)
   if !a:current
     return ' %f %= %l, %c '
+  elseif has_key(b:, 'statusline')
+    if mode() ==# get(b:, 'last_mode', '')
+      return b:statusline
+    endif
   endif
 
-  let l:s = '%#CrystallineFill#'
+  let b:statusline = s:construct_statusline()
+  let b:last_mode = mode()
+
+  return b:statusline
+endfunction
+
+function! s:construct_statusline()
   let l:lsep = crystalline#left_sep('', 'Fill')
   let l:rsep = crystalline#right_sep('', 'Fill')
   let l:lmdsep = crystalline#left_mode_sep('Fill')
   let l:rmdsep = crystalline#right_mode_sep('Fill')
 
+  let l:s = '%#CrystallineFill#'
   let l:s .= l:lmdsep . crystalline#mode_label() . l:rmdsep
   let l:s .= ' ' . l:lsep . '%#CrystallineVisualMode#  %{sl#gitstatus_hunks(0)} %#CrystallineTabType# %{sl#gitstatus_hunks(1)} %#CrystallineReplaceMode# %{sl#gitstatus_hunks(2)} ' . l:rsep
   let l:s .= ' ' . l:lsep . ' %{sl#diagnostics()} ' . l:rsep
@@ -127,9 +134,11 @@ function! sl#statusline(current, width)
 endfunction
 
 function! sl#gitstatus_hunks(idx)
-  return get(get(b:, 'gitgutter', {}), 'summary', [0, 0, 0])[a:idx]
+  if !has_key(b:, 'gitgutter') || !has_key(b:gitgutter, 'summary')
+    return 0
+  endif
 
-  return '%#CrystallineVisualMode#  ' . l:added . ' %#CrystallineTabType# ' . l:changed . ' %#CrystallineReplaceMode# ' . l:deleted . ' '
+  return get(b:gitgutter['summary'], a:idx)
 endfunction
 
 function! sl#gitbranch()
@@ -227,4 +236,5 @@ function! s:filename_region(buf)
     endif
 
     return l:s
+  endif
 endfunction
