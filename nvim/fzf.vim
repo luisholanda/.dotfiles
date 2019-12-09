@@ -10,7 +10,7 @@ if executable('rg')
     \   <bang>0)
 endif
 
-nmap <leader>sf :call fzf#files_with_dev_icons($FZF_DEFAULT_COMMAND)<CR>
-nmap <leader>sb :Buffers<CR>
-nmap <leader>sg :Rg<CR>
-nmap <leader>sc :noh<CR>
+nmap <silent> <leader>sf :call fzf#files_with_dev_icons($FZF_DEFAULT_COMMAND)<CR>
+nmap <silent> <leader>sb :Buffers<CR>
+nmap <silent> <leader>sg :Rg<CR>
+nmap <silent> <leader>sc :noh<CR>

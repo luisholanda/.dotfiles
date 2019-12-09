@@ -33,7 +33,6 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('Shougo/echodoc.vim')
 
   call dein#add('sheerun/vim-polyglot')
-  call dein#add('neo4j-contrib/cypher-vim-syntax')
   call dein#add('tpope/vim-surround')
   call dein#add('easymotion/vim-easymotion', {
         \ 'on_map': '<Plug>',
