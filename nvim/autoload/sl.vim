@@ -1,5 +1,6 @@
 let s:curr_label = 'TabSel'
 let s:last_label = 'ReplaceMode'
+
 let s:shown_label = 'InsertMode'
 let s:unshown_label = 'Tab'
 let s:fill_label = 'TabFill'
@@ -112,7 +113,7 @@ function! sl#statusline(current, width)
   let l:rmdsep = crystalline#right_mode_sep('Fill')
 
   let l:s .= l:lmdsep . crystalline#mode_label() . l:rmdsep
-  let l:s .= ' ' . l:lsep . s:gitstatus_region() . l:rsep
+  let l:s .= ' ' . l:lsep . '%#CrystallineVisualMode#  %{sl#gitstatus_hunks(0)} %#CrystallineTabType# %{sl#gitstatus_hunks(1)} %#CrystallineReplaceMode# %{sl#gitstatus_hunks(2)} ' . l:rsep
   let l:s .= ' ' . l:lsep . ' %{sl#diagnostics()} ' . l:rsep
 
   let l:s .= '%='
@@ -123,6 +124,12 @@ function! sl#statusline(current, width)
   let l:s .= l:lsep . ' %P, %L ' . l:rsep
 
   return l:s
+endfunction
+
+function! sl#gitstatus_hunks(idx)
+  return get(get(b:, 'gitgutter', {}), 'summary', [0, 0, 0])[a:idx]
+
+  return '%#CrystallineVisualMode#  ' . l:added . ' %#CrystallineTabType# ' . l:changed . ' %#CrystallineReplaceMode# ' . l:deleted . ' '
 endfunction
 
 function! sl#gitbranch()
@@ -220,10 +227,4 @@ function! s:filename_region(buf)
     endif
 
     return l:s
-endfunction
-
-function! s:gitstatus_region()
-  let [l:added, l:changed, l:deleted] = get(get(b:, 'gitgutter', {}), 'summary', [0, 0, 0])
-
-  return '%#CrystallineVisualMode#  ' . l:added . ' %#CrystallineTabType# ' . l:changed . ' %#CrystallineReplaceMode# ' . l:deleted . ' '
 endfunction
