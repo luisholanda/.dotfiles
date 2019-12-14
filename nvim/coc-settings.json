@@ -1,6 +1,7 @@
 {
   "coc.preferences.jumpCommand": "vsplit",
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.formatOnSaveFiletypes": ["rust"],
   "diagnostic.virtualText": true,
   "diagnostic.errorSign": "",
   "diagnostic.infoSign": "",
@@ -44,7 +45,6 @@
   "suggest.minTriggerInputLength": 2,
   "suggest.echodocSupport": true,
   "signature.hideOnTextChange": true,
-  "vetur.experimental.templateInterpolationService": true,
-  "rust-analyzer.enableCargoWatchOnStartup": true
+  "vetur.experimental.templateInterpolationService": true
 }
 

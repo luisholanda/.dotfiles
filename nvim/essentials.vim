@@ -1,6 +1,10 @@
 set shell=/usr/local/bin/fish
 let mapleader=";"
 
+set number
+set cursorline
+set colorcolumn=+0,+10
+
 " Show tabline
 set showtabline=2
 
@@ -92,9 +96,6 @@ endif
 if !&sidescrolloff
   set sidescrolloff=5
 endif
-
-" Don't show cursor line
-set nocursorline
 
 " Don't show mode in cmdline
 set noshowmode

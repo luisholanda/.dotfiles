@@ -6,6 +6,7 @@ if dein#load_state('~/.local/share/nvim/dein')
   call dein#add('Shougo/dein.vim')
 
   call dein#add('triglav/vim-visual-increment', { 'on_map': '<Plug>' })
+  call dein#add('wellle/context.vim')
 
   call dein#add('airblade/vim-rooter')
   call dein#add('skywind3000/asyncrun.vim', {

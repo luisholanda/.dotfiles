@@ -1,6 +1,5 @@
 let s:curr_label = 'TabSel'
 let s:last_label = 'ReplaceMode'
-
 let s:shown_label = 'InsertMode'
 let s:unshown_label = 'Tab'
 let s:fill_label = 'TabFill'
@@ -8,11 +7,11 @@ let s:fill_label = 'TabFill'
 let s:bl_sep_cache = {}
 
 function! s:bl_sep(last_status, curr_status)
-  if a:last_status == a:curr_status
-    return ''
-  else
-    return s:bl_sep_cache[a:last_status . ' ' . a:curr_status]
-  endif
+  return s:bl_sep_cache[a:last_status . a:curr_status]
+endfunction
+
+function! s:same_sep(left_label, right_label)
+  return '%#Crystalline' . a:left_label . '#%#CrystallineTab#%#Crystalline' . a:right_label . '#'
 endfunction
 
 function! s:build_bl_sep_cache()
@@ -20,44 +19,30 @@ function! s:build_bl_sep_cache()
     return
   endif
 
-  let l:c_to_s_sep = crystalline#right_sep(s:curr_label, s:shown_label)
-  let l:c_to_l_sep = crystalline#right_sep(s:curr_label, s:last_label)
-  let l:c_to_u_sep = crystalline#right_sep(s:curr_label, s:unshown_label)
-  let l:c_to_f_sep = crystalline#right_sep(s:curr_label, s:fill_label)
-
-  let l:s_to_c_sep = crystalline#right_sep(s:shown_label, s:curr_label)
-  let l:s_to_l_sep = crystalline#right_sep(s:shown_label, s:last_label)
-  let l:s_to_u_sep = crystalline#right_sep(s:shown_label, s:unshown_label)
-  let l:s_to_f_sep = crystalline#right_sep(s:shown_label, s:fill_label)
-
-  let l:u_to_c_sep = crystalline#right_sep(s:unshown_label, s:curr_label)
-  let l:u_to_l_sep = crystalline#right_sep(s:unshown_label, s:last_label)
-  let l:u_to_s_sep = crystalline#right_sep(s:unshown_label, s:shown_label)
-  let l:u_to_f_sep = crystalline#right_sep(s:unshown_label, s:fill_label)
-
-  let l:l_to_c_sep = crystalline#right_sep(s:unshown_label, s:curr_label)
-  let l:l_to_s_sep = crystalline#right_sep(s:unshown_label, s:shown_label)
-  let l:l_to_u_sep = crystalline#right_sep(s:unshown_label, s:last_label)
-  let l:l_to_f_sep = crystalline#right_sep(s:unshown_label, s:fill_label)
-
   " 0 - unshown, 1 - shown, 2 - current, 3 - fill, 4 - last
   let s:bl_sep_cache = {
-        \'0 1': l:u_to_s_sep,
-        \'0 2': l:u_to_c_sep,
-        \'0 3': l:u_to_f_sep,
-        \'0 4': l:u_to_l_sep,
-        \'1 0': l:s_to_u_sep,
-        \'1 2': l:s_to_c_sep,
-        \'1 3': l:s_to_f_sep,
-        \'1 4': l:s_to_l_sep,
-        \'2 0': l:c_to_u_sep,
-        \'2 1': l:c_to_s_sep,
-        \'2 3': l:c_to_f_sep,
-        \'2 4': l:c_to_l_sep,
-        \'4 0': l:l_to_u_sep,
-        \'4 1': l:l_to_s_sep,
-        \'4 2': l:l_to_c_sep,
-        \'4 3': l:l_to_f_sep,
+        \'00': s:same_sep(s:unshown_label, s:unshown_label),
+        \'01': s:same_sep(s:unshown_label, s:shown_label),
+        \'02': crystalline#right_sep(s:unshown_label, s:curr_label),
+        \'03': crystalline#right_sep(s:unshown_label, s:fill_label),
+        \'04': s:same_sep(s:unshown_label, s:last_label),
+        \
+        \'10': s:same_sep(s:shown_label, s:unshown_label),
+        \'11': s:same_sep(s:shown_label, s:shown_label),
+        \'12': crystalline#right_sep(s:shown_label, s:curr_label),
+        \'13': crystalline#right_sep(s:shown_label, s:fill_label),
+        \'14': s:same_sep(s:shown_label, s:last_label),
+        \
+        \'20': crystalline#right_sep(s:curr_label, s:unshown_label),
+        \'21': crystalline#right_sep(s:curr_label, s:shown_label),
+        \'23': crystalline#right_sep(s:curr_label, s:fill_label),
+        \'24': crystalline#right_sep(s:curr_label, s:last_label),
+        \
+        \'40': s:same_sep(s:last_label, s:last_label),
+        \'41': s:same_sep(s:last_label, s:shown_label),
+        \'42': crystalline#right_sep(s:last_label, s:curr_label),
+        \'43': crystalline#right_sep(s:last_label, s:fill_label),
+        \'44': s:same_sep(s:last_label, s:last_label),
         \}
 endfunction
 
@@ -99,7 +84,7 @@ endfunction
 
 function! sl#statusline(current, width)
   if !a:current
-    return ' %f %= %l, %c '
+    return ' %f %#CrystallineVisualMode#  %{sl#gitstatus_hunks(0)} %#CrystallineTabType# %{sl#gitstatus_hunks(1)} %#CrystallineReplaceMode# %{sl#gitstatus_hunks(2)} %#Crystalline# %= %l, %c '
   elseif has_key(b:, 'statusline')
     if mode() ==# get(b:, 'last_mode', '')
       return b:statusline
@@ -159,13 +144,28 @@ endfunction
 function! s:repository_name()
   if !has_key(b:, 'reponame')
     let l:url = fugitive#RemoteUrl()
-    let l:user = fnamemodify(fnamemodify(l:url, ':h'), ':t')
-    let l:repo = fnamemodify(l:url, ':t:r')
+    echo l:url
+    " Remove `git@<host>:` part.
+    let l:url = split(l:url, ":")
 
-    let b:reponame = l:user . '/' . l:repo
+    if len(l:url) == 0
+      let b:reponame = ''
+    else
+      let l:url = l:url[1]
+      let l:user = fnamemodify(fnamemodify(l:url, ':h'), ':t')
+      let l:repo = fnamemodify(l:url, ':t:r')
+
+      let b:reponame = l:user . '/' . l:repo
+    endif
   endif
 
-  return b:reponame
+  if !has_key(t:, 'reponame')
+    let t:reponame = b:reponame
+  elseif t:reponame != b:reponame && b:reponame != ''
+    let t:reponame = b:reponame
+  endif
+
+  return t:reponame
 endfunction
 
 function! sl#current_filename_region()
@@ -225,7 +225,7 @@ function! s:filename_region(buf)
     endif
   else
     if !has_key(a:buf['variables'], 'filename_with_icon')
-      let l:name = fnamemodify(l:name, ':.')
+      let l:name = pathshorten(fnamemodify(l:name, ':.'))
       let a:buf['variables']['filename_with_icon'] = system('echo "' . l:name . '" | devicon-lookup | tr "\n" " "')[:-1]
     endif
 

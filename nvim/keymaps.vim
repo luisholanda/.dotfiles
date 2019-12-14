@@ -15,42 +15,42 @@ noremap <silent> <leader>wh :wincmd h<CR>
 noremap <silent> <leader>wj :wincmd j<CR>
 noremap <silent> <leader>wk :wincmd k<CR>
 noremap <silent> <leader>wl :wincmd l<CR>
-noremap <silent> <leader>ww :wincmd w<CR>
 noremap <silent> <leader>wq :wincmd c<CR>
+noremap <silent> <tab> :wincmd w<CR>
 
 if dein#tap('asyncrun.vim')
   noremap ! :AsyncRun<space>
 endif
 
 if dein#tap('vim-easymotion')
-  nmap <leader><leader>w <Plug>(easymotion-bd-w)
-  nmap <leader><leader>f <Plug>(easymotion-bd-f2)
-  nmap <leader><leader>t <Plug>(easymotion-bd-t2)
-  nmap <leader><leader>e <Plug>(easymotion-bd-e)
-  nmap <leader><leader>s <Plug>(easymotion-sn)
+  nmap <silent> <leader><leader>w <Plug>(easymotion-bd-w)
+  nmap <silent> <leader><leader>f <Plug>(easymotion-bd-f2)
+  nmap <silent> <leader><leader>t <Plug>(easymotion-bd-t2)
+  nmap <silent> <leader><leader>e <Plug>(easymotion-bd-e)
+  nmap <silent> <leader><leader>s <Plug>(easymotion-sn)
 
-  xmap <leader><leader>w <Plug>(easymotion-bd-w)
-  xmap <leader><leader>f <Plug>(easymotion-bd-f2)
-  xmap <leader><leader>t <Plug>(easymotion-bd-t2)
-  xmap <leader><leader>e <Plug>(easymotion-bd-e)
-  xmap <leader><leader>s <Plug>(easymotion-sn)
+  xmap <silent> <leader><leader>w <Plug>(easymotion-bd-w)
+  xmap <silent> <leader><leader>f <Plug>(easymotion-bd-f2)
+  xmap <silent> <leader><leader>t <Plug>(easymotion-bd-t2)
+  xmap <silent> <leader><leader>e <Plug>(easymotion-bd-e)
+  xmap <silent> <leader><leader>s <Plug>(easymotion-sn)
 
-  omap <leader><leader>w <Plug>(easymotion-bd-w)
-  omap <leader><leader>f <Plug>(easymotion-bd-f2)
-  omap <leader><leader>t <Plug>(easymotion-bd-t2)
-  omap <leader><leader>e <Plug>(easymotion-bd-e)
-  omap <leader><leader>s <Plug>(easymotion-sn)
+  omap <silent> <leader><leader>w <Plug>(easymotion-bd-w)
+  omap <silent> <leader><leader>f <Plug>(easymotion-bd-f2)
+  omap <silent> <leader><leader>t <Plug>(easymotion-bd-t2)
+  omap <silent> <leader><leader>e <Plug>(easymotion-bd-e)
+  omap <silent> <leader><leader>s <Plug>(easymotion-sn)
 endif
 
 " Vim Fugitive
 if dein#tap('vim-fugitive')
-  noremap <leader>gs :Gstatus<CR>
-  noremap <leader>gb :Gblame<CR>
-  noremap <leader>gd :Gdiff<CR>
-  noremap <leader>gp :Gpull --rebase<CR>
-  noremap <leader>gP :Gpush<CR>
-  noremap <leader>gf :Gfetch<CR>
-  noremap <leader>ga :Gwrite<CR>
+  noremap <silent> <leader>gs :Gstatus<CR>
+  noremap <silent> <leader>gb :Gblame<CR>
+  noremap <silent> <leader>gd :Gdiff<CR>
+  noremap <silent> <leader>gp :Gpull --rebase<CR>
+  noremap <silent> <leader>gP :Gpush<CR>
+  noremap <silent> <leader>gf :Gfetch<CR>
+  noremap <silent> <leader>ga :Gwrite<CR>
 endif
 
 if dein#tap('vim-twiggy')
