@@ -28,7 +28,7 @@ font:
     style: RegularNF
 
   bold:
-    family: Iosevka Custom Medium
+    family: CascadianCode NF
     style: Bold
 
   italic:
