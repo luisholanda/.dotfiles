@@ -1,4 +1,4 @@
 # Defined in - @ line 1
-function cp --description 'alias cp=cp -i'
-    command cp -i $argv;
+function cp --wraps='cp -i' --description 'alias cp=cp -i'
+ command cp -i $argv;
 end

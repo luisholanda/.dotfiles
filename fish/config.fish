@@ -1,6 +1,7 @@
 function __set_path
   set -x GOPATH $HOME/.gopath
   set -x PATH /usr/local/opt/libxml2/bin $PATH
+  set -x PATH /usr/local/opt/llvm/bin $PATH
   set -x PATH /usr/local/opt/texinfo/bin $PATH
   set -x PATH $HOME/.local/bin $PATH
   set -x PATH $HOME/.miniconda2/bin $PATH
