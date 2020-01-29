@@ -8,7 +8,8 @@ resize < j : yabai -m window north --resize bottom:0:40 4> /dev/null || yabai -m
 resize < k : yabai -m window south --resize top:0:-40 4> /dev/null || yabai -m window --resize top:0:-40
 resize < l : yabai -m window east --resize left:40:0 4> /dev/null || yabai -m window --resize left:40:0
 
-alt - return : open -na 'Alacritty'
+alt - return : /Applications/kitty.app/Contents/MacOS/kitty -1 --start-as=maximized -d ~
+alt - v : open /usr/local/bin/nvim-qt.app
 
 shift + alt - q : yabai -m window --close
 
