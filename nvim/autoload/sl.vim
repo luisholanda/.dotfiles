@@ -144,7 +144,6 @@ endfunction
 function! s:repository_name()
   if !has_key(b:, 'reponame')
     let l:url = fugitive#RemoteUrl()
-    echo l:url
     " Remove `git@<host>:` part.
     let l:url = split(l:url, ":")
 

@@ -50,6 +50,7 @@ set updatetime=100
 
 " Better behaviour from autocomplete popup
 set completeopt=noinsert,menuone,noselect
+set pumheight=25
 
 " highlight matching parens, braces, brackets, etc
 set showmatch
@@ -117,3 +118,7 @@ set undofile
 set undodir=$HOME/.vimundo
 set undolevels=1000
 set undoreload=10000
+
+let g:loaded_python_provider = 0
+let g:pyhon3_host_prog = "/Users/luiscm/.pyenv/versions/3.8.0/bin/python"
+set pyxversion=3
