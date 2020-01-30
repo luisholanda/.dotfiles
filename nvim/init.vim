@@ -7,10 +7,10 @@ filetype plugin indent on
 
 " Replace the line number highlight from the Snow Dark colorscheme.
 augroup CursorLineHighlight
-  " Highlight the current line and make the number lighter.
-  autocmd! ColorScheme * highlight CursorLineNr ctermfg=249 ctermbg=237 guifg=#afb7c0 guibg=#363a3e
   " Make the rest of number darker.
   autocmd! ColorScheme * highlight LineNr ctermfg=236 guifg=#2c2d30
+  " Highlight the current line and make the number lighter.
+  autocmd! ColorScheme * highlight CursorLineNr ctermfg=249 ctermbg=237 guifg=#afb7c0 guibg=#363a3e
 augroup END
 
 " Make comments italic.

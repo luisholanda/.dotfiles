@@ -69,3 +69,7 @@ nnoremap <silent> <right> :bn<CR>
 nnoremap <CR><CR> <c-^>
 
 nnoremap Y y$
+
+" Terminal mode stuff
+nnoremap <leader>t :terminal<CR>
+tnoremap <silent> <Esc> <C-\><C-n>
