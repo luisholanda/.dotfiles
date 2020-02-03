@@ -26,16 +26,14 @@ endfunction
 augroup coc_nvimgroup
   autocmd!
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-  autocmd InsertEnter call coc#config('diagnostic', { 'virtualText': 0 })
-  autocmd InsertLeave call coc#config('diagnostic', { 'virtualText': 1 })
 augroup end
 
-nmap <silent> <C-c> <Plug>(coc-cursor-position)
-nmap <expr> <silent> <C-d> <SID>select_current_word()
-nmap <leader>x <Plug>(coc-cursors-operator)
+nnoremap <silent> <C-c> <Plug>(coc-cursor-position)
+nnoremap <expr> <silent> <C-d> <SID>select_current_word()
+nnoremap <leader>x <Plug>(coc-cursors-operator)
 
-xmap <silent> <leader>a <Plug>(coc-codeaction-selected)
-nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
+xnoremap <silent> <leader>a <Plug>(coc-codeaction-selected)
+nnoremap <silent> <leader>a <Plug>(coc-codeaction-selected)
 
 nnoremap <silent> <leader>c <Plug>(coc-codeaction)
 nnoremap <silent> <leader>qf <plug>(coc-fix-current)
@@ -50,10 +48,10 @@ nnoremap <silent> <leader>lt :Vista coc<CR>
 nnoremap <silent> [c <Plug>(coc-definition-prev)
 nnoremap <silent> ]c <Plug>(coc-definition-next)
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> gy <Plug>(coc-type-definition)
+nnoremap <silent> gi <Plug>(coc-implementation)
+nnoremap <silent> gr <Plug>(coc-references)
 
 nnoremap <silent> K :call CocAction('doHover')<CR>
 
