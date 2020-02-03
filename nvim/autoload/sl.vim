@@ -77,7 +77,6 @@ function! sl#bufferline()
 
   let l:gb_l_sep = crystalline#left_sep('TabType', 'TabFill')
   let l:gb_r_sep = crystalline#right_sep('TabType', 'TabFill')
-  let l:s .=  l:gb_l_sep . ' %{sl#gitbranch()} ' . l:gb_r_sep
 
   return l:s
 endfunction
@@ -124,47 +123,6 @@ function! sl#gitstatus_hunks(idx)
   endif
 
   return get(b:gitgutter['summary'], a:idx)
-endfunction
-
-function! sl#gitbranch()
-  if exists('*fugitive#head')
-    let l:repo = s:repository_name()
-    if l:repo !=# ''
-      let l:branch = fugitive#head(8)
-      if l:branch !=# ''
-        return l:repo . ' (' . l:branch . ') '
-      endif
-
-    endif
-  endif
-
-  return 'Not Versioned'
-endfunction
-
-function! s:repository_name()
-  if !has_key(b:, 'reponame')
-    let l:url = fugitive#RemoteUrl()
-    " Remove `git@<host>:` part.
-    let l:url = split(l:url, ":")
-
-    if len(l:url) == 0
-      let b:reponame = ''
-    else
-      let l:url = l:url[1]
-      let l:user = fnamemodify(fnamemodify(l:url, ':h'), ':t')
-      let l:repo = fnamemodify(l:url, ':t:r')
-
-      let b:reponame = l:user . '/' . l:repo
-    endif
-  endif
-
-  if !has_key(t:, 'reponame')
-    let t:reponame = b:reponame
-  elseif t:reponame != b:reponame && b:reponame != ''
-    let t:reponame = b:reponame
-  endif
-
-  return t:reponame
 endfunction
 
 function! sl#current_filename_region()
