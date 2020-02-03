@@ -5,6 +5,8 @@ if dein#load_state('~/.local/share/nvim/dein')
 
   call dein#add('Shougo/dein.vim')
 
+  call dein#add('romainl/vim-cool')
+
   call dein#add('triglav/vim-visual-increment', { 'on_map': '<Plug>' })
 
   call dein#add('jiangmiao/auto-pairs')
@@ -16,8 +18,6 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ })
   call dein#add('Shougo/deol.nvim', { 'on_cmd': ['Deol', 'DeolCd', 'DeolEdit'] })
 
-  " call dein#add('srcery-colors/srcery-vim')
-  " call dein#add('nightsense/cosmic_latte')
   call dein#add('nightsense/snow')
 
   call dein#add('Yggdroot/indentLine', { 'hook_add': 'let g:indentLine_char="▏"' })
@@ -31,7 +31,6 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ 'on_ft': ['vim', 'rust', 'python', 'json'],
         \ 'hook_source': 'source /Users/luiscm/.dotfiles/nvim/coc.vim'
         \ })
-  call dein#add('liuchengxu/vista.vim', { 'on_cmd': ['Vista', 'Vista!', 'Vista!!'] })
   call dein#add('Shougo/echodoc.vim')
 
   call dein#add('sheerun/vim-polyglot')
@@ -68,7 +67,7 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ })
   call dein#add('junegunn/fzf.vim', {
         \ 'depends': 'fzf',
-        \ 'on_cmd': ['Colors', 'Rg', 'Buffers', 'Files']
+        \ 'on_cmd': ['Colors', 'Rg', 'Rgg','Buffers', 'Files']
         \ })
 
   call dein#end()
