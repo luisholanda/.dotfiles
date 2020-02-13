@@ -47,7 +47,6 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ })
   call dein#add('sodapopcan/vim-twiggy', { 'on_cmd': 'Twiggy' })
   call dein#add('junegunn/gv.vim', { 'on_cmd': 'GV' })
-  call dein#add('markonm/traces.vim', { 'on_event': 'CmdlineEnter' })
   call dein#add('terryma/vim-expand-region', { 'on_map':  '<Plug>' })
 
   call dein#add('wellle/targets.vim')

@@ -40,3 +40,15 @@ autocmd BufNew,BufNewFile,BufRead *.lalrpop :setlocal filetype=rust
 
 autocmd BufWritePre * %s/\s\+$//e
 autocmd FileType help wincmd L
+
+augroup TermHandling
+  autocmd!
+  autocmd TermOpen * setlocal listchars= nonumber norelativenumber
+        \ | startinsert
+        \ | tnoremap <buffer> <Esc> <C-c>
+        \ | IndentLinesDisable
+  autocmd! FileType fzf tnoremap <buffer> <Esc> <C-c>
+augroup END
+
+highlight NonText guifg=bg
+highlight VertSplit guibg=#2c2d30 ctermbg=236
