@@ -26,12 +26,11 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ 'hook_source': 'call hooks#plugins#crystalline()'
         \ })
 
-  call dein#add('neoclide/coc.nvim', {
-        \ 'build': 'yarn install',
-        \ 'on_ft': ['vim', 'rust', 'python', 'json'],
-        \ 'hook_source': 'source /Users/luiscm/.dotfiles/nvim/coc.vim'
-        \ })
-  call dein#add('Shougo/echodoc.vim')
+  call dein#add('prabirshrestha/async.vim')
+  call dein#add('prabirshrestha/vim-lsp')
+  call dein#add('mattn/vim-lsp-settings', { 'merged': 0 })
+  call dein#add('Shougo/deoplete.nvim')
+  call dein#add('lighttiger2505/deoplete-vim-lsp')
 
   call dein#add('sheerun/vim-polyglot')
   call dein#add('tpope/vim-surround')

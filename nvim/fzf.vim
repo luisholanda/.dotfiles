@@ -14,18 +14,18 @@ command! -bang -nargs=* Rg
 nmap <silent> <leader>sg :Rg<CR>
 nmap <silent> <leader>sG :Rgg<CR>
 
+function! s:edit_file(item)
+  let l:pos = stridx(a:item, ' ')
+  let l:file_path = a:item[pos+1:-1]
+  execute 'silent e' l:file_path
+endfunction
+
 " Files + devicons + floating fzf
 function! s:Fzf_dev()
   let l:fzf_files_options = '--preview "bat --line-range :'.&lines.' --theme="OneHalfDark" --style=numbers,changes --color always {2..-1}"'
 
   function! s:files()
     return split(system($FZF_DEFAULT_COMMAND . ' |  devicon-lookup'), '\n')
-  endfunction
-
-  function! s:edit_file(item)
-    let l:pos = stridx(a:item, ' ')
-    let l:file_path = a:item[pos+1:-1]
-    execute 'silent e' l:file_path
   endfunction
 
   call fzf#run({

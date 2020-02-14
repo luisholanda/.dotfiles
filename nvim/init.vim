@@ -50,5 +50,49 @@ augroup TermHandling
   autocmd! FileType fzf tnoremap <buffer> <Esc> <C-c>
 augroup END
 
-highlight NonText guifg=bg
-highlight VertSplit guibg=#2c2d30 ctermbg=236
+autocmd ColorScheme * highlight NonText guifg=bg
+autocmd ColorScheme * highlight VertSplit guibg=#2c2d30 ctermbg=236
+
+let g:lsp_diagnostics_float_cursor = 1
+let g:lsp_virtual_text_enabled = 0
+let g:lsp_highlight_references_enabled = 1
+let g:lsp_semantic_enabled = 1
+let g:lsp_signs_priority = 11
+let g:deoplete_enable_at_startup = 1
+let g:lsp_signs_error = {'text': '✗'}
+let g:lsp_signs_warning = {'text': '‼' }
+
+function! s:on_lsp_buffer_enabled() abort
+  call deoplete#enable()
+
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ deoplete#manual_complete()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col-1] =~# '\s'
+  endfunction
+
+  inoremap <silent><expr> <c-space> deoplete#manual_complete()
+
+  nnoremap <silent><buffer> gd :LspPeekDefinition<CR>
+  nnoremap <silent><buffer> gD :LspDefinition<CR>
+  nnoremap <silent><buffer> K :LspHover<CR>
+  nnoremap <silent><buffer> <leader>rn :LspRename<CR>
+  nnoremap <silent><buffer> <leader>lf :LspDocumentFormat<CR>
+  vnoremap <silent><buffer> <leader>lf :LspDocumentFormat<CR>
+  nnoremap <silent><buffer> <leader>lf :LspDocumentRangeFormat<CR>
+  xnoremap <silent><buffer> <leader>lf :LspDocumentRangeFormat<CR>
+
+  set foldmethod=expr
+    \ foldexpr=lsp#ui#vim#folding#foldexpr()
+    \ foldtext=lsp#ui#vim#folding#foldtext()
+endfunction
+
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
