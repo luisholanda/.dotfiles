@@ -1,6 +1,11 @@
 set shell=/usr/local/bin/fish
 let mapleader=";"
 
+
+let g:loaded_python_provider = 0
+let g:python3_host_prog = expand("~/.pyenv/versions/neovim/bin/python")
+set pyxversion=3
+
 set number
 set cursorline
 set colorcolumn=+0,+10
@@ -118,7 +123,3 @@ set undofile
 set undodir=$HOME/.vimundo
 set undolevels=1000
 set undoreload=10000
-
-let g:loaded_python_provider = 0
-let g:pyhon3_host_prog = "/Users/luiscm/.pyenv/versions/3.8.0/bin/python"
-set pyxversion=3
