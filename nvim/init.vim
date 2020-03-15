@@ -21,7 +21,7 @@ augroup ItalicComments
 augroup END
 
 set background=dark
-colorscheme snow
+colorscheme xcodewwdc
 
 augroup NumberToggle
   autocmd!
@@ -51,7 +51,7 @@ augroup TermHandling
 augroup END
 
 autocmd ColorScheme * highlight NonText guifg=bg
-autocmd ColorScheme * highlight VertSplit guibg=#2c2d30 ctermbg=236
+autocmd ColorScheme * highlight link VertSplit SignColumn
 
 let g:lsp_diagnostics_float_cursor = 1
 let g:lsp_virtual_text_enabled = 0

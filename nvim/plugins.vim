@@ -18,7 +18,8 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ })
   call dein#add('Shougo/deol.nvim', { 'on_cmd': ['Deol', 'DeolCd', 'DeolEdit'] })
 
-  call dein#add('nightsense/snow')
+  "call dein#add('nightsense/snow')
+  call dein#add('arzg/vim-colors-xcode')
 
   call dein#add('Yggdroot/indentLine', { 'hook_add': 'let g:indentLine_char="▏"' })
   call dein#add('rbong/vim-crystalline', {

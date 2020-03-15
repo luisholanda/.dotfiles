@@ -1,6 +1,6 @@
 let s:curr_label = 'TabSel'
-let s:last_label = 'ReplaceMode'
-let s:shown_label = 'InsertMode'
+let s:last_label = 'Tab'
+let s:shown_label = 'Tab'
 let s:unshown_label = 'Tab'
 let s:fill_label = 'TabFill'
 

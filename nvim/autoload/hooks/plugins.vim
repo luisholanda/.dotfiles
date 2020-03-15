@@ -26,7 +26,7 @@ function! hooks#plugins#crystalline()
   let g:crystalline_separators = ['', '']
   let g:crystalline_statusline_fn = 'sl#statusline'
   let g:crystalline_tabline_fn = 'sl#bufferline'
-  let g:crystalline_theme = 'snow_dark'
+  let g:crystalline_theme = 'xcodewwdc'
   let g:crystalline_supported_sep = {
         \ 'InsertMode': ['', 'Fill', 'TabFill', 'Tab', 'TabSel'],
         \ 'ReplaceMode': ['', 'Fill', 'TabFill', 'Tab', 'TabSel'],
