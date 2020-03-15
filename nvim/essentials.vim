@@ -12,6 +12,8 @@ set colorcolumn=+0,+10
 
 " Show tabline
 set showtabline=2
+" Never show statusline
+set laststatus=0
 
 " number of lines at the beginning and end of files checked for file-specific vars
 set modelines=0
@@ -62,6 +64,7 @@ set showmatch
 
 " http://vim.wikia.com/wiki/Searching
 set incsearch ignorecase smartcase
+set inccommand=split
 
 " open new buffers without saving current modifications (buffer remains open)
 set hidden
@@ -123,3 +126,5 @@ set undofile
 set undodir=$HOME/.vimundo
 set undolevels=1000
 set undoreload=10000
+
+set ruler

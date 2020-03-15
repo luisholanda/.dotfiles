@@ -48,8 +48,10 @@ endfunction
 
 function! sl#bufferline()
   call s:build_bl_sep_cache()
+  call sl#ruler()
 
   let l:curbuf = bufnr('%')
+
   let l:lastbuf = bufnr('#')
   let l:buffers = s:list_buffers()
 
@@ -96,6 +98,47 @@ function! sl#statusline(current, width)
   return b:statusline
 endfunction
 
+function! sl#ruler()
+  if mode() ==# get(b:, 'last_mode', '')
+  else
+    execute 'set rulerformat=' . s:construct_ruler()
+    let b:last_mode = mode()
+  endif
+endfunction
+
+function! sl#test_ruler()
+  echo 'set rulerformat=' . s:construct_ruler()
+endfunction
+
+
+function! s:construct_ruler()
+  let l:lsep = crystalline#left_sep('', 'Fill')
+  let l:rsep = crystalline#right_sep('', 'Fill')
+  let l:lmdsep = crystalline#left_mode_sep('Fill')
+  let l:rmdsep = crystalline#right_mode_sep('Fill')
+
+  let l:s = '%60(%=%#CrystallineFill#' . sl#ruler_mode_label()
+
+  let l:s .= '\ '
+  let l:s .= l:lsep . '\ %l,\ %c\ ' . l:rsep
+  let l:s .= '\ '
+
+  let l:s .= l:lsep . '\ %P,\ %L\ ' . l:rsep
+
+  return l:s . "%)"
+endfunction
+
+function! sl#ruler_mode_label()
+  let l:lsep = crystalline#left_sep('', 'Fill')
+  let l:rsep = crystalline#right_sep('', 'Fill')
+  let l:lmdsep = crystalline#left_mode_sep('Fill')
+  let l:rmdsep = crystalline#right_mode_sep('Fill')
+
+  let l:mode_label = crystalline#mode_label()
+
+  return l:lmdsep . '\' . l:mode_label[:len(l:mode_label)-2] . '\ ' . l:rmdsep
+endfunction
+
 function! s:construct_statusline()
   let l:lsep = crystalline#left_sep('', 'Fill')
   let l:rsep = crystalline#right_sep('', 'Fill')
@@ -105,7 +148,6 @@ function! s:construct_statusline()
   let l:s = '%#CrystallineFill#'
   let l:s .= l:lmdsep . crystalline#mode_label() . l:rmdsep
   let l:s .= ' ' . l:lsep . '%#CrystallineVisualMode#  %{sl#gitstatus_hunks(0)} %#CrystallineTabType# %{sl#gitstatus_hunks(1)} %#CrystallineReplaceMode# %{sl#gitstatus_hunks(2)} ' . l:rsep
-  let l:s .= ' ' . l:lsep . ' %{sl#diagnostics()} ' . l:rsep
 
   let l:s .= '%='
 
@@ -128,33 +170,6 @@ endfunction
 function! sl#current_filename_region()
   return s:filename_region(getbufinfo(bufnr('%'))[0])
 endfunction
-
-function! sl#diagnostics()
-  let info = get(b:, 'coc_diagnostic_info', {})
-
-  let errors = get(info, 'error', 0)
-  let warnings = get(info, 'warning', 0)
-
-  if errors + warnings == 0
-    return ''
-  endif
-
-  let status = ''
-  if errors > 0
-    let status .= '' . string(errors)
-
-    if warnings > 0
-      let status .= ' '
-    endif
-  endif
-
-  if warnings > 0
-    let status .= '' . string(warnings)
-  endif
-
-  return status
-endfunction
-
 
 function! s:list_buffers()
   let l:maxbufs = crystalline#calculate_max_tabs(2, 1, 4, 1)

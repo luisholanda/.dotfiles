@@ -24,7 +24,6 @@ endfunction
 function! hooks#plugins#crystalline()
   let g:crystalline_enable_sep = 1
   let g:crystalline_separators = ['', '']
-  let g:crystalline_statusline_fn = 'sl#statusline'
   let g:crystalline_tabline_fn = 'sl#bufferline'
   let g:crystalline_theme = 'xcodewwdc'
   let g:crystalline_supported_sep = {
@@ -33,7 +32,6 @@ function! hooks#plugins#crystalline()
         \ 'TabSel': ['Tab', 'TabFill', 'InsertMode', 'ReplaceMode'],
         \ 'TabFill': ['Tab', 'TabSel', 'TabFill', 'NormalMode', 'InsertMode', 'VisualMode', 'ReplaceMode'],
         \}
-  set showtabline=2
 endfunction
 
 function! hooks#plugins#webdevicons()
