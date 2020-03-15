@@ -27,11 +27,14 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ 'hook_source': 'call hooks#plugins#crystalline()'
         \ })
 
+  call dein#add('norcalli/nvim-colorizer.lua')
+  call dein#add('camspiers/animate.vim')
+  call dein#add('camspiers/lens.vim')
+
   call dein#add('prabirshrestha/async.vim')
-  call dein#add('prabirshrestha/vim-lsp')
-  call dein#add('mattn/vim-lsp-settings', { 'merged': 0 })
-  call dein#add('Shougo/deoplete.nvim')
-  call dein#add('lighttiger2505/deoplete-vim-lsp')
+  call dein#add('neovim/nvim-lsp')
+  call dein#add('haorenW1025/completion-nvim')
+  call dein#add('haorenW1025/diagnostic-nvim')
 
   call dein#add('sheerun/vim-polyglot')
   call dein#add('tpope/vim-surround')

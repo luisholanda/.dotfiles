@@ -2,6 +2,7 @@ source ~/.dotfiles/nvim/essentials.vim
 source ~/.dotfiles/nvim/plugins.vim
 source ~/.dotfiles/nvim/fzf.vim
 source ~/.dotfiles/nvim/keymaps.vim
+luafile ~/.dotfiles/nvim/lsp.lua
 
 filetype plugin indent on
 
@@ -53,46 +54,25 @@ augroup END
 autocmd ColorScheme * highlight NonText guifg=bg
 autocmd ColorScheme * highlight link VertSplit SignColumn
 
-let g:lsp_diagnostics_float_cursor = 1
-let g:lsp_virtual_text_enabled = 0
-let g:lsp_highlight_references_enabled = 1
-let g:lsp_semantic_enabled = 1
-let g:lsp_signs_priority = 11
-let g:deoplete_enable_at_startup = 1
-let g:lsp_signs_error = {'text': '✗'}
-let g:lsp_signs_warning = {'text': '‼' }
+" Auto close popup menu when finish completion
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-function! s:on_lsp_buffer_enabled() abort
-  call deoplete#enable()
-
-  inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ deoplete#manual_complete()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-  function! s:check_back_space() abort
+function! s:check_back_space() abort
     let col = col('.') - 1
-    return !col || getline('.')[col-1] =~# '\s'
-  endfunction
-
-  inoremap <silent><expr> <c-space> deoplete#manual_complete()
-
-  nnoremap <silent><buffer> gd :LspPeekDefinition<CR>
-  nnoremap <silent><buffer> gD :LspDefinition<CR>
-  nnoremap <silent><buffer> K :LspHover<CR>
-  nnoremap <silent><buffer> <leader>rn :LspRename<CR>
-  nnoremap <silent><buffer> <leader>lf :LspDocumentFormat<CR>
-  vnoremap <silent><buffer> <leader>lf :LspDocumentFormat<CR>
-  nnoremap <silent><buffer> <leader>lf :LspDocumentRangeFormat<CR>
-  xnoremap <silent><buffer> <leader>lf :LspDocumentRangeFormat<CR>
-
-  set foldmethod=expr
-    \ foldexpr=lsp#ui#vim#folding#foldexpr()
-    \ foldtext=lsp#ui#vim#folding#foldtext()
+    return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-augroup lsp_install
-  au!
-  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-augroup END
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ completion#trigger_completion()
+
+augroup CompleteionTriggerCharacter
+    autocmd!
+    autocmd BufEnter * let g:completion_trigger_character = ['.']
+    autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::', '->']
+    autocmd BufEnter *.rust let g:completion_trigger_character = ['.','::']
+augroup end
+
+lua require'colorizer'.setup()

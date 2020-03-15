@@ -18,6 +18,18 @@ noremap <silent> <leader>wl :wincmd l<CR>
 noremap <silent> <leader>wq :wincmd c<CR>
 noremap <silent> <tab> :wincmd w<CR>
 
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+inoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> pd    <cmd>lua vim.lsp.buf.peek_definition()<CR>
+nnoremap <silent> ]d :NextDiagnostic<CR>
+nnoremap <silent> [d :PrevDiagnostic<CR>
+nnoremap <silent> <leader>do :OpenDiagnostic<CR>
+nnoremap <silent> <leader>dl <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+
 if dein#tap('asyncrun.vim')
   noremap ! :AsyncRun<space>
 endif
