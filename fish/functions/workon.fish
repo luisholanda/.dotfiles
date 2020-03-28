@@ -5,8 +5,16 @@ function workon --description 'Goto the given project' --argument project
     cd ~/Projects/$project
   else
     echo "Project $project not found"
-    exit 1
+    return 1
   end
 
-  pyenv activate $project
+  if test -d ~/.pyenv/versions/$project
+    pyenv activate $project
+  else if set -q PYENV_ACTIVATE_SHELL
+    pyenv deactivate
+  end
+
+  if test -e $PWD/Makefile
+    set -xg MAKEFILES $PWD/Makefile
+  end
 end
