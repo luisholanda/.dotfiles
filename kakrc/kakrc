@@ -1,0 +1,25 @@
+# External plugins
+source '~/.dotfiles/kakrc/kakboard.kak/kakboard.kak'
+source '~/.dotfiles/kakrc/auto-pairs.kak/rc/auto-pairs.kak'
+source '~/.dotfiles/kakrc/surround.kak/rc/surround.kak'
+source '~/.dotfiles/kakrc/vertical-selection.kak/vertical-selection.kak'
+
+# Key maps
+
+## Buffers keymaps
+map global normal <left>  ': buffer-previous<ret>' -docstring 'Move to the previous buffer' 
+map global normal <right> ': buffer-next<ret>'     -docstring 'Move to the next buffer'
+
+## Text Objects
+map global user s     ': surround<ret>'                  -docstring 'Enter surround mode'
+map global user S     ': surround _ _ * *<ret>'          -docstring 'Enter surround mode with extra surrounding pairs'
+map global user v     ': vertical-selection-down<ret>'   -docstring 'Select all equal selections in lines below'
+map global user <a-v> ': vertical-selection-up<ret>'     -docstring 'Select all equal selections in lines above'
+map global user V     ': vertical-selction-up-down<ret>' -docstring 'Select all equal selectiosn in line above and bellow.'
+
+# Plugins configurations
+
+hook global WinCreate .* %{ kakboard-enable }
+
+set-option global surround_begin auto-pairs-disable
+set-option global surround_end auto-pairs-enable

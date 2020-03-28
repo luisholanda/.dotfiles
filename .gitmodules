@@ -1,0 +1,12 @@
+[submodule "kakrc/auto-pairs.kak"]
+	path = kakrc/auto-pairs.kak
+	url = git@github.com:alexherbo2/auto-pairs.kak.git
+[submodule "kakrc/vertical-selection.kak"]
+	path = kakrc/vertical-selection.kak
+	url = git@github.com:occivink/kakoune-vertical-selection.git
+[submodule "kakrc/surround.kak"]
+	path = kakrc/surround.kak
+	url = git@github.com:alexherbo2/surround.kak.git
+[submodule "kakrc/kakboard.kak"]
+	path = kakrc/kakboard.kak
+	url = git@github.com:lePerdu/kakboard.git
