@@ -1,7 +1,7 @@
 function! hooks#fvim#startup()
   set guicursor+=a:blinkwait800-blinkon600-blinkoff400
 
-  set guifont=Iosevka:h12
+  set guifont=PragmataPro:h13
   nnoremap <A-CR> :FVimToggleFullScreen<CR>
 
   FVimCursorSmoothBlink v:true
@@ -14,8 +14,12 @@ function! hooks#fvim#startup()
   FVimFontAutohint v:true
   FVimFontSubpixel v:true
   FVimFontLcdRender v:true
+  FVimFontLigature v:true
+  FVimFontLineHeight '+0.2'
   FVimFontHintLevel 'full'
 
-  FVimUIPopupMenu v:true
+  FVimUIMultiGrid v:false
+  FVimUIPopupMenu v:false
+  FVimCustomTitleBar v:false
   FVimFontAutoSnap v:true
 endfunction

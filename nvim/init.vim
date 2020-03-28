@@ -1,7 +1,7 @@
-source ~/.dotfiles/nvim/essentials.vim
-source ~/.dotfiles/nvim/plugins.vim
-source ~/.dotfiles/nvim/fzf.vim
-source ~/.dotfiles/nvim/keymaps.vim
+runtime essentials.vim
+runtime plugins.vim
+runtime fzf.vim
+runtime keymaps.vim
 luafile ~/.dotfiles/nvim/lsp.lua
 
 filetype plugin indent on
@@ -74,5 +74,3 @@ augroup CompleteionTriggerCharacter
     autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::', '->']
     autocmd BufEnter *.rust let g:completion_trigger_character = ['.','::']
 augroup end
-
-lua require'colorizer'.setup()
