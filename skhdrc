@@ -8,8 +8,8 @@ resize < j : yabai -m window north --resize bottom:0:40 4> /dev/null || yabai -m
 resize < k : yabai -m window south --resize top:0:-40 4> /dev/null || yabai -m window --resize top:0:-40
 resize < l : yabai -m window east --resize left:40:0 4> /dev/null || yabai -m window --resize left:40:0
 
-alt - return : /Applications/kitty.app/Contents/MacOS/kitty -1 --start-as=maximized -d ~
-alt - v : open /usr/local/bin/nvim-qt.app
+# alt - return : /Applications/kitty.app/Contents/MacOS/kitty -1 --instance-group=skhd --title=Kitty --directory=/Users/luiscm
+alt - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
 
 shift + alt - q : yabai -m window --close
 
@@ -58,6 +58,8 @@ cmd + alt - n : yabai -m space --create;\
 cmd + alt - w : yabai -m space --destroy
 
 # fast focus desktop
+ctrl - h : yabai -m space --focus prev
+ctrl - l : yabai -m space --focus next
 cmd + alt - x : yabai -m space --focus last
 cmd + alt - z : yabai -m space --focus prev
 cmd + alt - c : yabai -m space --focus next
@@ -71,6 +73,10 @@ cmd + alt - 7 : yabai -m space --focus 7
 cmd + alt - 8 : yabai -m space --focus 8
 cmd + alt - 9 : yabai -m space --focus 9
 cmd + alt - 0 : yabai -m space --focus 10
+
+# fast move space
+shift + ctrl - h : yabai -m space --move prev
+shift + ctrl - l : yabai -m space --move next
 
 # send window to desktop and follow focus
 shift + cmd - x : yabai -m window --space last; yabai -m space --focus last
@@ -111,6 +117,7 @@ shift + alt - f : yabai -m window --toggle native-fullscreen
 
 # toggle window split type
 alt - e : yabai -m window --toggle split
+shift + alt - e : yabai -m space --rotate 90
 
 # float / unfloat window and center on screen
 alt - t : yabai -m window --toggle float;\
