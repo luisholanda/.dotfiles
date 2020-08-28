@@ -25,7 +25,7 @@ function! hooks#plugins#crystalline()
   let g:crystalline_enable_sep = 1
   let g:crystalline_separators = ['', '']
   let g:crystalline_tabline_fn = 'sl#bufferline'
-  let g:crystalline_theme = 'xcodewwdc'
+  let g:crystalline_theme = 'meh'
   let g:crystalline_supported_sep = {
         \ 'InsertMode': ['', 'Fill', 'TabFill', 'Tab', 'TabSel'],
         \ 'ReplaceMode': ['', 'Fill', 'TabFill', 'Tab', 'TabSel'],

@@ -79,7 +79,7 @@ set foldmethod=syntax
 set nofoldenable
 
 " Only show sign column when needed.
-set signcolumn=auto:2
+set signcolumn=yes:2
 
 set synmaxcol=240
 

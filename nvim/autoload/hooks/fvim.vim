@@ -10,16 +10,17 @@ function! hooks#fvim#startup()
   FVimFontNormalWeight 300
   FVimFontBoldWeight 800
 
+  FVimCustomTitleBar v:false
+
   FVimFontAntialias v:true
   FVimFontAutohint v:true
+  FVimFontHintLevel 'full'
+  FVimFontAutoSnap v:true
   FVimFontSubpixel v:true
-  FVimFontLcdRender v:true
   FVimFontLigature v:true
   FVimFontLineHeight '+0.2'
   FVimFontHintLevel 'full'
 
   FVimUIMultiGrid v:false
   FVimUIPopupMenu v:false
-  FVimCustomTitleBar v:false
-  FVimFontAutoSnap v:true
 endfunction

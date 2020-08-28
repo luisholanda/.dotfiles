@@ -5,11 +5,8 @@ if dein#load_state('~/.local/share/nvim/dein')
 
   call dein#add('Shougo/dein.vim')
 
-  call dein#add('romainl/vim-cool')
-
-  call dein#add('triglav/vim-visual-increment', { 'on_map': '<Plug>' })
-
   call dein#add('jiangmiao/auto-pairs')
+  call dein#add('norcalli/nvim-colorizer.lua')
 
   call dein#add('airblade/vim-rooter')
   call dein#add('skywind3000/asyncrun.vim', {
@@ -18,8 +15,10 @@ if dein#load_state('~/.local/share/nvim/dein')
         \ })
   call dein#add('Shougo/deol.nvim', { 'on_cmd': ['Deol', 'DeolCd', 'DeolEdit'] })
 
-  "call dein#add('nightsense/snow')
+  call dein#add('nightsense/snow')
   call dein#add('arzg/vim-colors-xcode')
+  call dein#add('axvr/photon.vim')
+  call dein#add('davidosomething/vim-colors-meh')
 
   call dein#add('Yggdroot/indentLine', { 'hook_add': 'let g:indentLine_char="▏"' })
   call dein#add('rbong/vim-crystalline', {
@@ -29,7 +28,6 @@ if dein#load_state('~/.local/share/nvim/dein')
 
   call dein#add('norcalli/nvim-colorizer.lua')
   call dein#add('camspiers/animate.vim')
-  call dein#add('camspiers/lens.vim')
 
   call dein#add('prabirshrestha/async.vim')
   call dein#add('neovim/nvim-lsp')
