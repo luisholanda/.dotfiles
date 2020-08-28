@@ -2,7 +2,7 @@ function __set_path
   set -xg GOPATH $HOME/.gopath
   set -xg PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MacGPG2/bin
   set -xgp PATH /usr/local/opt/libxml2/bin
-  set -xgp PATH /usr/local/opt/llvm/bin
+  set -xgp PATH /usr/local/opt/llvm@9/bin
   set -xgp PATH /usr/local/opt/texinfo/bin
   set -xgp PATH $HOME/.local/bin
   set -xgp PATH $HOME/.cargo/bin
@@ -15,6 +15,8 @@ function __set_path
   set -xgp CPPFLAGS -I/usr/local/opt/flex/include
   set -xgp LDFLAGS -L/usr/local/opt/openssl/lib
   set -xgp CPPFLAGS -I/usr/local/opt/openssl/include
+  set -xgp LDFLAGS -L/usr/local/opt/llvm@9/lib
+  set -xgp CPPFLAGS -I/usr/local/opt/llvm@9/include
   set -xg LC_ALL en_US.UTF-8
   set -xg LANG en_US.UTF-8
   set -xg LC_CTYPE en_US.UTF-8
@@ -26,7 +28,7 @@ function __set_path
   set -xg GPG_KEY (tty)
   set -xg TMREPOS ~/TerraMagna/repositories
 
-  set -xg EDITOR nvim
+  set -xg EDITOR kak
 end
 
 function __set_alias
@@ -71,6 +73,8 @@ end
 __set_path
 __set_alias
 
-source ~/.local/share/nvim/dein/repos/github.com/nightsense/snow/shell/snow_dark.fish
 status --is-interactive; and source (pyenv init -|psub)
 status --is-interactive; and source (pyenv virtualenv-init -|psub)
+
+almel init fish | source
+source /Users/luiscm/.dotfiles/fish/rusticated.fish

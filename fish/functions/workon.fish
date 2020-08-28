@@ -13,8 +13,4 @@ function workon --description 'Goto the given project' --argument project
   else if set -q PYENV_ACTIVATE_SHELL
     pyenv deactivate
   end
-
-  if test -e $PWD/Makefile
-    set -xg MAKEFILES $PWD/Makefile
-  end
 end
