@@ -7,7 +7,7 @@ runtime keymaps.vim
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:diagnostic_virtual_text_prefix = 1
 
-luafile ~/.dotfiles/nvim/lsp.lua
+lua require'lsp'
 lua require'colorizer'.setup()
 
 filetype plugin indent on
