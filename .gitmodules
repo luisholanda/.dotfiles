@@ -10,3 +10,12 @@
 [submodule "kakrc/kakboard.kak"]
 	path = kakrc/kakboard.kak
 	url = git@github.com:lePerdu/kakboard.git
+[submodule "kakrc/fzf.kak"]
+	path = kakrc/fzf.kak
+	url = git@github.com:andreyorst/fzf.kak.git
+[submodule "kakrc/smarttab.kak"]
+	path = kakrc/smarttab.kak
+	url = git@github.com:andreyorst/smarttab.kak.git
+[submodule "kakrc/buffers.kak"]
+	path = kakrc/buffers.kak
+	url = git@github.com:Delapouite/kakoune-buffers.git

@@ -1,14 +1,35 @@
+colorscheme tomorrow-night
+
 # External plugins
 source '~/.dotfiles/kakrc/kakboard.kak/kakboard.kak'
 source '~/.dotfiles/kakrc/auto-pairs.kak/rc/auto-pairs.kak'
 source '~/.dotfiles/kakrc/surround.kak/rc/surround.kak'
 source '~/.dotfiles/kakrc/vertical-selection.kak/vertical-selection.kak'
+source '~/.dotfiles/kakrc/smarttab.kak/rc/smarttab.kak'
+source '~/.dotfiles/kakrc/buffers.kak/buffers.kak'
+
+source '~/.dotfiles/kakrc/fzf.kak/rc/fzf.kak'
+source '~/.dotfiles/kakrc/fzf.kak/rc/modules/fzf-file.kak'
+source '~/.dotfiles/kakrc/fzf.kak/rc/modules/fzf-grep.kak'
+source '~/.dotfiles/kakrc/fzf.kak/rc/modules/fzf-vcs.kak'
+source '~/.dotfiles/kakrc/fzf.kak/rc/modules/VCS/fzf-git.kak'
+
 
 # Key maps
 
 ## Buffers keymaps
 map global normal <left>  ': buffer-previous<ret>' -docstring 'Move to the previous buffer' 
 map global normal <right> ': buffer-next<ret>'     -docstring 'Move to the next buffer'
+
+declare-user-mode buffer
+map global user b ': enter-user-mode buffer<ret>'  -docstring 'Buffer mode'
+map global buffer n ': buffer-next<ret>'           -docstring 'Move to the next buffer'
+map global buffer p ': buffer-previous<ret>'       -docstring 'Move to the previous buffer'
+map global buffer d ': delete-buffer<ret>'         -docstring 'Delete the current buffer'
+
+## Comments
+map global user c ':comment-line<ret>'  -docstring '(Un)Comment lines'
+map global user C ':comment-block<ret>' -docstring '(Un)Comment selections'
 
 ## Text Objects
 map global user s     ': surround<ret>'                  -docstring 'Enter surround mode'
@@ -17,9 +38,116 @@ map global user v     ': vertical-selection-down<ret>'   -docstring 'Select all 
 map global user <a-v> ': vertical-selection-up<ret>'     -docstring 'Select all equal selections in lines above'
 map global user V     ': vertical-selction-up-down<ret>' -docstring 'Select all equal selectiosn in line above and bellow.'
 
+## Plugins modes
+map global user f ': fzf-mode<ret>' -docstring 'Enter FZF mode'
+map global user l ': enter-user-mode lsp<ret>' -docstring 'LSP commands'
+
+
 # Plugins configurations
 
+## Kakboard
 hook global WinCreate .* %{ kakboard-enable }
 
+## smarttab.kak
+hook global WinSetOption filetype=(go|Makefile) noexpandtab
+hook global WinSetOption filetype=.* expandtab
+
+## surround.kak
 set-option global surround_begin auto-pairs-disable
-set-option global surround_end auto-pairs-enable
+set-option global surround_end   auto-pairs-enable
+
+## buffers.kak
+map global user b ':enter-buffers-mode<ret>' -docstring 'Enter buffer mode'
+
+## kak-lsp
+evaluate-commands %sh{ kak-lsp --kakoune -s $kak_session }
+set-option global lsp_completion_trigger "execute-keys 'h<a-h><a-k>\S[^\s,=;*(){}\[\]]\z<ret>'"
+set-option global lsp_insert_spaces true
+
+hook global WinSetOption filetype=(c|cpp|python|haskell|bash|dart|json) %{
+    lsp-enable-window
+    lsp-auto-hover-insert-mode-disable
+    set-option global lsp_hover_anchor false
+}
+
+hook global WinSetOption filetype=rust %{
+    lsp-enable-window
+    lsp-auto-hover-insert-mode-disable
+    set-option global lsp_hover_anchor false
+
+    hook window -group rust-inlay-hints BufReload .* rust-analyzer-inlay-hints
+    hook window -group rust-inlay-hints NormalIdle .* rust-analyzer-inlay-hints
+    hook window -group rust-inlay-hints InsertIdle .* rust-analyzer-inlay-hints
+    hook window -group semantic-tokens BufReload .* lsp-semantic-tokens
+    hook window -group semantic-tokens NormalIdle .* lsp-semantic-tokens
+    hook window -group semantic-tokens InsertIdle .* lsp-semantic-tokens
+
+    hook -once -always window WinSetOption filetype=.* %{
+        remove-hooks window rust-inlay-hints
+        remove-hooks window semantic-tokens
+    }
+}
+
+# Customizations
+
+## Minimum lines when scrolling
+set-option global scrolloff 3,5
+
+## Do not change terminal title
+set-option -add global ui_options ncurses_set_title=no
+
+## Say hello to the cat
+set-option -add global ui_options ncurses_assistant=cat
+
+## Relative line numbers
+add-highlighter global/ number-lines -relative -hlcursor -separator '│ '
+
+## Highlight TODOs
+add-highlighter global/ regex \b(TODO|FIXME|XXX|NOTE)\b 0:default+rb
+
+## Highlight word under cursor
+declare-option -hidden regex curword
+set-face global CurWord +d@MatchingChar
+
+hook global NormalIdle .* %{
+    eval -draft %{ try %{
+        exec <space><a-i>w <a-k>\A\w+\z<ret>
+        set-option buffer curword "\b\Q%val{selection}\E\b"
+    } catch %{
+        set-option buffer curword ''
+    } }
+}
+
+add-highlighter global/ dynregex '%opt{curword}' 0:CurWord
+
+## Git root detection
+declare-option -docstring 'Path of the root of the current versioned project' str git_root_path
+
+hook global WinCreate .* %{ evaluate-commands %sh{
+    path=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ -n "${path}" ]; then
+        printf "
+            set-option buffer git_root_path %%{%s}
+            cd %%opt{git_root_path}
+            git show-diff
+            hook global BufWritePost %%val{buffile} %%{git update-diff}
+            hook global BufReload    %%val{buffile} %%{git update-diff}
+            hook global WinDisplay   %%val{buffile} %%{git update-diff}
+        " $path;
+    fi
+} }
+
+## Tab completion
+hook global InsertCompletionShow .* %{ try %{
+    execute-keys -draft 'h<a-K>\h<ret>'
+    map window insert <tab> <c-n>
+    map window insert <s-tab> <c-p>
+} }
+
+hook global InsertCompletionHide .* %{
+    unmap window insert <tab> <c-n>
+    unmap window insert <s-tab> <c-p>
+}
+
+## Change cursor color in different modes
+hook global ModeChange ".*:normal" %{}
