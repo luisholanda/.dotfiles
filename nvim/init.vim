@@ -1,14 +1,10 @@
 let loaded_matchparen = 1
-runtime essentials.vim
-runtime plugins.vim
-runtime fzf.vim
-runtime keymaps.vim
-
+let g:async_open = 14
+let g:indentLine_char = "▏"
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:diagnostic_virtual_text_prefix = 1
 
-lua require'lsp'
-lua require'colorizer'.setup()
+lua require('init')
 
 filetype plugin indent on
 
@@ -20,7 +16,6 @@ augroup CursorLineHighlight
   autocmd! ColorScheme snow highlight CursorLineNr ctermfg=249 ctermbg=237 guifg=#afb7c0 guibg=#363a3e
 augroup END
 
-
 set background=dark
 colorscheme meh
 
@@ -29,11 +24,6 @@ augroup NumberToggle
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu | set rnu   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu | set nornu | endif
 augroup END
-
-if dein#tap('Shougo/echodoc.vim')
-  let g:echodoc_enable_at_startup = 1
-  let g:echodoc#type = 'virtual'
-endif
 
 command! -bang -complete=buffer -nargs=? Bclose call bclose#close_buffer(<q-bang>, <q-args>)
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
@@ -61,17 +51,18 @@ function! s:check_back_space() abort
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <silent><expr> <TAB>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
   \ completion#trigger_completion()
+inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 augroup CompleteionTriggerCharacter
     autocmd!
     autocmd BufEnter * let g:completion_trigger_character = ['.']
     autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::', '->']
     autocmd BufEnter *.rust let g:completion_trigger_character = ['.','::']
+    autocmd BufEnter * lua require'completion'.on_attach()
 augroup end
 
 " Make comments italic.

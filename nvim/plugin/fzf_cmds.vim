@@ -37,5 +37,7 @@ function! s:Fzf_dev()
 
 endfunction
 
-nmap <silent> <leader>sf :call <SID>Fzf_dev()<CR>
+command! Files call <SID>Fzf_dev()
+
+nmap <silent> <leader>sf :Files<CR>
 nmap <silent> <leader>sb :Buffers<CR>

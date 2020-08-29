@@ -30,49 +30,7 @@ nnoremap <silent> [d :PrevDiagnostic<CR>
 nnoremap <silent> <leader>do :OpenDiagnostic<CR>
 nnoremap <silent> <leader>dl <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
 
-if dein#tap('asyncrun.vim')
-  noremap ! :AsyncRun<space>
-endif
-
-if dein#tap('vim-easymotion')
-  nmap <silent> <leader><leader>w <Plug>(easymotion-bd-w)
-  nmap <silent> <leader><leader>f <Plug>(easymotion-bd-f2)
-  nmap <silent> <leader><leader>t <Plug>(easymotion-bd-t2)
-  nmap <silent> <leader><leader>e <Plug>(easymotion-bd-e)
-  nmap <silent> <leader><leader>s <Plug>(easymotion-sn)
-
-  xmap <silent> <leader><leader>w <Plug>(easymotion-bd-w)
-  xmap <silent> <leader><leader>f <Plug>(easymotion-bd-f2)
-  xmap <silent> <leader><leader>t <Plug>(easymotion-bd-t2)
-  xmap <silent> <leader><leader>e <Plug>(easymotion-bd-e)
-  xmap <silent> <leader><leader>s <Plug>(easymotion-sn)
-
-  omap <silent> <leader><leader>w <Plug>(easymotion-bd-w)
-  omap <silent> <leader><leader>f <Plug>(easymotion-bd-f2)
-  omap <silent> <leader><leader>t <Plug>(easymotion-bd-t2)
-  omap <silent> <leader><leader>e <Plug>(easymotion-bd-e)
-  omap <silent> <leader><leader>s <Plug>(easymotion-sn)
-endif
-
-" Vim Fugitive
-if dein#tap('vim-fugitive')
-  noremap <silent> <leader>gs :Gstatus<CR>
-  noremap <silent> <leader>gb :Gblame<CR>
-  noremap <silent> <leader>gd :Gdiff<CR>
-  noremap <silent> <leader>gp :Gpull --rebase<CR>
-  noremap <silent> <leader>gP :Gpush<CR>
-  noremap <silent> <leader>gf :Gfetch<CR>
-  noremap <silent> <leader>ga :Gwrite<CR>
-endif
-
-if dein#tap('vim-twiggy')
-  noremap <leader>gt :Twiggy<CR>
-  noremap <leader>gc :Twiggy<space>
-endif
-
-if dein#tap('gv.vim')
-  noremap <leader>gl :GV<CR>
-endif
+noremap ! :AsyncRun<space>
 
 inoremap <up> <nop>
 inoremap <down> <nop>
