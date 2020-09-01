@@ -1,9 +1,3 @@
-let loaded_matchparen = 1
-let g:async_open = 14
-let g:indentLine_char = "▏"
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:diagnostic_virtual_text_prefix = 1
-
 lua require('init')
 
 filetype plugin indent on
@@ -76,4 +70,4 @@ augroup end
 
 " Spell checking
 set spell
-set spelllang=en_US
+set spelllang=en

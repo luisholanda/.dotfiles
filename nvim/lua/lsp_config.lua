@@ -62,14 +62,10 @@ function M.setup()
     on_attach = lsp_on_attach,
     settings = {
       ["rust-analyzer"] = {
-        cargo = {
-          loadOutDirsFromCheck = true,
-        },
         completion = {
-          postfix = { enable = true },
+          postfix = { enable = false },
         },
-        inlayHints = { enable = true },
-        procMacro = { enable = true },
+        inlayHints = { enable = false },
       }
     }
   }
