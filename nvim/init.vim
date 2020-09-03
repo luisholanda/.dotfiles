@@ -34,9 +34,6 @@ augroup TermHandling
   autocmd! FileType fzf tnoremap <buffer> <Esc> <C-c>
 augroup END
 
-autocmd ColorScheme * highlight NonText guifg=bg
-autocmd ColorScheme * highlight VertSplit guifg=bg
-
 " Auto close pop-up menu when finish completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
@@ -51,13 +48,20 @@ inoremap <silent><expr> <TAB>
   \ completion#trigger_completion()
 inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-augroup CompleteionTriggerCharacter
+" Configure completion triggers for LSP client.
+augroup CompletionTriggerCharacter
     autocmd!
     autocmd BufEnter * let g:completion_trigger_character = ['.']
     autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::', '->']
     autocmd BufEnter *.rust let g:completion_trigger_character = ['.','::']
+augroup END
+
+" Extra commands specifics for LSP servers.
+augroup LspCmds
+    autocmd!
+    autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter *.rs lua require('lsp_extensions').inlay_hints{ prefix = ' » ', highlight = 'NonText' }
     autocmd BufEnter * lua require'completion'.on_attach()
-augroup end
+augroup END
 
 " Make comments italic.
 let &t_ZH="\e[3m"

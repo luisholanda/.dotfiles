@@ -12,8 +12,9 @@ set colorcolumn=+0,+10
 
 " Show tabline
 set showtabline=2
-" Never show statusline
-set laststatus=0
+" Always show statusline
+set laststatus=2
+set noruler
 
 " number of lines at the beginning and end of files checked for file-specific vars
 set modelines=0
@@ -126,5 +127,3 @@ set undofile
 set undodir=$HOME/.vimundo
 set undolevels=1000
 set undoreload=10000
-
-set ruler

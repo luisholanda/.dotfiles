@@ -13,6 +13,7 @@ local packages = {
   'gcmt/wildfire.vim',
 
   -- Color-schemes
+  'Iron-E/nvim-highlite',
   'nightsense/snow',
   'arzg/vim-colors-xcode',
   'axvr/photon.vim',
@@ -35,13 +36,10 @@ local packages = {
   {
     'neovim/nvim-lsp',
     requires = {
-      {
-        'nvim-lua/completion-nvim',
-        requires = {
-          { 'aca/completion-tabnine', run = './install.sh' },
-        },
-      },
+      'nvim-lua/completion-nvim',
       'nvim-lua/diagnostic-nvim',
+      'nvim-lua/lsp-status.nvim',
+      'tjdevries/lsp_extensions.nvim'
     },
     config = 'require [[lsp_config]].setup()'
   },

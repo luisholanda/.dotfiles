@@ -164,7 +164,7 @@ vim._update_package_paths()
 END
 
 function! s:load(names, cause) abort
-  call luaeval('_packer_load(_A[1], _A[2])', [a:names, a:cause])
+call luaeval('_packer_load(_A[1], _A[2])', [a:names, a:cause])
 endfunction
 
 " Runtimepath customization

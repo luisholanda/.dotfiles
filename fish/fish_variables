@@ -40,3 +40,4 @@ SETUVAR fish_pager_color_completion:444136
 SETUVAR fish_pager_color_description:444136
 SETUVAR fish_pager_color_prefix:784872
 SETUVAR fish_pager_color_progress:d3d2ce\x1e\x2d\x2dbackground\x3d\x235f5a4c
+SETUVAR fish_user_paths:/Users/luiscm/\x2elocal/share/nvim/site/pack/packer/start/fzf/bin

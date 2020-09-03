@@ -20,6 +20,13 @@ function! crystalline#theme#meh#set_theme() abort
         \ 'TabType':      s:generate_group(l:gold, l:gry1),
         \ 'TabSel':       s:generate_group(l:gry0, l:mgnt),
         \ 'TabFill':      s:generate_group(l:gry3, l:gry0),
+        \ 'GitAdd':       s:generate_group(l:gren, l:gry1),
+        \ 'GitChng':      s:generate_group(l:gold, l:gry1),
+        \ 'GitDel':       s:generate_group(l:red, l:gry1),
+        \ 'DiagHint':     s:generate_group(l:blue, l:gry1),
+        \ 'DiagWarn':     s:generate_group(l:gold, l:gry1),
+        \ 'DiagError':    s:generate_group(l:red, l:gry1),
+        \ 'LspMsgs':      s:generate_group(l:gry0, l:gry3)
         \ })
 endfunction
 
