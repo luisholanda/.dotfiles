@@ -11,8 +11,8 @@ window:
     lines: 48
 
   padding:
-    x: 4
-    y: 4
+    x: 6
+    y: 6
 
   dynamic_padding: true
 
@@ -24,15 +24,15 @@ draw_bold_text_with_bright_colors: true
 
 font:
   normal:
-    family: JetBrainsMono Nerd Font
+    family: SauceCodePro Nerd Font
     style: Regular
 
   bold:
-    family: JetBrainsMono Nerd Font
+    family: SauceCodePro Nerd Font
     style: Bold
 
   italic:
-    family: JetBrainsMono Nerd Font
+    family: SauceCodePro Nerd Font
     style: Italic
 
   size: 11
@@ -49,7 +49,7 @@ font:
 
 colors:
   primary:
-    background: '0x2C2D30'
+    background: '0x202022'
     foreground: '0xAFB7C0'
 
   normal:
