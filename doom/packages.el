@@ -1,9 +1,7 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; ~/.config/doom/packages.el
-
-(package! color-identifiers-mode)
+(package! color-identifiers-mode :disable t)
 (package! git-gutter-fringe)
-(package! golden-ratio)
 (package! focus)
 
 ;; Ace Jump
@@ -11,3 +9,18 @@
   :recipe (:host github
                  :repo "winterTTr/ace-jump-mode"
                  :files ("ace-jump-mode.el")))
+
+(package! tree-sitter
+  :recipe (:host github
+           :repo "ubolonton/emacs-tree-sitter"
+           :files ("lisp/*.el")))
+
+(package! tree-sitter-langs
+  :recipe (:host github
+           :repo "ubolonton/emacs-tree-sitter"
+           :files ("langs/*.el" "langs/queries")))
+
+(package! parinfer-rust-mode
+  :recipe (:host github
+           :repo "justinbarclay/parinfer-rust-mode"
+           :files ("*.el")))

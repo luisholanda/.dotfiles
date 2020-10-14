@@ -10,69 +10,78 @@
 
 (doom! :checkers
        (syntax +childframe)
+       (spell +everywhere +hunspell +enchant)
        grammar
 
        :completion
        (company +childframe)
        (ivy
         +fuzzy
-        +childframe)
+        +childframe
+        +icons)
+
+       :editor
+       (evil +everywhere)
+       fold
+       (format +onsave)
+       multiple-cursors
+
+       :emacs
+       eletric
+       (ibuffer +icons)
+       undo
+       vc
+
+       :os
+       macos
+
+       :lang
+       (cc +lsp)
+       data
+       emacs-lisp
+       ;;(javascript +lsp)
+       latex
+       markdown
+       ;;(org
+       ;; +dragndrop
+       ;; +ipython
+       ;; +pandoc
+       ;; +present)
+       ;;plantuml
+       (python +lsp +pyright +pyenv)
+       rest
+       (rust +lsp)
+       (sh +fish)
+       yaml
+
+       :tools
+       (debugger +lsp)
+       (docker +lsp)
+       lookup
+       (lsp +peek)
+       magit
+       make
+       taskrunner
+       terraform
 
        :ui
        doom
        doom-dashboard
        doom-quit
        hl-todo
-       hydra
+       hydra ; todo: drop this after learn the keybindings
        indent-guides
+       ligatures
        (modeline +light)
+       nav-light
        ophints
        (popup
         +all
         +defaults)
        unicode
        vc-gutter
-
-       :editor
-       (evil +everywhere)
-       file-templates
-       fold
-       (format +onsave)
-       multiple-cursors
-       parinfer
-
-       :emacs
-       electric
-       (ibuffer +icons)
-       vc
-
-       :tools
-       (docker +lsp)
-       lsp
-       macos
-       magit
-       make
-
-       :lang
-       data
-       emacs-lisp
-       (javascript +lsp)
-       latex
-       markdown
-       (org
-        +dragndrop
-        +ipython
-        +pandoc
-        +present)
-       plantuml
-       (python +lsp +pyenv)
-       rest
-       (rust +lsp)
-       (sh +fish)
+       zen
 
        :config
-       ;; For literate config users. This will tangle+compile a config.org
-       ;; literate config in your `doom-private-dir' whenever it changes.
        ;;literate
-
-       (default +bindings))
+       (default +bindings +smartparens))
