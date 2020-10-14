@@ -1,6 +1,8 @@
 lua require('init')
+filetype plugin indent off
+packadd vim-polyglot
 
-filetype plugin indent on
+filetype on
 
 " Replace the line number highlight from the Snow Dark colorscheme.
 augroup CursorLineHighlight
@@ -60,7 +62,6 @@ augroup END
 augroup LspCmds
     autocmd!
     autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter *.rs lua require('lsp_extensions').inlay_hints{ prefix = ' » ', highlight = 'NonText' }
-    autocmd BufEnter * lua require'completion'.on_attach()
 augroup END
 
 " Make comments italic.
@@ -70,6 +71,24 @@ augroup ColorschemePatches
     autocmd!
     autocmd ColorScheme * highlight Comment cterm=italic gui=italic
     autocmd ColorScheme meh highlight Keyword cterm=bold gui=bold
+    autocmd ColorScheme meh
+      \| highlight link LspDiagnosticsError Error
+      \| highlight link LspDiagnosticsErrorFLoating ErrorMsg
+      \| highlight link LspDiagnosticsErrorSign ErrorMsg
+      \| highlight link LspDiagnosticsWarning Warning
+      \| highlight link LspDiagnosticsWarningFLoating WarningMsg
+      \| highlight link LspDiagnosticsWarningSign WarningMsg
+      \| highlight link LspDiagnosticsHint Hint
+      \| highlight link LspDiagnosticsHintFLoating HintMsg
+      \| highlight link LspDiagnosticsHintSign HintMsg
+      \| highlight link LspDiagnosticsInformation Info
+      \| highlight link LspDiagnosticsInformationFLoating InfoMsg
+      \| highlight link LspDiagnosticsInformationSign InfoMsg
+      \| highlight LspDiagnosticsUnderline        guifg=NONE guibg=NONE guisp=LightGray gui=underline
+      \| highlight LspDiagnosticsUnderlineError   guifg=NONE guibg=NONE guisp=Red gui=underline
+      \| highlight LspDiagnosticsUnderlineHint    guifg=NONE guibg=NONE guisp=LightGreen gui=underline
+      \| highlight LspDiagnosticsUnderlineInfo    guifg=NONE guibg=NONE guisp=LightBlue gui=underline
+      \| highlight LspDiagnosticsUnderlineWarning guifg=NONE guibg=NONE guisp=Yellow gui=underline
 augroup end
 
 " Spell checking

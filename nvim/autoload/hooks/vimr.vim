@@ -1,5 +1,5 @@
 function! hooks#vimr#startup()
   nnoremap <A-CR> :VimRToggleFullscreen<CR>
 
-  VimRSetFontAndSize "DelugiaCode NF", 12
+  VimRSetFontAndSize "CaskaydiaCove Nerd Font", 12
 endfunction

@@ -9,24 +9,11 @@ local plugins = {
     only_setup = false,
     path = "/Users/luiscm/.local/share/nvim/site/pack/packer/opt/asyncrun.vim"
   },
-  ["nvim-colorizer.lua"] = {
-    config = { "require [[colorizer]].setup()" },
-    loaded = false,
-    only_sequence = false,
-    only_setup = false,
-    path = "/Users/luiscm/.local/share/nvim/site/pack/packer/opt/nvim-colorizer.lua"
-  },
   ["packer.nvim"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
     path = "/Users/luiscm/.local/share/nvim/site/pack/packer/opt/packer.nvim"
-  },
-  ["rust.vim"] = {
-    loaded = false,
-    only_sequence = false,
-    only_setup = false,
-    path = "/Users/luiscm/.local/share/nvim/site/pack/packer/opt/rust.vim"
   },
   ["vim-rfc"] = {
     commands = { "RFC" },
@@ -155,11 +142,16 @@ _packer_load = function(names, cause)
   end
 end
 
+-- Runtimepath customization
+
 -- Pre-load configuration
 -- Post-load configuration
 -- Config for: nvim-lsp
 require [[lsp_config]].setup()
+-- Config for: nvim-colorizer.lua
+require [[colorizer]].setup()
 -- Conditional loads
+-- Load plugins in order defined by `after`
 vim._update_package_paths()
 END
 
@@ -167,9 +159,6 @@ function! s:load(names, cause) abort
 call luaeval('_packer_load(_A[1], _A[2])', [a:names, a:cause])
 endfunction
 
-" Runtimepath customization
-
-" Load plugins in order defined by `after`
 
 " Command lazy-loads
 command! -nargs=* -range -bang -complete=file RFC call s:load(['vim-rfc'], { "cmd": "RFC", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
@@ -180,10 +169,5 @@ command! -nargs=* -range -bang -complete=file AsyncRun call s:load(['asyncrun.vi
 augroup packer_load_aucmds
   au!
   " Filetype lazy-loads
-  au FileType lua ++once call s:load(['nvim-colorizer.lua'], { "ft": "lua" })
-  au FileType html ++once call s:load(['nvim-colorizer.lua'], { "ft": "html" })
-  au FileType css ++once call s:load(['nvim-colorizer.lua'], { "ft": "css" })
-  au FileType vim ++once call s:load(['nvim-colorizer.lua'], { "ft": "vim" })
-  au FileType rust ++once call s:load(['rust.vim'], { "ft": "rust" })
   " Event lazy-loads
 augroup END

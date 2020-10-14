@@ -15,9 +15,9 @@ local packages = {
   -- Color-schemes
   'Iron-E/nvim-highlite',
   'nightsense/snow',
-  'arzg/vim-colors-xcode',
   'axvr/photon.vim',
   'davidosomething/vim-colors-meh',
+  'andreypopp/vim-colors-plain',
 
   -- Syntax
   'sheerun/vim-polyglot',
@@ -27,7 +27,6 @@ local packages = {
   'rbong/vim-crystalline',
   {
     'norcalli/nvim-colorizer.lua',
-    ft = {'lua', 'css', 'vim', 'html'},
     config = 'require [[colorizer]].setup()'
   },
 
@@ -48,10 +47,7 @@ local packages = {
   'airblade/vim-gitgutter',
 
   -- Language specific
-  {
-    'rust-lang/rust.vim',
-    ft = 'rust',
-  },
+  'rust-lang/rust.vim',
 
   -- Fuzzy search
   {

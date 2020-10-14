@@ -1,5 +1,6 @@
 local nvim_lsp = nil;
 local lsp_status = nil;
+local completion = nil;
 local diagnostics = nil;
 local protocol = nil;
 
@@ -41,6 +42,7 @@ local function lsp_on_attach(client, bufnr)
 
   M.update_completion_kinds()
 
+  completion.on_attach(client, bufnr)
   diagnostics.on_attach(client, bufnr)
   lsp_status.on_attach(client, bufnr)
 end
@@ -55,6 +57,7 @@ end
 function M.setup()
   nvim_lsp = require('nvim_lsp')
   lsp_status = require('lsp-status')
+  completion = require('completion')
   diagnostics = require('diagnostic')
   protocol = require('vim.lsp.protocol')
 
@@ -77,7 +80,7 @@ function M.setup()
           addCallArgumentSnippets = false,
           postfix = { enable = false },
         },
-        inlayHints = { enable = false },
+        inlayHints = { enable = true },
       }
     }
   }
