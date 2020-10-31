@@ -16,8 +16,8 @@
        :completion
        (company +childframe)
        (ivy
-        +fuzzy
-        +childframe
+        +prescient
+        ;+childframe
         +icons)
 
        :editor
@@ -25,6 +25,7 @@
        fold
        (format +onsave)
        multiple-cursors
+       snippets
 
        :emacs
        eletric
@@ -47,7 +48,7 @@
        ;; +ipython
        ;; +pandoc
        ;; +present)
-       ;;plantuml
+       nix
        (python +lsp +pyright +pyenv)
        rest
        (rust +lsp)

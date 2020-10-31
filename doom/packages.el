@@ -10,6 +10,11 @@
                  :repo "winterTTr/ace-jump-mode"
                  :files ("ace-jump-mode.el")))
 
+(use-package tsc
+  :straight (tsc :host github
+                 :repo "ubolonton/emacs-tree-sitter"
+                 :files ("core/*.el")))
+
 (package! tree-sitter
   :recipe (:host github
            :repo "ubolonton/emacs-tree-sitter"
@@ -23,4 +28,9 @@
 (package! parinfer-rust-mode
   :recipe (:host github
            :repo "justinbarclay/parinfer-rust-mode"
+           :files ("*.el")))
+
+(package! exec-path-from-shell
+  :recipe (:host github
+           :repo "purcell/exec-path-from-shell"
            :files ("*.el")))

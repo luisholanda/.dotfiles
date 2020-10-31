@@ -1,6 +1,14 @@
 ;;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
 (add-hook 'window-setup-hook #'toggle-frame-maximized)
+(setq shell-file-name "~/.nix-profile/bin/fish")
 
+(when IS-MAC
+  (use-package! exec-path-from-shell
+    :init
+    (exec-path-from-shell-initialize))
+  (setq ns-use-thin-smoothing t)
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist '(ns-appearance . dark)))
 
 (setq-default auto-window-vscroll nil
               user-full-name "Luis Holanda"
@@ -17,12 +25,11 @@
 
 (load-theme 'doom-dark+ t)
 
-(when IS-MAC
-  (setq ns-use-thin-smoothing t)
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . dark)))
-
 (setq display-line-numbers-type 'relative)
+
+(custom-set-faces!
+  '(font-lock-doc-face :slant italic)
+  '(font-lock-comment-face :slant italic))
 
 (when (featurep! :completion company)
   (setq company-idle-delay 0.1
@@ -30,11 +37,49 @@
         company-box-doc-delay 0.1))
 
 (when (featurep! :lang rust +lsp)
-  (setq rustic-lsp-server 'rust-analyzer))
+  (setq rustic-lsp-server 'rust-analyzer)
+  (after! :tools lsp
+    (custom-set-faces!
+      '(rust-analyzer-mutable
+        :inherit tree-sitter-hl-face:variable.special
+        :slant italic)
+      '(rust-analyzer-unsafe
+        :inherit error
+        :slant italic)
+      '(rust-analyzer-consuming
+        :inherit tree-sitter-hl-face:variable
+        :style italic)
+      '(rust-analyzer-unresolved-reference
+        :inherit rainbow-delimiters-base-error-face
+        :box "red"))
+
+    (add-to-list 'lsp-semantic-token-modifier-faces
+         '(("attribute" . tree-sitter-hl-face:attribute)
+           ("boolean" . tree-sitter-hl-face:constant.builtin)
+           ("builtinType" . tree-sitter-hl-face:type.builtin)
+           ("lifetime" . tree-sitter-hl-face:variable.special)
+           ("selfKeyword" . tree-sitter-hl-face:keyword)
+           ("typeAlias" . tree-sitter-hl-face:type)
+           ("union" . tree-sitter-hl-face:type)
+           ("unresolvedReference" . rust-analyzer-unresolved-reference)
+           ("formatSpecifier" . lsp-face-semhl-regexp)
+           ("constant" . tree-sitter-hl-face:constant)
+           ("controlFlow" . tree-sitter-hl-face:keyword)
+           ("mutable" . rust-analyzer-mutable)
+           ("unsafe" . rust-analyzer-unsafe)
+           ("consuming" . rust-analyzer-consuming)))))
 
 (after! projectile
-  (setq projectile-generic-command "fd . -0 -H -E .git --color=never --type file --type symlink --follow"
-        projectile-indexing-method 'alien))
+  (setq projectile-generic-command "/Users/luiscm/.nix-profile/bin/fd -HiLp0 -E .git -c never ."
+        projectile-indexing-method 'alien
+        projectile-project-root-files '("requirements.txt" "setup.py"))
+  (add-to-list 'projectile-project-root-files-bottom-up "Cargo.lock")
+  (projectile-register-project-type 'rust-cargo '("Cargo.lock")
+                                  :project-file "Cargo.lock"
+                                  :compile "cargo build"
+                                  :test "cargo test"
+                                  :run "cargo run"))
+
 
 (after! ivy
   (setq ivy-re-builders-alist
@@ -52,11 +97,17 @@
 
 (after! :tools lsp
   (setq lsp-ui-doc-enable t
+        lsp-ui-doc-position 'at-point
+        lsp-ui-peek-enable t
+        lsp-ui-imenu-enable t
         lsp-ui-doc-position 'top
         lsp-ui-doc-max-width 320
         lsp-ui-doc-max-height 32
         lsp-ui-sideline-show-hover t
         lsp-completion-provider 'capf
+        lsp-semantic-tokens-apply-modifiers t
+        lsp-enable-semantic-highlighting t
+        lsp-enable-relative-indentation t
         read-process-output-max (* 3 1024 1024)))
 
 (after! :ui modeline
