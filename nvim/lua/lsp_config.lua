@@ -1,5 +1,4 @@
-local nvim_lsp = nil;
-local lsp_status = nil;
+local nvim_lsp = nil; local lsp_status = nil;
 local completion = nil;
 local diagnostics = nil;
 local protocol = nil;
@@ -48,7 +47,7 @@ local function lsp_on_attach(client, bufnr)
 end
 
 local function rust_analyzer_cmd()
-  local fh = assert(io.popen("rustup which rust-analyzer"))
+  local fh = assert(io.popen("which rust-analyzer"))
   local data = fh:read("*a")
   fh:close()
   return data:sub(1, -2)
@@ -89,6 +88,10 @@ function M.setup()
     on_attach = lsp_on_attach,
     capabilities = lsp_status.capabilities,
   }
+  nvim_lsp.clangd.setup{
+    on_attach = lsp_on_attach,
+    capabilities = lsp_status.capabilities,
+  }
   nvim_lsp.vimls.setup{
     on_attach = lsp_on_attach,
     capabilities = lsp_status.capabilities,
@@ -107,6 +110,10 @@ function M.setup()
     on_attach = lsp_on_attach,
     capabilities = lsp_status.capabilities,
   })
+  nvim_lsp.rnix.setup {
+    on_attach = lsp_on_attach,
+    capabilities = lsp_status.capabilities,
+  }
 end
 
 return M

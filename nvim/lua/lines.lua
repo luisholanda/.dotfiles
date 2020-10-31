@@ -149,17 +149,6 @@ local function git_stats()
   return make_pill(s)
 end
 
--- project directory pill component.
---
--- A pill containing the current project directory.
-local function project_dir()
-  if vim.b.project_dir == nil then
-    vim.b.project_dir = make_pill_trim('  ' .. fnamemodify(getcwd(), ':~'))
-  end
-
-  return vim.b.project_dir
-end
-
 -- git branch pill component.
 --
 -- A pill containing the current git branch.
@@ -331,11 +320,10 @@ return {
   --    -- git branch
   tabline = function()
     return string.format(
-      " %s %s %s%%=%s",
-      project_dir(),
-      git_branch(),
+      "%s%%=%s %s",
       list_buffers(),
-      lsp_messages())
+      lsp_messages(),
+      git_branch())
   end,
   components = {
     buffer_filename = function()

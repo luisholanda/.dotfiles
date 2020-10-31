@@ -1,6 +1,7 @@
 vim.g.async_open = 14
 vim.g.indentLine_char = "▏"
 vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
+vim.g.completion_matching_smart_case = 1
 vim.g.diagnostic_virtual_text_prefix = 1
 
 vim.g.EasyMotion_do_mapping = 0
@@ -21,7 +22,7 @@ vim.g.crystalline_enable_sep = 1
 vim.g.crystalline_separators = {'', ''}
 vim.g.crystalline_tabline_fn = 'sl#tabline'
 vim.g.crystalline_statusline_fn = 'sl#statusline'
-vim.g.crystalline_theme = 'meh'
+vim.g.crystalline_theme = 'zephyr'
 vim.g.crystalline_supported_sep = {
   InsertMode  = {'', 'Fill', 'TabFill', 'Tab', 'TabSel'},
   ReplaceMode = {'', 'Fill', 'TabFill', 'Tab', 'TabSel'},

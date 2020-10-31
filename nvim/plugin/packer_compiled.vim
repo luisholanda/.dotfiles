@@ -1,5 +1,9 @@
 " Automatically generated packer.nvim plugin loader code
 
+if !has('nvim')
+  finish
+endif
+
 lua << END
 local plugins = {
   ["asyncrun.vim"] = {
@@ -146,10 +150,14 @@ end
 
 -- Pre-load configuration
 -- Post-load configuration
--- Config for: nvim-lsp
-require [[lsp_config]].setup()
+-- Config for: nvim-treesitter
+require [[treesitter]].setup()
+-- Config for: zephyr-nvim
+require[[zephyr]]
 -- Config for: nvim-colorizer.lua
 require [[colorizer]].setup()
+-- Config for: nvim-lsp
+require [[lsp_config]].setup()
 -- Conditional loads
 -- Load plugins in order defined by `after`
 vim._update_package_paths()
@@ -161,8 +169,8 @@ endfunction
 
 
 " Command lazy-loads
-command! -nargs=* -range -bang -complete=file RFC call s:load(['vim-rfc'], { "cmd": "RFC", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 command! -nargs=* -range -bang -complete=file AsyncRun call s:load(['asyncrun.vim'], { "cmd": "AsyncRun", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
+command! -nargs=* -range -bang -complete=file RFC call s:load(['vim-rfc'], { "cmd": "RFC", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 
 " Keymap lazy-loads
 

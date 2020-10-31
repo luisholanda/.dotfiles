@@ -13,7 +13,6 @@ augroup CursorLineHighlight
 augroup END
 
 set background=dark
-colorscheme meh
 
 augroup NumberToggle
   autocmd!
@@ -90,7 +89,3 @@ augroup ColorschemePatches
       \| highlight LspDiagnosticsUnderlineInfo    guifg=NONE guibg=NONE guisp=LightBlue gui=underline
       \| highlight LspDiagnosticsUnderlineWarning guifg=NONE guibg=NONE guisp=Yellow gui=underline
 augroup end
-
-" Spell checking
-set spell
-set spelllang=en

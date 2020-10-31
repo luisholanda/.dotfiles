@@ -13,14 +13,22 @@ local packages = {
   'gcmt/wildfire.vim',
 
   -- Color-schemes
-  'Iron-E/nvim-highlite',
-  'nightsense/snow',
-  'axvr/photon.vim',
-  'davidosomething/vim-colors-meh',
-  'andreypopp/vim-colors-plain',
+  -- 'Iron-E/nvim-highlite',
+  -- 'nightsense/snow',
+  -- 'axvr/photon.vim',
+  -- 'davidosomething/vim-colors-meh',
+  -- 'andreypopp/vim-colors-plain',
+  {
+    'glepnir/zephyr-nvim',
+    config = 'require[[zephyr]]'
+  },
 
   -- Syntax
   'sheerun/vim-polyglot',
+  {
+    'nvim-treesitter/nvim-treesitter',
+    config = 'require [[treesitter]].setup()'
+  },
 
   -- Appearance
   'Yggdroot/indentLine',
