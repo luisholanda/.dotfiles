@@ -35,7 +35,7 @@ font:
     family: SauceCodePro Nerd Font
     style: Italic
 
-  size: 11
+  size: 12
 
   offset:
     x: 0
@@ -49,28 +49,28 @@ font:
 
 colors:
   primary:
-    background: '0x202022'
-    foreground: '0xAFB7C0'
+    background: "0x282C34"
+    foreground: "0xBBC2CF"
 
   normal:
-    black:   '0x2C2D30'
-    red:     '0xBE868C'
-    green:   '0x7F9D77'
-    yellow:  '0xAB916D'
-    blue:    '0x759ABD'
-    magenta: '0xA88CB3'
-    cyan:    '0x5DA19F'
-    white:   '0xAFB7C0'
+    black: "0x1B2229"
+    red: "0xEC5F67"
+    green: "0x5FAF5F"
+    yellow: "0xD8A657"
+    blue: "0x51AFEF"
+    magenta: "0xD16D9E"
+    cyan: "0x56B6C2"
+    white: "0x504945"
 
   bright:
-    black:   '0x363A3E'
-    red:     '0xBE868C'
-    green:   '0x7F9D77'
-    yellow:  '0xAB916D'
-    blue:    '0x759ABD'
-    magenta: '0xA88CB3'
-    cyan:    '0x5DA19F'
-    white:   '0xCBD2D9'
+    black: "0x666660"
+    red: "0xEC5F67"
+    green: "0x5FAF5F"
+    yellow: "0xD8A657"
+    blue: "0x51AFEF"
+    magenta: "0xD16D9E"
+    cyan: "0x56B6C2"
+    white: "0xBBC2CF"
 
 bell:
   animation: EaseOutExpo

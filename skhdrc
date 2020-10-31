@@ -1,6 +1,14 @@
 :: default : yabai -m config window_border off
 :: resize  : yabai -m config window_border on || yabai -m config active_window_border_color 0xff24ccaa
+:: applications : yabai -m config window_border on || yabai -m config active_window_border_color 0xff9ed072
 shift + alt - r ; resize
+shift + alt - a ; applications
+
+applications < escape ; default
+applications < e : /Applications/Alacritty.app/Contents/MacOS/alacritty -e ~/.nix-profile/bin/fish -c 'exec nvim'
+applications < s : open -a /Applications/Alacritty.app --args -e ncspot
+applications < h : open -na /Applications/Alacritty.app --args -e htop
+applications < m : open -a /Applications/TIDAL.app
 
 resize < escape ; default
 resize < h : yabai -m window west --resize right:-40:0 4> /dev/null || yabai -m window --resize right:-20:0
@@ -8,9 +16,8 @@ resize < j : yabai -m window north --resize bottom:0:40 4> /dev/null || yabai -m
 resize < k : yabai -m window south --resize top:0:-40 4> /dev/null || yabai -m window --resize top:0:-20
 resize < l : yabai -m window east --resize left:40:0 4> /dev/null || yabai -m window --resize left:20:0
 
-# alt - return : /Applications/kitty.app/Contents/MacOS/kitty -1 --instance-group=skhd --title=Kitty --directory=/Users/luiscm
-alt - return : /Applications/Alacritty.app/Contents/MacOS/alacritty
-alt - v : /Applications/Alacritty.app/Contents/MacOS/alacritty -e nvim
+#alt - return : /Applications/kitty.app/Contents/MacOS/kitty -1 --instance-group=skhd --title=Kitty --directory=/Users/luiscm
+alt - return : open -na /Applications/Alacritty.app
 
 shift + alt - q : yabai -m window --close
 
