@@ -91,7 +91,6 @@ rec {
     skhdConfig = builtins.readFile "${home}/.dotfiles/skhdrc";
   };
 
-
   system = {
     stateVersion = 4;
 
@@ -104,8 +103,8 @@ rec {
         AppleShowAllExtensions = true;
         AppleShowScrollBars = "WhenScrolling";
         AppleTemperatureUnit = "Celsius";
-        InitialKeyRepeat = 20;
-        KeyRepeat = 5;
+        InitialKeyRepeat = 15;
+        KeyRepeat = 1;
         NSTableViewDefaultSizeMode = 1;
 
         "com.apple.keyboard.fnState" = true;

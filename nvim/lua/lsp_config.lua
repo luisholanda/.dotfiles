@@ -88,7 +88,7 @@ function M.setup()
     on_attach = lsp_on_attach,
     capabilities = lsp_status.capabilities,
   }
-  nvim_lsp.clangd.setup{
+  nvim_lsp.ccls.setup{
     on_attach = lsp_on_attach,
     capabilities = lsp_status.capabilities,
   }

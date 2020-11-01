@@ -1,9 +1,8 @@
 super@{ pkgs, ... }:
 
 let
-  dylibs = with pkgs; [ openssl zlib zstd ];
-  dylibsDev = map (l: l.dev) dylibs;
   otherPackages = with pkgs; [
+    ccls
     fish-foreign-env
     git
     gitAndTools.gh
@@ -13,6 +12,7 @@ let
     nixfmt
     nmap
     pinentry_mac
+    pkg-config
     rnix-lsp
     terraform-lsp
     yarn
@@ -20,7 +20,7 @@ let
   ];
 
   home = rec {
-    packages = dylibs ++ dylibsDev ++ otherPackages;
+    packages = otherPackages;
     username = "luiscm";
     homeDirectory = "/Users/${username}";
     stateVersion = "20.09";
@@ -30,12 +30,6 @@ let
       "${homeDirectory}/.cargo/bin"
       "/run/current-system/sw/bin"
     ];
-    sessionVariables = rec {
-      LDFLAGS = map (l: "-L${l}/lib") dylibs;
-      CPPFLAGS = map (l: "-I${l}/include") dylibsDev;
-      DYLIB_FALLBACK_LIBRARY_PATH = map (l: "${l}/lib") dylibs
-        ++ [ "/usr/local/lib" "/usr/lib" ];
-    };
   };
 
   dotfiles = "${home.homeDirectory}/.dotfiles";
