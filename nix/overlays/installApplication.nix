@@ -1,0 +1,23 @@
+self: super:
+{
+  installApplication =
+    { name, appname ? name, version, src, description, homepage,
+      postInstall ? "", sourceRoot ? ".", ... }:
+      with super; stdenv.mkDerivation {
+        inherit src sourceRoot;
+
+        name = "${name}-${version}";
+        version = "${version}";
+
+        buildInputs = [ undmg unzip ];
+        phases = [ "unpackPhase" "installPhase" ];
+        installPhase = ''
+          mkdir -p "$out/Applications/${appname}.app"
+          mv -pR * "$out/Applications/${appname}.app"
+        '' + postInstall;
+        meta = with stdenv.lib; {
+          inherit description homepage;
+          platforms = platforms.darwin;
+        };
+      };
+}

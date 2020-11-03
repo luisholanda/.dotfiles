@@ -1,5 +1,10 @@
 super@{ lib, pkgs, ... }:
+with pkgs.stdenv;
 let
+  applications = with pkgs; [
+    alacritty
+  ];
+
   otherPackages = with pkgs; [
     bat
     ccls
@@ -22,7 +27,7 @@ let
   ];
 
   username = "luiscm";
-  homeDirectory = if pkgs.stdenv.isDarwin
+  homeDirectory = if isDarwin
     then "/Users/${username}"
     else "/home/${username}";
   dotfiles = "${homeDirectory}/.dotfiles";
@@ -31,7 +36,7 @@ let
 
     home = {
       inherit homeDirectory username;
-      packages = otherPackages;
+      packages = otherPackages ++ lib.optionals isLinux applications;
       stateVersion = "20.09";
       sessionPath = [
         "${homeDirectory}/.pyenv/bin"
@@ -43,9 +48,7 @@ let
 
 
     nixpkgs.config.allowUnfree = true;
-    nixpkgs.overlays = [
-      (import ../overlays/neovim.nix)
-    ];
+    nixpkgs.overlays = import ../overlays;
 
     submoduleSupport = {
       enable = true;
