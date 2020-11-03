@@ -1,7 +1,12 @@
-{ stdenv, pkgs, ... }:
+super@{ stdenv, pkgs, ... }:
 
 rec {
-  imports = [ <home-manager/nix-darwin> ./modules/services/dnscrypt-proxy2 ];
+  imports = [
+    <home-manager/nix-darwin>
+    ./modules/services/dnscrypt-proxy2
+    ./services
+  ];
+
   environment.systemPackages = with pkgs; [
     cmake
     curl
@@ -27,7 +32,7 @@ rec {
     useUserPackages = false;
     useGlobalPkgs = false;
 
-    users.luiscm = import (./home-configuration.nix) { inherit pkgs; };
+    users.luiscm = import (./home-configuration.nix) super;
   };
 
   users.users.luiscm = let user = home-manager.users.luiscm;
@@ -44,51 +49,37 @@ rec {
       [ "USB 10/100/1000 LAN" "Wi-Fi" "Bluetooth PAN" "Thunderbolt Bridge" ];
   };
 
-  services.dnscrypt-proxy2 = {
+  services.skhd = {
     enable = true;
-
-    settings = {
-      server_names = [ "cloudflare-security" ];
-      listen_addresses = [ "127.0.0.1:53" ];
-      max_clients = 64;
-
-      ipv4_servers = true;
-      ipv6_servers = false;
-      dnscrypt_servers = true;
-      doh_servers = true;
-      require_dnssec = true;
-      require_nolog = true;
-      require_nofilter = true;
-
-      force_tcp = false;
-      lb_strategy = "fastest";
-      fallback_resolver = "8.8.8.8:53";
-      ignore_system_dns = true;
-      cache = true;
-      cache_size = 8196;
-      cache_min_ttl = 600;
-      cache_max_ttl = 86400;
-      cache_neg_min_ttl = 60;
-      cache_neg_max_ttl = 600;
-
-      sources.public-resolvers = {
-        urls = [
-          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v2/public-resolvers.md"
-          "https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md"
-        ];
-        cache_file = "public-resolvers.md";
-        minisign_key =
-          "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
-        refresh_delay = 72;
-        prefix = "";
-      };
-    };
+    skhdConfig = builtins.readFile "${users.users.luiscm.home}/.dotfiles/skhdrc";
   };
 
-  services.skhd = let home = users.users.luiscm.home;
-  in {
+  services.yabai = {
     enable = true;
-    skhdConfig = builtins.readFile "${home}/.dotfiles/skhdrc";
+    package = pkgs.yabai;
+    enableScriptingAddition = true;
+    config = rec {
+      mouse_follows_focus = "on";
+      focus_follows_mouse = "autoraise";
+      window_placement = "second_child";
+      window_topmost = "on";
+      window_opacity = "on";
+      window_shadow = "float";
+      window_border = "off";
+      active_window_opacity = 1.0;
+      normal_window_opacity = 0.98;
+      split_ratio = 0.5;
+      auto_balance = "on";
+      mouse_modifier = "fn";
+      mouse_action1 = "move";
+      mouse_action2 = "resize";
+      layout ="bsp";
+      window_gap = 4;
+      top_padding = 4;
+      bottom_padding = top_padding;
+      left_padding = top_padding;
+      right_padding = top_padding;
+    };
   };
 
   system = {
@@ -135,6 +126,7 @@ rec {
     };
 
     keyboard = {
+      enableKeyMapping = true;
       remapCapsLockToEscape = true;
     };
   };

@@ -61,6 +61,7 @@ augroup END
 augroup LspCmds
     autocmd!
     autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter *.rs lua require('lsp_extensions').inlay_hints{ prefix = ' » ', highlight = 'NonText' }
+    autocmd User LspMessageUpdate call sl#update_lsp_messages()
 augroup END
 
 " Make comments italic.
@@ -88,4 +89,3 @@ augroup ColorschemePatches
       \| highlight LspDiagnosticsUnderlineHint    guifg=NONE guibg=NONE guisp=LightGreen gui=underline
       \| highlight LspDiagnosticsUnderlineInfo    guifg=NONE guibg=NONE guisp=LightBlue gui=underline
       \| highlight LspDiagnosticsUnderlineWarning guifg=NONE guibg=NONE guisp=Yellow gui=underline
-augroup end

@@ -222,9 +222,13 @@ local aliases = {
 }
 
 local function lsp_messages()
+  return vim.t.last_lsp_message
+end
+
+local function update_lsp_message()
   local buf_messages = messages()
   if #buf_messages == 0 then
-    return vim.t.last_lsp_message
+    return
   end
 
   local msg = buf_messages[1]
@@ -258,7 +262,6 @@ local function lsp_messages()
   end
 
   vim.t.last_lsp_message = string.format("%s%s%s", cache.lsp_msgs_left_sep, table.concat(content), cache.lsp_msgs_right_sep)
-  return vim.t.last_lsp_message
 end
 
 vim.t.last_lsp_message = string.format('%sno messages yet%s', cache.lsp_msgs_left_sep, cache.lsp_msgs_right_sep)
@@ -343,6 +346,7 @@ return {
       else
         return 0
       end
-    end
+    end,
+    update_lsp_messages = update_lsp_message,
   }
 }

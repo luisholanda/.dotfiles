@@ -23,3 +23,7 @@ endfunction
 function! sl#diagnostic(d)
   return s:lines["components"]["buffer_diagnostics"](a:d)
 endfunction
+
+function! sl#update_lsp_messages()
+  call s:lines["components"]["update_lsp_messages"]()
+endfunction

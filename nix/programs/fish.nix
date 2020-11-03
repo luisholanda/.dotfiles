@@ -57,16 +57,23 @@
     '';
     workon = {
       argumentNames = "project";
-      description = "Goto the given project";
+      description = "Go to the given project";
       body = ''
-        set --local projects_dirs = ~/TerraMagan/repositories ~Projects
-        for proj_dir in project_dirs
+        set --local projects_dirs ~/TerraMagna/repositories ~/Projects
+
+        for proj_dir in $projects_dirs
           if test -d $proj_dir/$project
             cd $proj_dir/$project
 
             if test -d ~/.pyenv/version/$project
               pyenv activate $project
             end
+
+            if test -f $proj_dir/$project/shell.nix
+              nix-shell
+            end
+
+            return 0
           end
         end
 

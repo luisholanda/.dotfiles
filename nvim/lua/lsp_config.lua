@@ -43,7 +43,7 @@ local function lsp_on_attach(client, bufnr)
 
   completion.on_attach(client, bufnr)
   diagnostics.on_attach(client, bufnr)
-  lsp_status.on_attach(client, bufnr)
+  --lsp_status.on_attach(client, bufnr)
 end
 
 local function rust_analyzer_cmd()
@@ -65,7 +65,7 @@ function M.setup()
   nvim_lsp.rust_analyzer.setup{
     cmd = {rust_analyzer_cmd()},
     on_attach = lsp_on_attach,
-    capabilities = lsp_status.capabilities,
+    --capabilities = lsp_status.capabilities,
     settings = {
       ["rust-analyzer"] = {
         cargo = {
@@ -91,6 +91,10 @@ function M.setup()
   nvim_lsp.ccls.setup{
     on_attach = lsp_on_attach,
     capabilities = lsp_status.capabilities,
+  }
+  nvim_lsp.gopls.setup{
+    on_attach = lsp_on_attach,
+    capabilities = lsp_status.capabilities
   }
   nvim_lsp.vimls.setup{
     on_attach = lsp_on_attach,
