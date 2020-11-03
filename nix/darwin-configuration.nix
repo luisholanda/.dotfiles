@@ -1,8 +1,21 @@
-super@{ stdenv, pkgs, ... }:
+super@{ config, lib, pkgs, ... }:
 
-rec {
+with pkgs.stdenv;
+with lib;
+let
+  myUserCfg = config.home-manager.users.luiscm;
+  fishEnable = myUserCfg.programs.fish.enable;
+  user = rec {
+    name = "luiscm";
+    home = if isDarwin
+      then "/Users/${name}"
+      else "/home/${name}";
+    shell = optional fishEnable pkgs.fish;
+  };
+in rec {
   imports = [
     <home-manager/nix-darwin>
+    ./config
     ./modules/services/dnscrypt-proxy2
     ./services
   ];
@@ -13,40 +26,22 @@ rec {
     coreutils
     wget
     dnscrypt-proxy2
-  ];
+  ] ++ optional isDarwin pkgs.pinentry_mac
+    ++ optional isLinux pkgs.pinentry;
 
-  environment.shells = [ pkgs.fish ];
-
-  services.nix-daemon.enable = true;
-  nix = rec {
-    package = pkgs.nix;
-    gc.automatic = true;
-    useDaemon = true;
-    buildCores = 4;
-    useSandbox = true;
-    binaryCaches = [ "https://cache.nixos.org/" ];
-    trustedBinaryCaches = binaryCaches;
-  };
-
-  home-manager = {
-    useUserPackages = false;
-    useGlobalPkgs = false;
-
-    users.luiscm = import (./home-configuration.nix) super;
-  };
-
-  users.users.luiscm = let user = home-manager.users.luiscm;
-  in rec {
-    name = user.home.username;
-    home = user.home.homeDirectory;
-    shell = if user.programs.fish.enable then pkgs.fish else pkgs.zsh;
-  };
+  environment.shells = optional fishEnable pkgs.fish;
+  users.users."${user.name}" = user;
 
   networking = {
     computerName = "MacBook Pro de Luis";
     hostName = "MacBook-Pro-de-Luis";
     knownNetworkServices =
       [ "USB 10/100/1000 LAN" "Wi-Fi" "Bluetooth PAN" "Thunderbolt Bridge" ];
+  };
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
   };
 
   services.skhd = {
