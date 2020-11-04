@@ -89,7 +89,6 @@ _packer_load = function(names, cause)
   for _, name in ipairs(names) do
     if not plugins[name].loaded then
       vim.cmd('packadd ' .. name)
-      vim._update_package_paths()
       if plugins[name].config then
         for _i, config_line in ipairs(plugins[name].config) do
           loadstring(config_line)()
@@ -150,17 +149,16 @@ end
 
 -- Pre-load configuration
 -- Post-load configuration
--- Config for: nvim-treesitter
-require [[treesitter]].setup()
--- Config for: zephyr-nvim
-require[[zephyr]]
--- Config for: nvim-colorizer.lua
-require [[colorizer]].setup()
 -- Config for: nvim-lsp
 require [[lsp_config]].setup()
+-- Config for: nvim-colorizer.lua
+require [[colorizer]].setup()
+-- Config for: zephyr-nvim
+require[[zephyr]]
+-- Config for: nvim-treesitter
+require [[treesitter]].setup()
 -- Conditional loads
 -- Load plugins in order defined by `after`
-vim._update_package_paths()
 END
 
 function! s:load(names, cause) abort

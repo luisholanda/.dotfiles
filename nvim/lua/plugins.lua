@@ -1,7 +1,6 @@
 local vim = vim or {}
 
 vim.cmd [[packadd packer.nvim]]
-vim._update_package_paths()
 
 local packages = {
   { 'wbthomason/packer.nvim', opt = true },
@@ -78,8 +77,6 @@ return require('packer').startup {
     for _, pkg in pairs(packages) do
       use(pkg)
     end
-
-    vim._update_package_paths()
   end,
   config = {
     display = {

@@ -1,6 +1,6 @@
 lua require('init')
 filetype plugin indent off
-packadd vim-polyglot
+" packadd vim-polyglot
 
 filetype on
 
