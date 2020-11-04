@@ -1,14 +1,6 @@
 :: default : yabai -m config window_border off
-:: resize  : yabai -m config window_border on || yabai -m config active_window_border_color 0xff24ccaa
-:: applications : yabai -m config window_border on || yabai -m config active_window_border_color 0xff9ed072
+:: resize  : yabai -m config window_border on; yabai -m config active_window_border_color 0xff24ccaa
 shift + alt - r ; resize
-shift + alt - a ; applications
-
-applications < escape ; default
-applications < e : /Applications/Alacritty.app/Contents/MacOS/alacritty -e ~/.nix-profile/bin/fish -c 'exec nvim'
-applications < s : open -a /Applications/Alacritty.app --args -e ncspot
-applications < h : open -na /Applications/Alacritty.app --args -e htop
-applications < m : open -a /Applications/TIDAL.app
 
 resize < escape ; default
 resize < h : yabai -m window west --resize right:-40:0 4> /dev/null || yabai -m window --resize right:-20:0
@@ -17,7 +9,9 @@ resize < k : yabai -m window south --resize top:0:-40 4> /dev/null || yabai -m w
 resize < l : yabai -m window east --resize left:40:0 4> /dev/null || yabai -m window --resize left:20:0
 
 #alt - return : /Applications/kitty.app/Contents/MacOS/kitty -1 --instance-group=skhd --title=Kitty --directory=/Users/luiscm
-alt - return : open -na /Applications/Alacritty.app
+alt - return : open -na ~/.nix-profile/Applications/Alacritty.app
+alt - b : open -a ~/.nix-profile/Applications/Firefox.app --args -P home
+alt - m : open -a /Applications/TIDAL.app
 
 shift + alt - q : yabai -m window --close
 
@@ -124,15 +118,12 @@ alt - f : yabai -m window --toggle zoom-fullscreen
 shift + alt - f : yabai -m window --toggle native-fullscreen
 
 # toggle window split type
-alt - e : yabai -m window --toggle split
-shift + alt - e : yabai -m space --rotate 90
+alt - s : yabai -m window --toggle split
+alt - r : yabai -m space --rotate 90
 
 # float / unfloat window and center on screen
 alt - t : yabai -m window --toggle float;\
           yabai -m window --grid 6:6:1:1:4:4
-
-# toggle sticky
-alt - s : yabai -m window --toggle sticky
 
 # toggle sticky, float and resize to picture-in-picture size
 alt - p : yabai -m window --toggle sticky;\
