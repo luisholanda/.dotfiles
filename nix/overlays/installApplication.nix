@@ -13,7 +13,7 @@ self: super:
         phases = [ "unpackPhase" "installPhase" ];
         installPhase = ''
           mkdir -p "$out/Applications/${appname}.app"
-          mv -pR * "$out/Applications/${appname}.app"
+          mv ${appname}.app "$out/Applications/"
         '' + postInstall;
         meta = with stdenv.lib; {
           inherit description homepage;

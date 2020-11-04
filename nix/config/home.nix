@@ -1,30 +1,27 @@
 super@{ lib, pkgs, ... }:
+
 with pkgs.stdenv;
 let
   applications = with pkgs; [
     alacritty
   ];
 
-  otherPackages = with pkgs; [
+  otherPackages = with pkgs; let
+    gcpPkgs = [ cloud-sql-proxy google-cloud-sdk ];
+    lspPkgs = [ ccls gopls rnix-lsp terraform-lsp ];
+  in [
     bat
-    ccls
-    cloud-sql-proxy
     exa
     fish-foreign-env
-    git
     gitAndTools.gh
-    google-cloud-sdk
-    gopls
     httpie
     jq
     nixfmt
-    nmap
     pkg-config
-    rnix-lsp
-    terraform-lsp
     yarn
     vagrant
-  ];
+  ] ++ gcpPkgs
+  ++ lspPkgs;
 
   username = "luiscm";
   homeDirectory = if isDarwin
@@ -32,11 +29,13 @@ let
     else "/home/${username}";
   dotfiles = "${homeDirectory}/.dotfiles";
   myHomeConfig = {
-    imports = [ ../programs ];
+    programs = import ../programs super // {
+      home-manager.enable = true;
+    };
 
     home = {
       inherit homeDirectory username;
-      packages = otherPackages ++ lib.optionals isLinux applications;
+      packages = otherPackages ++ applications;
       stateVersion = "20.09";
       sessionPath = [
         "${homeDirectory}/.pyenv/bin"
@@ -46,16 +45,10 @@ let
       ];
     };
 
-
-    nixpkgs.config.allowUnfree = true;
-    nixpkgs.overlays = import ../overlays;
-
     submoduleSupport = {
       enable = true;
       externalPackageInstall = false;
     };
-
-    programs.home-manager.enable = true;
   };
 in {
   home-manager = {

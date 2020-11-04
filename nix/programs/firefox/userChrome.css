@@ -1,0 +1,242 @@
+/*
+ * Hide window controls
+ */
+.titlebar-buttonbox-container {
+  display: none !important;
+}
+
+.titlebar-placeholder,
+#TabsToolbar .titlebar-spacer { display: none; }
+#navigator-toolbox::after { display: none !important; }
+
+/*
+ * Hide all the clutter in the navbar
+ */
+#main-window :-moz-any(#back-button,
+                       #forward-button,
+                       #stop-reload-button,
+                       #home-button,
+                       #library-button,
+                       #sidebar-button,
+                       #start-button,
+                       #pocket-button,
+                       #permissions-granted-icon,
+                       #fxa-toolbar-menu-button,
+                       #page-action-buttons,
+                       #_d7742d87-e61d-4b78-b8a1-b469842139fa_-browser-action /* Vimium */) {
+ display: none !important;
+}
+
+
+/*
+ * Hide tabs if only one tab
+ */
+#titlebar .tabbrowser-tab[first-visible-tab="true"][last-visible-tab="true"] {
+  display: none !important;
+}
+
+/*
+ * Move tab line to the bottom
+ */
+#navigator-toolbox .tab-line {
+  -moz-box-ordinal-group: 2;
+}
+
+#navigator-toolbox #urlbar-container {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#navigator-toolbox #urlbar {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+#navigator-toolbox #PanelUI-button {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+}
+
+#navigator-toolbox #nav-bar {
+  box-shadow: none !important;
+}
+
+#navigator-toolbox #pageActionButton,
+#navigator-toolbox #pageActionSeparator,
+#navigator-toolbox .urlbar-history-dropmarker,
+#navigator-toolbox #tabs-newtab-button,
+#navigator-toolbox .tabbrowser-tab::after,
+#navigator-toolbox #urlbar-zoom-button,
+#appMenu-fxa-container,
+#appMenu-fxa-container + toolbarseparator,
+#sync-setup
+{
+  display: none !important;
+}
+
+#fullscr-toggler {
+  height: 0 !important;
+}
+
+#navigator-toolbox #tracking-protection-icon-container {
+  padding-right: 0 !important;
+  border: none !important;
+  display: none !important;
+}
+
+/*
+ * Hamburger menu to the left
+ */
+#PanelUI-button {
+  -moz-box-ordinal-group: 0;
+  border-left: none !important;
+  border-right: none !important;
+  position: absolute;
+}
+
+#toolbar-context-menu .viewCustomizeToolbar {
+  display: none !important;
+}
+
+/*
+ * Tabs to the right of the urlbar
+ */
+
+/* Modifiy these to change relative widths or default height */
+#navigator-toolbox {
+  --uc-navigationbar-width: 52vw;
+  --uc-toolbar-height: 40px;
+}
+
+/* Override for other densities */
+:root[uidensity=compact] #navigator-toolbox { --uc-toolbar-height: 28px; }
+:root[uidensity=touch] #navigator-toolbox { --uc-toolbar-height: 40px; }
+
+:root[uidensity=compact] #urlbar {
+  max-width: 42vw !important;
+}
+
+:root[uidensity=compact] #urlbar-container.megabar {
+  --urlbar-container-height: var(--uc-toolbar-height) !important;
+  padding-block: 0 !important;
+}
+:root[uidensity=compact] #urlbar.megabar {
+  --url-toolbar-height: var(--uc-toolbar-height) !important;
+}
+
+/* prevent urlbar overflow on narrow windows */
+/* Dependent on how many items are in navigation toolbar ADJUST AS NEEDED */
+@media screen and (max-width: 1300px) {
+  #urlbar-container { min-width: unset !important }
+}
+
+#TabsToolbar { margin-left: var(--uc-navigationbar-width); }
+#tabbrowser-tabs { --tab-min-height: var(--uc-toolbar-height) !important }
+
+/* This isn't useful when tabs start in the middle of the window */
+.titlebar-placeholder[type="pre-tabs"],
+.titlebar-spacer[type="pre-tabs"]{ display: none !important }
+
+#navigator-toolbox > #nav-bar {
+  margin-right: calc(100vw - var(--uc-nagivationbar-width)) !important;
+  margin-top: calc(0px - var(--uc-toolbar-height)) !important;
+}
+
+/* Zero window drag space */
+:root[tabsintitlebar="true"] #nav-bar {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+/* 1px margin opn touch density causes tabs to be too high */
+.tab-close-button {
+  margin-top: 0 !important;
+}
+
+/* Hide dropdown placeholder */
+#urlbar-container:not(:hover) .urlbar-history-dropmarker { margin-inline-start: -28px; }
+
+/* Fix customization view */
+#customization-panelWrapper > .panel-arrowbox > .panel-arrow { margin-inline-end: initial !important; }
+
+/*
+ * Only show close icons when hovered
+ */
+.tabbrowser-tab:not([pinned]):not(:hover) .tab-close-button {
+  display: none !important;
+}
+
+.tabbrowser-tab:not([pinned]):hover .tab-close-button {
+  display: moz-box !important;
+}
+
+/*
+ * Fix tabs unselected tabs not being shown
+ */
+.tabbrowser-tab:not([selected]) {
+  z-index: 2 !important;
+  position: absolute !important;
+}
+
+/*
+ * Auto-hide sidebar
+ */
+:root {
+  --sidebar-hover-width: 10px;
+  --sidebar-visible-width: 200px;
+}
+
+#sidebar-box {
+  position: relative !important;
+  overflow-x: hidden !important;
+  margin-right: calc(var(--sidebar-hover-width) * -1) !important;
+  left: var(--sidebar-hover-width) !important;
+  min-width: var(--sidebar-hover-width) !important;
+  max-width: var(--sidebar-hover-width) !important;
+  border-right: 1px solid var(--sidebar-border-color);
+  z-index: 1;
+}
+
+#sidebar-box:hover {
+  margin-right: calc(var(--sidebar-visible-width) * -1) !important;
+  left: var(--sidebar-visible-width) !important;
+  min-width: var(--sidebar-visible-width) !important;
+  max-width: var(--sidebar-visible-width) !important;
+}
+
+#sidebar {
+  opacity: 0 !important;
+}
+
+#sidebar-box:hover #sidebar {
+  opacity: 1 !important;
+}
+
+/* #sidebar-header is hidden by default, change "none" to "inherit" to restore it. */
+#sidebar-header {
+  display: none !important;
+}
+
+/* #sidebar-splitter styles the divider between the sidebar and the rest of the browser. */
+#sidebar-splitter {
+  display: none;
+}
+
+/*
+ * Bookmarks bar is only visible in new tab.
+ */
+#main-window #PersonalToolbar {
+  visibility: collapse !important;
+}
+
+#main-window[title^="about:newtab"] #PersonalToolbar,
+#main-window[title^="New Tab"] #PersonalToolbar,
+#main-window[title^="Nightly"] #PersonalToolbar,
+#main-window[title^="Mozilla Firefox"] #PersonalToolbar,
+#main-window[title^="Firefox"] #PersonalToolbar,
+#main-window[title^="新标签页"] #PersonalToolbar,
+#main-window[title^="Customize Firefox"] #PersonalToolbar {
+  visibility: visible !important;
+}

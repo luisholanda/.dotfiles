@@ -22,20 +22,32 @@ in
     ./services
   ];
 
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
+  nixpkgs.overlays = import ./overlays;
+
   environment.systemPackages = with pkgs; [
     cmake
     curl
     coreutils
     wget
     dnscrypt-proxy2
-  ] ++ optionals isDarwin [
-    alacritty
-    pinentry_mac
-  ]
+  ] ++ optional isDarwin pinentry_mac
   ++ optional isLinux pinentry;
 
   environment.shells = optional fishEnable pkgs.fish;
   users.users."${user.name}" = user;
+
+  networking = {
+    computerName = "MacBook Pro de Luis";
+    hostName = "MacBook-Pro-de-Luis";
+    knownNetworkServices =
+      [ "USB 10/100/1000 LAN" "Wi-Fi" "Bluetooth PAN" "Thunderbolt Bridge" ];
+  };
 
   system.stateVersion = 4;
 }

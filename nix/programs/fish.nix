@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-  programs.fish = {
   enable = true;
   interactiveShellInit = ''
     set -g fish_key_bindings fish_user_keybindings
@@ -49,11 +48,27 @@
 
     gt = "git";
     mk = "make";
+
+    cdot = "cd ~/.dotfiles";
   };
   functions = {
     fish_user_keybindings = ''
       fish_default_key_bindings -M insert
       fish_vi_key_bindings default
+
+      set -U pisces_pairs '(,)' '[,]' '{,}' '","' "','"
+
+      for pair in $pisces_pairs
+        _pisces_bind_pair insert (string split -- ',' $pair)
+      end
+
+      # normal backspace, also known as \010 or ^H:
+      bind -M insert \b _pisces_backspace
+      # Terminal.app sends DEL code on ?:
+      bind -M insert \177 _pisces_backspace
+
+      # overrides TAB to provide completion of vars before a closing '"'
+      bind -M insert \t _pisces_complete
     '';
     workon = {
       argumentNames = "project";
@@ -83,15 +98,23 @@
     };
   };
   plugins = [
-    {
+    rec {
       name = "pure";
       src = pkgs.fetchFromGitHub {
         owner = "rafaelrinaldi";
-        repo = "pure";
+        repo = name;
         rev = "d66aa7f0fec5555144d29faec34a4e7eff7af32b";
         sha256 = "0klcwlgsn6nr711syshrdqgjy8yd3m9kxakfzv94jvcnayl0h62w";
       };
     }
+    rec {
+      name = "pisces";
+      src = pkgs.fetchFromGitHub {
+        owner = "laughedelic";
+        repo = name;
+        rev = "34971b9671e217cfba0c71964f5028d44b58be8c";
+        sha256 = "05wjq7v0v5hciqa27wx2xypyywa4291pxmmvfv5yvwmxm1pc02hm";
+      };
+    }
   ];
-};
 }

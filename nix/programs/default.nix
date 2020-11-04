@@ -1,11 +1,10 @@
-super:
+super@{ pkgs, ... }:
 {
-  imports = [
-    ./fish.nix
-    ./git.nix
-  ];
+  firefox = import ./firefox super;
+  fish = import ./fish.nix super;
+  git = import ./git.nix super;
 
-  programs.fzf = rec {
+  fzf = rec {
     enable = true;
 
     changeDirWidgetCommand = "fd --type d";
@@ -13,13 +12,13 @@ super:
     fileWidgetCommand = "fd --type f";
   };
 
-  programs.go = rec {
+  go = rec {
     enable = true;
     goPath = ".gopath";
     goBin = "${goPath}/bin";
   };
 
-  programs.gpg = {
+  gpg = {
     enable = true;
     settings = rec {
       default-key = "E88FEEF182345568289945A7DA2223669494475C";
@@ -44,7 +43,7 @@ super:
     };
   };
 
-  programs.htop = {
+  htop = {
     enable = true;
     cpuCountFromZero = true;
     delay = 5;
@@ -55,8 +54,9 @@ super:
     treeView = true;
   };
 
-  programs.neovim = {
+  neovim = {
     enable = true;
+    package = pkgs.neovim-unwrapped;
     viAlias = true;
     vimAlias = true;
     withNodeJs = false;
