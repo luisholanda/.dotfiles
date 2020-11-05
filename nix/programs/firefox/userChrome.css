@@ -240,3 +240,19 @@
 #main-window[title^="Customize Firefox"] #PersonalToolbar {
   visibility: visible !important;
 }
+
+/*
+ * Move close button to the left
+ */
+#TabsToolbar .tab-close-button {
+  -moz-box-ordinal-group: 0 !important;
+  margin-left: -6px !important;
+  border-radius: 2px !important;
+  transition: opacity 200ms !important;
+}
+
+#TabsToolbar .tab-icon-image:not([pinned])
+{
+  margin-left: 2px;
+}
+
