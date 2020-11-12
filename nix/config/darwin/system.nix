@@ -1,3 +1,4 @@
+{ config, ... }:
 {
   defaults = {
     NSGlobalDomain = {
@@ -11,6 +12,7 @@
       InitialKeyRepeat = 15;
       KeyRepeat = 1;
       NSTableViewDefaultSizeMode = 1;
+      _HIHideMenuBar = config.services.spacebar.enable;
 
       "com.apple.keyboard.fnState" = true;
       "com.apple.springing.delay" = "0.5";

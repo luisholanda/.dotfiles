@@ -1,5 +1,6 @@
 let
   overlays = [
+    ./channels.nix
     ./installApplication.nix
     ./firefox.nix
     ./myLib.nix

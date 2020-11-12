@@ -20,6 +20,7 @@ let
     pkg-config
     yarn
     vagrant
+    pkgs.unstable.llvm_11
   ] ++ gcpPkgs
   ++ lspPkgs;
 

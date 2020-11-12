@@ -1,6 +1,7 @@
 { pkgs, ... }:
 
-{
+let channels = import ../channels;
+in {
   enable = true;
   interactiveShellInit = ''
     set -g fish_key_bindings fish_user_keybindings
@@ -25,7 +26,7 @@
     end
     set -e fish_function_path[1]
 
-    set -p NIX_PATH darwin-config=$HOME/.nixpkgs/darwin-configuration.nix
+    set -p NIX_PATH ${builtins.concatStringsSep " " channels.nixPathStr}
   '';
   shellAliases = rec {
     grep = "grep --color";
