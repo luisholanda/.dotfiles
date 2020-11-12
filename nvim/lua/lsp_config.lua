@@ -63,23 +63,27 @@ function M.setup()
   lsp_status.register_progress()
 
   nvim_lsp.rust_analyzer.setup{
+    root_dir = nvim_lsp.util.root_pattern("Cargo.lock", ".git"),
     cmd = {rust_analyzer_cmd()},
     on_attach = lsp_on_attach,
-    --capabilities = lsp_status.capabilities,
+    capabilities = lsp_status.capabilities,
     settings = {
       ["rust-analyzer"] = {
         cargo = {
           allFeatures = true,
           noDefaultFeatures = false,
+          loadOutDirsFromCheck = true,
         },
         checkOnSave = {
           allFeatures = true,
+          command = "clippy"
         },
         completion = {
           addCallArgumentSnippets = false,
           postfix = { enable = false },
         },
         inlayHints = { enable = true },
+        procMacro = { enable = true },
       }
     }
   }

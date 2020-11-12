@@ -89,3 +89,6 @@ augroup ColorschemePatches
       \| highlight LspDiagnosticsUnderlineHint    guifg=NONE guibg=NONE guisp=LightGreen gui=underline
       \| highlight LspDiagnosticsUnderlineInfo    guifg=NONE guibg=NONE guisp=LightBlue gui=underline
       \| highlight LspDiagnosticsUnderlineWarning guifg=NONE guibg=NONE guisp=Yellow gui=underline
+augroup END
+
+autocmd VimEnter * :silent exec "!kill -s SIGWINCH $PPID"
