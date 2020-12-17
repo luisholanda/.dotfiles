@@ -45,6 +45,23 @@ let
         "${homeDirectory}/.cargo/bin"
         "/run/current-system/sw/bin"
       ];
+
+      file = {
+        doomConfig = {
+          source = ../../doom;
+          target = ".config/doom";
+        };
+        kakouneConfig = {
+          source = ../../kakrc;
+          target = ".config/kak";
+        };
+        neovimConfig = {
+          source = ../../nvim;
+          target = ".config/nvim";
+          # Prevent that we add generated files to git.
+          recursive = true;
+        };
+      };
     };
 
     submoduleSupport = {
