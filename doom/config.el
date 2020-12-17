@@ -7,7 +7,7 @@
     :init
     (exec-path-from-shell-initialize))
   (setq ns-use-thin-smoothing t)
-  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  ;;(add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . dark)))
 
 (setq-default auto-window-vscroll nil
@@ -31,13 +31,18 @@
   '(font-lock-doc-face :slant italic)
   '(font-lock-comment-face :slant italic))
 
+(when (featurep! :ui modeline +light)
+  (setq +modeline-position " %p "))
+
 (when (featurep! :completion company)
   (setq company-idle-delay 0.1
         company-minimum-prefix-length 3
         company-box-doc-delay 0.1))
 
 (when (featurep! :lang rust +lsp)
-  (setq rustic-lsp-server 'rust-analyzer)
+  (setq rustic-lsp-server 'rust-analyzer
+        lsp-rust-analyzer-cargo-load-out-dirs-from-check t
+        lsp-rust-analyzer-proc-macro-enable t)
   (after! :tools lsp
     (custom-set-faces!
       '(rust-analyzer-mutable

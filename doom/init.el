@@ -30,8 +30,6 @@
        :emacs
        eletric
        (ibuffer +icons)
-       undo
-       vc
 
        :os
        macos
@@ -60,9 +58,7 @@
        (docker +lsp)
        lookup
        (lsp +peek)
-       magit
        make
-       taskrunner
        terraform
 
        :ui
