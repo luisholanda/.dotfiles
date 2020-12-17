@@ -3,7 +3,6 @@ super@{ lib, pkgs, ... }:
 with pkgs.stdenv;
 let
   applications = with pkgs; [
-    unstable.alacritty
     gccemacs
   ];
 

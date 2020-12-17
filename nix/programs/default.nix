@@ -1,5 +1,6 @@
 super@{ pkgs, ... }:
 {
+  alacritty = import ./alacritty.nix super;
   firefox = import ./firefox super;
   fish = import ./fish.nix super;
   git = import ./git.nix super;
