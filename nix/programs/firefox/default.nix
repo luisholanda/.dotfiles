@@ -55,12 +55,16 @@ let
       htmlaboutaddons.recommendations.enabled = false;
       blocklist.enabled = true;
     };
-    gfx.webrender = {
-      all = true;
-      enabled = true;
+    gfx = {
       font_rendering = {
-        opentype_svg.enabled = false;
+        coretext.enabled = true;
         graphite.enabled = false;
+        opentype_svg.enabled = false;
+      };
+
+      webrender = {
+        all = true;
+        enabled = true;
       };
     };
     identity.fxaccounts.account.device.name = config.networking.hostName;
