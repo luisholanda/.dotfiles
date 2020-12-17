@@ -9,8 +9,8 @@ let
   nurRepos = fetchFromGitHub {
     owner = "nix-community";
     repo = "nur-combined";
-    rev = "d49380f73b0389d3321d420086cd605ee6a0846f";
-    sha256 = "0qw4757m3i9n61cd8544kd8ynl8m1zvjsh44mpgg3nm82i455csx";
+    rev = "2c9ab535acd662cf07fed5c7ca2484164462f9c9";
+    sha256 = "1l9py6qy6k6f1jc4vf4wk3cx7rxvhh042786lw6klrlgl8kx86aw";
   };
   nixDarwin = fetchFromGitHub {
     owner = "LnL7";
@@ -21,8 +21,8 @@ let
   nixUnstable = fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "db11a42e7b0981a693ad6625e479aed9cac2aa94";
-    sha256 = "16rr1g80rwvggvma97k0cd2fm0ykhx896jcpcc9p67878s5qvgva";
+    rev = "919648ae9c3886ac23565f270f713f9e69b656db";
+    sha256 = "0mi61nil7i3kb52knvfq5khibbhdghrxqc0n4mhb4652z2a3gq2q";
   };
 in rec {
   __nixPath = [
