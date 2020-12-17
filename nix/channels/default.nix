@@ -28,7 +28,7 @@ in rec {
   __nixPath = [
     { prefix = "nur"; src = nurRepos; }
     { prefix = "nixpkgs-unstable"; src = nixUnstable; }
-    { prefix = "darwin-config"; src = "${HOME}/.dotfiles/nix/darwin-configuration.nix"; }
+    { prefix = "darwin-config"; src = "${HOME}/.dotfiles/nix/configuration.nix"; }
   ];
   nixPath = map ({ prefix, src }: { "${prefix}" = "${src}"; }) __nixPath
   ++ [

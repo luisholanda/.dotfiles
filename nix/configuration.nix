@@ -8,8 +8,8 @@ let
   user = rec {
     name = "luiscm";
     home = if isDarwin
-    then "/Users/${name}"
-    else "/home/${name}";
+      then "/Users/${name}"
+      else "/home/${name}";
     shell = optional fishEnable pkgs.fish;
   };
 
@@ -32,8 +32,7 @@ in
     coreutils
     wget
     dnscrypt-proxy2
-  ] ++ optional isDarwin pinentry_mac
-  ++ optional isLinux pinentry;
+  ];
 
   environment.shells = optional fishEnable pkgs.fish;
   users.users."${user.name}" = user;
