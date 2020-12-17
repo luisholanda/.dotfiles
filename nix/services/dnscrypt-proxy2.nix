@@ -1,22 +1,20 @@
-super:
+super@{ pkgs, ... }:
 
 let
-  noTrackingBlacklist = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/notracking/hosts-blocklists/de5de6c24ad8fa1edfe6387d666acff21869083f/dnscrypt-proxy/dnscrypt-proxy.blacklist.txt";
-    sha256 = "0gbpxa1x2yc8yffaj0xzq1brwhg1m9s389av7r8r6c5d4j9hsl9c";
+  domainsBlacklist = builtins.fetchurl {
+    url = "https://raw.githubusercontent.com/notracking/hosts-blocklists/b5083b66309399c47a2414885285cdb754256898/dnscrypt-proxy/dnscrypt-proxy.blacklist.txt";
+    sha256 = "1n9bfij0fg17rpa0d8b4nk285m54x773pm7zfpz2mixlc5k09jcd";
   };
 in {
   services.dnscrypt-proxy2 = {
     enable = true;
 
     settings = {
-      server_names = [ "cloudflare-security" ];
+      server_names = [ "cloudflare-security" "cloudflare-security-ipv6" ];
       listen_addresses = [ "127.0.0.1:53" ];
-      max_clients = 64;
+      max_clients = 128;
 
       ipv4_servers = true;
-      ipv6_servers = false;
-      block_ipv6 = true;
       dnscrypt_servers = true;
       doh_servers = true;
       require_dnssec = true;
@@ -35,7 +33,7 @@ in {
       cache_neg_min_ttl = 60;
       cache_neg_max_ttl = 600;
 
-      blacklist.blacklist_file = "${noTrackingBlacklist}";
+      blacklist.blacklist_file = "${domainsBlacklist}";
 
       sources.public-resolvers = {
         urls = [
