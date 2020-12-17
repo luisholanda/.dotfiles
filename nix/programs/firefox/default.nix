@@ -19,7 +19,6 @@ let
         enabled = false;
         autoSubmit2 = false;
       };
-      contentblocking.category = "custom";
       discovery.enabled = false;
       link = {
         open_newwindow = 3;
@@ -27,7 +26,7 @@ let
       };
       newtabpage.enabled = false;
       send_pings = false;
-      "send_pings.require_smae_host" = true;
+      "send_pings.require_same_host" = true;
       sessionstore.interval = 60 * 1000;
       startup.page = 0;
       tabs.crashReporting.sendReport = false;
@@ -47,6 +46,7 @@ let
         flash.subprocess.crashreporter.enabled = false;
         reportCrashURL = false;
       };
+      security.https_only_mode = true;
       targetBlankNoOpener.enabled = true;
     };
     extensions = {
@@ -65,7 +65,7 @@ let
     };
     identity.fxaccounts.account.device.name = config.networking.hostName;
     javascript = {
-      use_us_english_locale = true;
+      use_us_english_locale = false;
     };
     media.peerconnection = {
       enabled = true;
@@ -97,7 +97,6 @@ let
     plugin.state.flash = 0;
     privacy = {
       donottrackheader.enabled = true;
-      firstparty.isolate = true;
       resistFingerprinting = true;
       trackingprotection = {
         enabled = true;
@@ -122,7 +121,7 @@ let
       pki.sha1_enforcement_level = 1;
       ssl = {
         enable_csp_stapling = true;
-        require_safe_negotiation = true;
+        require_safe_negotiation = false;
         disable_session_identifiers = true;
         errorReporting = {
           automatic = false;
@@ -164,7 +163,7 @@ let
       coverage.endpoint.base = "";
       legacyUserProfileCustomizations.stylesheets = true;
     };
-    urlclassifier.trackingTable = "moztest-track-simple,ads-track-digest256,social-track-digest256,analytics-track-digest256,content-track-digest256";
+    urlclassifier.trackingTable = "moztest-track-simple,ads-track-digest256,social-track-digest256,analytics-track-digest256";
   };
 in {
   enable = true;
@@ -173,10 +172,10 @@ in {
   extensions =
     with pkgs.nur.repos.rycee.firefox-addons; [
       bitwarden
-      https-everywhere
       multi-account-containers
       refined-github
       vim-vixen
+      ublock-origin
     ];
 
   profiles = {

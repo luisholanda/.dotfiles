@@ -106,7 +106,7 @@
 
 /* Modifiy these to change relative widths or default height */
 #navigator-toolbox {
-  --uc-navigationbar-width: 52vw;
+  --uc-navigationbar-width: 42vw;
   --uc-toolbar-height: 40px;
 }
 
@@ -115,7 +115,7 @@
 :root[uidensity=touch] #navigator-toolbox { --uc-toolbar-height: 40px; }
 
 :root[uidensity=compact] #urlbar {
-  max-width: 42vw !important;
+  max-width: var(--uc-navigationbar-width) !important;
 }
 
 :root[uidensity=compact] #urlbar-container.megabar {
@@ -132,7 +132,7 @@
   #urlbar-container { min-width: unset !important }
 }
 
-#TabsToolbar { margin-left: var(--uc-navigationbar-width); }
+#TabsToolbar { margin-left: calc(var(--uc-navigationbar-width) + 2vw); }
 #tabbrowser-tabs { --tab-min-height: var(--uc-toolbar-height) !important }
 
 /* This isn't useful when tabs start in the middle of the window */
