@@ -3,6 +3,7 @@ super@{ pkgs, ... }:
   firefox = import ./firefox super;
   fish = import ./fish.nix super;
   git = import ./git.nix super;
+  tmux = import ./tmux.nix super;
 
   fzf = rec {
     enable = true;
