@@ -114,7 +114,7 @@ rec {
     # rebase - restart the rebasing process by skipping the current patch.
     rbs = "rb --skip";
 
-    save = if package.version < "2.16.0" then "stash save" else "stash push";
+    save = if package.version < "2.16.0" then "stash save -u" else "stash push -u";
     pop = "stash pop";
     snapshot =
       "!git save \"snapshot: $(date)\" && git stash apply 'stash@{0}'";
