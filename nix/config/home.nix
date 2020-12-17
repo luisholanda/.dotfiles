@@ -3,7 +3,8 @@ super@{ lib, pkgs, ... }:
 with pkgs.stdenv;
 let
   applications = with pkgs; [
-    alacritty
+    unstable.alacritty
+    gccemacs
   ];
 
   otherPackages = with pkgs; let
@@ -19,10 +20,11 @@ let
     nixfmt
     pkg-config
     yarn
-    vagrant
-    pkgs.unstable.llvm_11
+    unstable.llvm_11
+    protobuf
   ] ++ gcpPkgs
-  ++ lspPkgs;
+  ++ lspPkgs
+  ++ (import ./scripts.nix super);
 
   username = "luiscm";
   homeDirectory = if isDarwin
