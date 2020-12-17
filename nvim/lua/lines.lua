@@ -76,7 +76,7 @@ local nvim_buf_get_name = vim.api.nvim_buf_get_name
 local nvim_buf_get_option = vim.api.nvim_buf_get_option
 local nvim_get_current_buf = vim.api.nvim_get_current_buf
 local nvim_list_bufs = vim.api.nvim_list_bufs
-local lsp_buf_diagnostics_count = vim.lsp.util.buf_diagnostics_count
+local lsp_buf_diagnostics_count = vim.lsp.diagnostic.get_count
 
 local function std_filename(name)
   name = fnamemodify(name, ":p:~:.")
@@ -174,7 +174,7 @@ local function list_buffers()
     local curr_buf = nvim_get_current_buf()
     local last_buf = bufnr('#')
 
-    local s = {cache.left_sep, 'ﯟ '}
+    local s = {cache.left_sep, 'ﯟ'}
     local last_buf_status = 0
 
     for idx = 1, #bufs do
@@ -217,7 +217,7 @@ local function lsp_current_function()
 end
 
 local aliases = {
-  ["rust-analyzer"] = "RA",
+  ["rust_analyzer"] = "RA",
   pyls_ms = "MPLS"
 }
 
@@ -225,43 +225,49 @@ local function lsp_messages()
   return vim.t.last_lsp_message
 end
 
+local updating_lsp_message = false
 local function update_lsp_message()
-  local buf_messages = messages()
-  if #buf_messages == 0 then
-    return
-  end
+  if updating_lsp_message then return end;
+  updating_lsp_message = true
 
-  local msg = buf_messages[1]
-  local content = {'[', aliases[msg.name] or msg.name, '] '}
+  vim.defer_fn(function()
+    local buf_messages = messages()
 
-  if msg.progress then
-    if msg.spinner then
-      table.insert(content, vim.g.spinner_frames[(msg.spinner % #vim.g.spinner_frames) + 1])
-      table.insert(content, ' ')
-    end
-    table.insert(content, msg.title)
-    if msg.message then
-      table.insert(content, ' ')
-      table.insert(content, msg.message)
-    end
-    if msg.percentage then
-      table.insert(content, ' (')
-      table.insert(content, msg.percentage)
-      table.insert(content, ')')
-    end
-  elseif msg.status then
-    if msg.uri then
-      local filename = std_filename(vim.uri_to_fname(msg.uri))
-      table.insert(content, '(')
-      table.insert(content, filename)
-      table.insert(content, ') ')
-    end
-    table.insert(content, msg.content)
-  else
-    table.insert(content, msg.content)
-  end
+    if #buf_messages ~= 0 then
+      local msg = buf_messages[#buf_messages]
+      local content = {'[', aliases[msg.name] or msg.name, '] '}
 
-  vim.t.last_lsp_message = string.format("%s%s%s", cache.lsp_msgs_left_sep, table.concat(content), cache.lsp_msgs_right_sep)
+      if msg.progress then
+        if msg.spinner then
+          table.insert(content, vim.g.spinner_frames[(msg.spinner % #vim.g.spinner_frames) + 1])
+          table.insert(content, ' ')
+        end
+        table.insert(content, msg.title)
+        if msg.message then
+          table.insert(content, ' ')
+          table.insert(content, msg.message)
+        end
+        if msg.percentage then
+          table.insert(content, string.format(" (\045 %.0f)", msg.percentage))
+        end
+      elseif msg.status then
+        if msg.uri then
+          local filename = std_filename(vim.uri_to_fname(msg.uri))
+          table.insert(content, '(')
+          table.insert(content, filename)
+          table.insert(content, ') ')
+        end
+        table.insert(content, msg.content)
+      else
+        table.insert(content, msg.content)
+      end
+
+      vim.t.last_lsp_message = string.format("%s%s%s", cache.lsp_msgs_left_sep, table.concat(content), cache.lsp_msgs_right_sep)
+      vim.cmd("redrawtabline")
+    end
+
+    updating_lsp_message = false
+  end, 500)
 end
 
 vim.t.last_lsp_message = string.format('%sno messages yet%s', cache.lsp_msgs_left_sep, cache.lsp_msgs_right_sep)

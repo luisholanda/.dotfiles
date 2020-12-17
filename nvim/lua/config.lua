@@ -2,7 +2,6 @@ vim.g.async_open = 14
 vim.g.indentLine_char = "▏"
 vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
 vim.g.completion_matching_smart_case = 1
-vim.g.diagnostic_virtual_text_prefix = 1
 
 vim.g.EasyMotion_do_mapping = 0
 vim.g.EasyMotion_prompt = "Jump to →"
@@ -62,3 +61,4 @@ vim.g.fzf_colors = {
 vim.g.fzf_commits_log_options = '--graph --color=always ' ..
   '--format="%C(yellow)%h%C(read)%d%C(reset)" ' ..
   '- %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)'
+

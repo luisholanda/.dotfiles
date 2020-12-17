@@ -26,12 +26,10 @@ inoremap <silent> <c-k>      <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> <leader>lr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <leader>ld <cmd>lua vim.lsp.buf.peek_definition()<CR>
 nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <silent> ]d         <cmd>NextDiagnostic<CR>
-nnoremap <silent> [d         <cmd>PrevDiagnostic<CR>
-nnoremap <silent> <leader>do <cmd>OpenDiagnostic<CR>
+nnoremap <silent> <leader>dp <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> <leader>dn <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent> <leader>do <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
-
-noremap ! :AsyncRun<space>
 
 inoremap <up> <nop>
 inoremap <down> <nop>

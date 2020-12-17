@@ -3,7 +3,7 @@ local vim = vim or {}
 vim.cmd [[packadd packer.nvim]]
 
 local packages = {
-  { 'wbthomason/packer.nvim', opt = true },
+  'wbthomason/packer.nvim',
 
     -- Text objects
   'jiangmiao/auto-pairs',
@@ -24,10 +24,10 @@ local packages = {
 
   -- Syntax
   'sheerun/vim-polyglot',
-  {
-    'nvim-treesitter/nvim-treesitter',
-    config = 'require [[treesitter]].setup()'
-  },
+  --{
+  --  'nvim-treesitter/nvim-treesitter',
+  --  config = 'require [[treesitter]].setup()'
+  --},
 
   -- Appearance
   'Yggdroot/indentLine',
@@ -40,14 +40,19 @@ local packages = {
   -- LSP
   'tjdevries/nlua.nvim',
   {
-    'neovim/nvim-lsp',
+    'neovim/nvim-lspconfig',
     requires = {
       'nvim-lua/completion-nvim',
-      'nvim-lua/diagnostic-nvim',
       'nvim-lua/lsp-status.nvim',
-      'tjdevries/lsp_extensions.nvim'
+      'tjdevries/lsp_extensions.nvim',
     },
     config = 'require [[lsp_config]].setup()'
+  },
+  {
+    'RishabhRD/nvim-lsputils',
+    requires = {
+      'RishabhRD/popfix'
+    }
   },
 
   -- Git
@@ -66,10 +71,9 @@ local packages = {
   },
 
   -- Extras
-  { 'mhinz/vim-rfc', cmd = 'RFC' },
+  'mhinz/vim-rfc',
   'prabirshrestha/async.vim',
   'airblade/vim-rooter',
-  { 'skywind3000/asyncrun.vim', cmd = 'AsyncRun' },
 }
 
 return require('packer').startup {

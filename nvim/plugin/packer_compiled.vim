@@ -1,32 +1,14 @@
 " Automatically generated packer.nvim plugin loader code
 
-if !has('nvim')
+if !has('nvim-0.5')
+  echohl WarningMsg
+  echom "Invalid Neovim version for packer.nvim!"
+  echohl None
   finish
 endif
 
 lua << END
-local plugins = {
-  ["asyncrun.vim"] = {
-    commands = { "AsyncRun" },
-    loaded = false,
-    only_sequence = false,
-    only_setup = false,
-    path = "/Users/luiscm/.local/share/nvim/site/pack/packer/opt/asyncrun.vim"
-  },
-  ["packer.nvim"] = {
-    loaded = false,
-    only_sequence = false,
-    only_setup = false,
-    path = "/Users/luiscm/.local/share/nvim/site/pack/packer/opt/packer.nvim"
-  },
-  ["vim-rfc"] = {
-    commands = { "RFC" },
-    loaded = false,
-    only_sequence = false,
-    only_setup = false,
-    path = "/Users/luiscm/.local/share/nvim/site/pack/packer/opt/vim-rfc"
-  }
-}
+local plugins = {}
 
 local function handle_bufread(names)
   for _, name in ipairs(names) do
@@ -149,14 +131,12 @@ end
 
 -- Pre-load configuration
 -- Post-load configuration
--- Config for: nvim-lsp
-require [[lsp_config]].setup()
 -- Config for: nvim-colorizer.lua
 require [[colorizer]].setup()
 -- Config for: zephyr-nvim
 require[[zephyr]]
--- Config for: nvim-treesitter
-require [[treesitter]].setup()
+-- Config for: nvim-lspconfig
+require [[lsp_config]].setup()
 -- Conditional loads
 -- Load plugins in order defined by `after`
 END
@@ -167,8 +147,6 @@ endfunction
 
 
 " Command lazy-loads
-command! -nargs=* -range -bang -complete=file AsyncRun call s:load(['asyncrun.vim'], { "cmd": "AsyncRun", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
-command! -nargs=* -range -bang -complete=file RFC call s:load(['vim-rfc'], { "cmd": "RFC", "l1": <line1>, "l2": <line2>, "bang": <q-bang>, "args": <q-args> })
 
 " Keymap lazy-loads
 
