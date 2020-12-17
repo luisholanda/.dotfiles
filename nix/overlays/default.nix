@@ -2,6 +2,7 @@ let
   overlays = [
     ./channels.nix
     ./installApplication.nix
+    ./emacs.nix
     ./firefox.nix
     ./myLib.nix
     ./neovim.nix
