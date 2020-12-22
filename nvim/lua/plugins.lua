@@ -56,7 +56,12 @@ local packages = {
   },
 
   -- Git
-  'airblade/vim-gitgutter',
+  {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    },
+  },
 
   -- Language specific
   'rust-lang/rust.vim',

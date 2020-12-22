@@ -61,4 +61,3 @@ vim.g.fzf_colors = {
 vim.g.fzf_commits_log_options = '--graph --color=always ' ..
   '--format="%C(yellow)%h%C(read)%d%C(reset)" ' ..
   '- %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)'
-
