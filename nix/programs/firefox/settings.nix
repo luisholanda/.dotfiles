@@ -10,7 +10,7 @@
   beacon.enabled = false;
   breakpad.reportURL = "";
   browser = {
-    bookmarks.showModileBookmarks = false;
+    bookmarks.showMobileBookmarks = false;
     ctrlTab.recentlyUsedOrder = false;
     crashReports.unsubmittedCheck = {
       enabled = false;
