@@ -1,7 +1,9 @@
 self: super:
 {
   neovim-unwrapped = let
-    ts = self.unstable.tree-sitter.override { enableStatic = true; };
+    ts = self.unstable.tree-sitter.override {
+      enableStatic = true;
+    };
   in super.neovim-unwrapped.overrideAttrs (old: rec {
     version = "5e202f69b3e42b90bc0393b0cee3bfddd2678216";
     src = super.fetchFromGitHub {
