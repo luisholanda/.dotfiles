@@ -24,7 +24,7 @@ in
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ./overlays;
-  nix.nixPath = (import ./channels).nixPath;
+  nix.nixPath = (import ./channels).nixPathStr;
 
   environment.systemPackages = with pkgs; [
     cmake
