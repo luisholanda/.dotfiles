@@ -14,8 +14,8 @@ let
   nurRepos = fetchFromGitHub {
     owner = "nix-community";
     repo = "nur-combined";
-    rev = "2c9ab535acd662cf07fed5c7ca2484164462f9c9";
-    sha256 = "1l9py6qy6k6f1jc4vf4wk3cx7rxvhh042786lw6klrlgl8kx86aw";
+    rev = "25067d287b0f0330401136e5454957e55bbead4e";
+    sha256 = "1fibmq6lsx8ja7w4ygc7cx6dqqgfjskjp8v59gl9s6p7xygf9c0i";
   };
   nixDarwin = fetchFromGitHub {
     owner = "LnL7";
