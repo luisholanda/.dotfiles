@@ -32,8 +32,8 @@ let
   homeManager = fetchFromGitHub {
     owner = "nix-community";
     repo = "home-manager";
-    rev = "66a68b4a58f7c554bd7746acd51ff7cc02840b0a";
-    sha256 = "16c54als3qlhrsq9akm9cdm1y50d7czsny7nnn7dprp3ry2agpdb";
+    rev = "3627ec4de58d7fbda13c82dfec94eace10198f23";
+    sha256 = "1dxhgsg7081c50h8z146lrhx6aj6f4h905f45im7ilj6c3q4z0z9";
   };
 in rec {
   __nixPath = [
