@@ -8,4 +8,9 @@ let
     ./neovim.nix
     ./rust-analyzer.nix
   ];
-in builtins.map (x: import x) overlays
+  fileOverlays = builtins.map (x: import x) overlays;
+in fileOverlays ++ [(self: super: {
+  ccls = super.ccls.override {
+    llvmPackages = self.unstable.llvmPackages_11;
+  };
+})]

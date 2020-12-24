@@ -17,10 +17,9 @@ let
     httpie
     jq
     nixfmt
-    pkg-config
     yarn
-    unstable.llvm_11
     protobuf
+    unstable.llvm_11
   ] ++ gcpPkgs
   ++ lspPkgs
   ++ (import ./scripts.nix super);
