@@ -2,13 +2,11 @@ super@{ lib, pkgs, ... }:
 
 with pkgs.stdenv;
 let
-  applications = with pkgs; [
-    gccemacs
-  ];
+  applications = [];
 
   otherPackages = with pkgs; let
     gcpPkgs = [ cloud-sql-proxy google-cloud-sdk ];
-    lspPkgs = [ ccls gopls rnix-lsp terraform-lsp rust-analyzer ];
+    lspPkgs = [ ccls rnix-lsp terraform-lsp rust-analyzer ];
   in [
     bat
     exa

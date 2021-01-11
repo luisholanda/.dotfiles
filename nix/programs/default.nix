@@ -15,7 +15,7 @@ super@{ pkgs, ... }:
   };
 
   go = rec {
-    enable = true;
+    enable = false;
     goPath = ".gopath";
     goBin = "${goPath}/bin";
   };
