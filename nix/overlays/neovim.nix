@@ -5,12 +5,12 @@ self: super:
       enableStatic = true;
     };
   in super.neovim-unwrapped.overrideAttrs (old: rec {
-    version = "b931a554d70ef07803da3eb3f98ce4b3a3570d11";
+    version = "0af5a56e47b543c8497eaa71ca8ff6900059d062";
     src = super.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
       rev = version;
-      sha256 = "0grqh5955w8rgpkp8xspmkf81nvrlgqgspywdvn3bfm5ki0svgim";
+      sha256 = "019dl8w0l2b0bk26irfgnl6dal1pisdwn1qy4b36hvij2y5mad3s";
     };
 
     buildInputs = old.buildInputs ++ [ts];
