@@ -2,7 +2,7 @@ super@{ lib, pkgs, ... }:
 
 with pkgs.stdenv;
 let
-  applications = [];
+  applications = [ pkgs.telegram ];
 
   otherPackages = with pkgs; let
     gcpPkgs = [ cloud-sql-proxy google-cloud-sdk ];
@@ -18,6 +18,7 @@ let
     yarn
     protobuf
     unstable.llvm_11
+    androidenv.androidPkgs_9_0.platform-tools
   ] ++ gcpPkgs
   ++ lspPkgs
   ++ (import ./scripts.nix super);
