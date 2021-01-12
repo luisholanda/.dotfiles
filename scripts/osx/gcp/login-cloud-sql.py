@@ -109,5 +109,8 @@ if __name__ == "__main__":
             print("Password not found for", args.instance)
             password = create_password(args.user, args.instance)
 
-        psql(args.user, password, args.port, args.database)
+        try:
+            psql(args.user, password, args.port, args.database)
+        except KeyboardInterrupt:
+            pass
 
