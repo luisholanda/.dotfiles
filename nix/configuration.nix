@@ -42,6 +42,8 @@ in
     hostName = "MacBook-Pro-de-Luis";
     knownNetworkServices =
       [ "USB 10/100/1000 LAN" "Wi-Fi" "Bluetooth PAN" "Thunderbolt Bridge" ];
+  } // optionalAttrs (!config.services.dnscrypt-proxy2.enable) {
+    dns = ["1.1.1.2" "1.0.0.2"];
   };
 
   system.stateVersion = 4;
