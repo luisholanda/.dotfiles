@@ -5,7 +5,7 @@ self: super:
       enableStatic = true;
     };
   in super.neovim-unwrapped.overrideAttrs (old: rec {
-    version = "1a4d380b5abfff2cf5e46a1b00e98f4381b7e5b0";
+    version = "cc1851c9fdd6d777338bea2272d2a02c8baa0fb1";
     src = super.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
