@@ -51,6 +51,9 @@ in {
     mk = "make";
 
     cdot = "cd ~/.dotfiles";
+    nix-rbld = "darwin-rebuild switch";
+    nix-gc = "nix-collect-garbage -d";
+    nix-opt = "nix-store --optimise";
   };
   functions = {
     fish_user_keybindings = ''
@@ -95,6 +98,13 @@ in {
 
         echo "Project $project not found"
         return 1
+      '';
+    };
+    local-psql = {
+      argumentNames = "action";
+      description = "Start or stop local PostgreSQL instance";
+      body = ''
+        env PGPORT=5432 pg_ctl -D /usr/local/var/postgres -l /tmp/logfile $action > /dev/null 2>&1
       '';
     };
   };
