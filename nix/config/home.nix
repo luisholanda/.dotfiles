@@ -5,13 +5,14 @@ let
   applications = [ pkgs.telegram ];
 
   otherPackages = with pkgs; let
-    gcpPkgs = [ cloud-sql-proxy google-cloud-sdk ];
+    gcpPkgs = [ cloud-sql-proxy unstable.google-cloud-sdk ];
     lspPkgs = [ ccls rnix-lsp terraform-lsp rust-analyzer ];
   in [
     bat
     exa
     fish-foreign-env
     gitAndTools.gh
+    gitAndTools.git.doc
     httpie
     jq
     nixfmt
