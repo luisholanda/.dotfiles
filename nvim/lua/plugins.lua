@@ -45,7 +45,7 @@ local packages = {
       'nvim-lua/lsp-status.nvim',
       'tjdevries/lsp_extensions.nvim',
     },
-    config = 'require [[lsp_config]].setup()'
+    config = 'require"lsp/config".setup()'
   },
   {
     'RishabhRD/nvim-lsputils',
@@ -53,7 +53,11 @@ local packages = {
       'RishabhRD/popfix'
     }
   },
-  'kosayoda/nvim-light-bulb',
+  'kosayoda/nvim-lightbulb',
+  {
+    'glepnir/lspsaga.nvim',
+    config = 'require"lsp/saga".setup()'
+  },
 
   -- Git
   {

@@ -64,6 +64,7 @@ augroup LspCmds
     autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter *.rs lua require('lsp_extensions').inlay_hints{ prefix = ' » ', highlight = 'NonText' }
     " Update Code Actions lightbulb.
     autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()
+    autocmd CursorHold,CursorHoldI * lua require('lspsaga.signaturehelp').signature_help()
     "autocmd User LspMessageUpdate call sl#update_lsp_messages()
 augroup END
 

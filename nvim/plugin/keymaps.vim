@@ -18,18 +18,23 @@ nnoremap <silent> <leader>wl <cmd>wincmd l<CR>
 nnoremap <silent> <leader>wq <cmd>wincmd c<CR>
 nnoremap <silent> <tab>      <cmd>wincmd w<CR>
 
+" LSP stuff
 nnoremap <silent> gd         <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gD         <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gi         <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> K          <cmd>lua vim.lsp.buf.hover()<CR>
-inoremap <silent> <c-k>      <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> <leader>lr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <leader>ld <cmd>lua vim.lsp.buf.peek_definition()<CR>
+nnoremap <silent> K          <cmd>lua require'lspsaga.hover'.render_hover_doc()<CR>
+nnoremap <silent> [d         <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
+nnoremap <silent> ]d         <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
+inoremap <silent> <c-k>      <cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>
+nnoremap <silent> <leader>lh <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
+nnoremap <silent> <leader>ld <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
 nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <silent> <leader>dp <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> <leader>dn <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent> <leader>la <cmd>lua require'lspsaga.codeaction').code_action()<CR>
 nnoremap <silent> <leader>do <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
-nnoremap <silent> <leader>rn <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <leader>rn <cmd>lua require'lspsaga.rename'.rename()<CR>
+
+nnoremap <silent> <C-f>      <cmd>lua require'lspsgaga.hover'.smart_scroll_hover(1)<CR>
+nnoremap <silent> <C-b>      <cmd>lua require'lspsgaga.hover'.smart_scroll_hover(-1)<CR>
 
 inoremap <up> <nop>
 inoremap <down> <nop>
