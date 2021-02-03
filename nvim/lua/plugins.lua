@@ -38,7 +38,6 @@ local packages = {
   },
 
   -- LSP
-  'tjdevries/nlua.nvim',
   {
     'neovim/nvim-lspconfig',
     requires = {
@@ -54,6 +53,7 @@ local packages = {
       'RishabhRD/popfix'
     }
   },
+  'kosayoda/nvim-light-bulb',
 
   -- Git
   {
