@@ -7,7 +7,7 @@ let
   };
 in {
   services.dnscrypt-proxy2 = {
-    enable = true;
+    enable = false;
 
     settings = {
       server_names = [ "cloudflare-security" "cloudflare-security-ipv6" ];
