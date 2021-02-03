@@ -79,14 +79,12 @@ local function configure_servers()
   nvim_lsp.cmake.setup{
     on_attach = lsp_on_attach,
   }
-  nvim_lsp.gopls.setup{
-    on_attach = lsp_on_attach,
-  }
   nvim_lsp.vimls.setup{
     on_attach = lsp_on_attach,
   }
   nvim_lsp.pyright.setup{
     on_attach = lsp_on_attach,
+    root_dir = nvim_lsp.util.root_pattern(".git"),
     settings = {
       python = {
         analysis = {
@@ -102,9 +100,6 @@ local function configure_servers()
   nvim_lsp.tsserver.setup{
     on_attach = lsp_on_attach,
   }
-  require('nlua.lsp.nvim').setup(nvim_lsp, {
-    on_attach = lsp_on_attach,
-  })
   nvim_lsp.rnix.setup {
     on_attach = lsp_on_attach,
   }
