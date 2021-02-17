@@ -26,13 +26,13 @@ let
   nixUnstable = fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "9f371adb3d2469b29a3e7bb9cc5e97c79b103a32";
+    rev = "c8f640c146716e4499b92f79c4fbe16fbb65ea40";
     sha256 = "0b8lzapcnrqm5wvdlcr5w4l44jki5j6fc6n8ppzd218cic21cc8q";
   };
   homeManager = fetchFromGitHub {
     owner = "nix-community";
     repo = "home-manager";
-    rev = "3627ec4de58d7fbda13c82dfec94eace10198f23";
+    rev = "d8dd2a09b0a9c2c12d733f5d1eb3fa39bbe215b8";
     sha256 = "1dxhgsg7081c50h8z146lrhx6aj6f4h905f45im7ilj6c3q4z0z9";
   };
 in rec {
