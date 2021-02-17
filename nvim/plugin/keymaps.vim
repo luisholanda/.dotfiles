@@ -29,12 +29,12 @@ inoremap <silent> <c-k>      <cmd>lua require'lspsaga.signaturehelp'.signature_h
 nnoremap <silent> <leader>lh <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 nnoremap <silent> <leader>ld <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
 nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <silent> <leader>la <cmd>lua require'lspsaga.codeaction').code_action()<CR>
+nnoremap <silent> <leader>la <cmd>lua require'lspsaga.codeaction'.code_action()<CR>
 nnoremap <silent> <leader>do <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 nnoremap <silent> <leader>rn <cmd>lua require'lspsaga.rename'.rename()<CR>
 
-nnoremap <silent> <C-f>      <cmd>lua require'lspsgaga.hover'.smart_scroll_hover(1)<CR>
-nnoremap <silent> <C-b>      <cmd>lua require'lspsgaga.hover'.smart_scroll_hover(-1)<CR>
+nnoremap <silent> <C-f>      <cmd>lua require'lspsaga.hover'.smart_scroll_hover(1)<CR>
+nnoremap <silent> <C-b>      <cmd>lua require'lspsaga.hover'.smart_scroll_hover(-1)<CR>
 
 inoremap <up> <nop>
 inoremap <down> <nop>

@@ -90,7 +90,6 @@ local function configure_servers()
         analysis = {
           autoSearchPaths = true,
           useLibraryCodeForTypes = true,
-          typeCheckingMode = "strict",
         },
         pythonPath = vim.fn.exepath("python"),
         venvPath = "/Users/luiscm/.pyenv/versions"
