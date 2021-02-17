@@ -12,7 +12,7 @@ let
     exa
     fish-foreign-env
     gitAndTools.gh
-    gitAndTools.git.doc
+    git.doc
     httpie
     jq
     nixfmt
@@ -44,6 +44,11 @@ let
         "${homeDirectory}/.cargo/bin"
         "/run/current-system/sw/bin"
       ];
+
+      sessionVariables = {
+        MANPAGER = "nvim -c 'set ft=man' -";
+        EDITOR = "nvim";
+      };
 
       file = {
         doomConfig = {
