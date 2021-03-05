@@ -18,7 +18,6 @@ let
     nixfmt
     yarn
     protobuf
-    unstable.llvm_11
     androidenv.androidPkgs_9_0.platform-tools
   ] ++ gcpPkgs
   ++ lspPkgs

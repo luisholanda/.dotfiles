@@ -38,12 +38,13 @@ super@{ pkgs, ... }:
     env.TERM = "screen-256color";
 
     font = let
-      fontWithStyle = family: style: { inherit family style; };
-      family = "SauceCodePro Nerd Font";
+      family = "JetBrainsMono Nerd Font Mono";
+      fontWithStyle = style: { inherit family style; };
     in {
-      normal = fontWithStyle family "Regular";
-      bold = fontWithStyle family "Bold";
-      italic = fontWithStyle family "Italic";
+      normal = fontWithStyle "Regular";
+      bold = fontWithStyle "Bold";
+      italic = fontWithStyle "Italic";
+      bold_italic = fontWithStyle "Bold Italic";
 
       size = 14;
 
