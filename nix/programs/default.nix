@@ -4,6 +4,7 @@ super@{ pkgs, ... }:
   firefox = import ./firefox super;
   fish = import ./fish.nix super;
   git = import ./git.nix super;
+  kitty = import ./kitty.nix super;
   tmux = import ./tmux.nix super;
 
   fzf = rec {
