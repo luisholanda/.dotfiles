@@ -2,13 +2,13 @@ self: super:
 {
   rust-analyzer = with super; stdenv.mkDerivation rec {
     name = "rust-analyzer";
-    version = "2021-02-08";
+    version = "2021-03-01";
 
     src = with stdenv; fetchurl rec {
       name = "rust-analyzer-${if isDarwin then "mac" else "linux"}.gz";
       url = "https://github.com/rust-analyzer/rust-analyzer/releases/download/${version}/${name}";
       sha256 = if isDarwin
-        then "190yd0w1drk2k75rm537s17ccxj4md7m44av4gmn68ff35zwqszh"
+        then "1yqlsg1jwqkssg42rbsrp9g86l3iwziyyfhxix76akq4xjyklh3n"
         else "0000000000000000000000000000000000000000000000000000";
     };
 
