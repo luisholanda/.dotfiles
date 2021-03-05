@@ -4,7 +4,7 @@ with pkgs.myLib;
 let
   defaultSettings = import ./settings.nix { inherit config; };
 in {
-  enable = true;
+  enable = false;
   package = pkgs.firefox;
 
   extensions =
