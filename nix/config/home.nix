@@ -6,11 +6,11 @@ let
 
   otherPackages = with pkgs; let
     gcpPkgs = [ cloud-sql-proxy unstable.google-cloud-sdk ];
-    lspPkgs = [ ccls rnix-lsp terraform-lsp rust-analyzer ];
+    lspPkgs = [ rnix-lsp terraform-lsp rust-analyzer ];
   in [
     bat
     exa
-    fish-foreign-env
+    fishPlugins.foreign-env
     gitAndTools.gh
     git.doc
     httpie
@@ -24,23 +24,18 @@ let
   ++ (import ./scripts.nix super);
 
   username = "luiscm";
-  homeDirectory = if isDarwin
-    then "/Users/${username}"
-    else "/home/${username}";
-  dotfiles = "${homeDirectory}/.dotfiles";
   myHomeConfig = {
     programs = import ../programs super // {
       home-manager.enable = true;
     };
 
     home = {
-      inherit homeDirectory username;
       packages = otherPackages ++ applications;
       stateVersion = "20.09";
       sessionPath = [
-        "${homeDirectory}/.pyenv/bin"
-        "${homeDirectory}/.local/bin"
-        "${homeDirectory}/.cargo/bin"
+        "$HOME/.pyenv/bin"
+        "$HOME/.local/bin"
+        "$HOME/.cargo/bin"
         "/run/current-system/sw/bin"
       ];
 
@@ -66,16 +61,12 @@ let
         };
       };
     };
-
-    submoduleSupport = {
-      enable = true;
-      externalPackageInstall = false;
-    };
   };
 in {
   home-manager = {
-    useUserPackages = false;
-    useGlobalPkgs = false;
+    useUserPackages = true;
+    useGlobalPkgs = true;
     users.luiscm = myHomeConfig;
+    verbose = true;
   };
 }

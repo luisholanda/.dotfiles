@@ -10,7 +10,7 @@ self: super:
       owner = "neovim";
       repo = "neovim";
       rev = version;
-      sha256 = "16p69fgv1pr5n1rx1mnvj7j4c310ygn8xmiysivjsmvra6w93i6y";
+      sha256 = "0kvk3r4by8r3asmfl69iw93xnd8lwfr0pynynlhr5y8h5pjd3rfi";
     };
 
     buildInputs = old.buildInputs ++ [ts];

@@ -32,25 +32,20 @@ let
   homeManager = fetchFromGitHub {
     owner = "nix-community";
     repo = "home-manager";
-    rev = "d8dd2a09b0a9c2c12d733f5d1eb3fa39bbe215b8";
-    sha256 = "1dxhgsg7081c50h8z146lrhx6aj6f4h905f45im7ilj6c3q4z0z9";
+    rev = "57a7e5e2c53de58215fdac1910470bef36dd30cd";
+    sha256 = "0cgjai6l1j73h6mwgndcyha7wy6am2vwd25274lffzqzrs0n1ac9";
   };
 in rec {
+  nur = nurRepos;
+  darwin = nixDarwin;
+  nixpkgs-unstable = nixUnstable;
+  home-manager = homeManager;
   __nixPath = [
     { prefix = "nur"; src = nurRepos; }
     { prefix = "nixpkgs-unstable"; src = nixUnstable; }
     { prefix = "home-manager"; src = homeManager; }
     { prefix = "darwin"; src = nixDarwin; }
-    { prefix = "darwin-config"; src = "${HOME}/.dotfiles/nix/configuration.nix"; }
   ];
-  nixPath = map ({ prefix, src }: { "${prefix}" = "${src}"; }) __nixPath
-  ++ [
-    "/nix/var/nix/profiles/per-user/root/channels"
-    "${HOME}/.nix-defexpr/channels"
-  ];
-  nixPathStr = map ({ prefix, src }: "${prefix}=${src}") __nixPath
-  ++ [
-    "/nix/var/nix/profiles/per-user/root/channels"
-    "${HOME}/.nix-defexpr/channels"
-  ];
+  nixPath = map ({ prefix, src }: { "${prefix}" = "${src}"; }) __nixPath;
+  nixPathStr = map ({ prefix, src }: "${prefix}=${src}") __nixPath;
 }

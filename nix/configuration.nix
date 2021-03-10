@@ -3,6 +3,7 @@ super@{ config, lib, pkgs, ... }:
 with pkgs.stdenv;
 with lib;
 let
+  channels = import ./channels;
   myUserCfg = config.home-manager.users.luiscm;
   fishEnable = myUserCfg.programs.fish.enable;
   user = rec {
@@ -12,11 +13,10 @@ let
       else "/home/${name}";
     shell = optional fishEnable pkgs.fish;
   };
-
 in
 {
   imports = [
-    <home-manager/nix-darwin>
+    "${channels.home-manager}/nix-darwin"
     ./config
     ./modules/services/dnscrypt-proxy2
     ./services
@@ -24,7 +24,7 @@ in
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ./overlays;
-  nix.nixPath = (import ./channels).nixPathStr;
+  nix.nixPath = channels.nixPathStr;
 
   environment.systemPackages = with pkgs; [
     cmake

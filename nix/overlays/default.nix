@@ -13,6 +13,7 @@ in fileOverlays ++ [(self: super: {
   ccls = super.ccls.override {
     llvmPackages = self.unstable.llvmPackages_11;
   };
+  fish-foreign-env = super.fishPlugins.foreign-env;
   telegram = let
     name = "Telegram";
     version = "2.5.8";
@@ -34,17 +35,18 @@ in fileOverlays ++ [(self: super: {
     };
   };
   yabai = super.yabai.overrideAttrs (o: rec {
-    version = "3.3.7";
+    version = "v3.3.7";
     src = builtins.fetchTarball {
-      url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-      sha256 = "1ywccgqajyqb8pqaxap2dci6wy2jba6snrzsiawdmnbvv1bsp3z2";
+      url = "https://github.com/koekeishiya/yabai/releases/download/${version}/yabai-${version}.tar.gz";
+      sha256 = "0bahqgx3lyb9ryw0gfxz0c6vyyf55fczcyhzc9frmmdqjaf04ccq";
     };
 
     installPhase = ''
+      ls
       mkdir -p $out/bin
       mkdir -p $out/share/man/man1/
-      cp ./archive/bin/yabai $out/bin/yabai
-      cp ./archive/doc/yabai.1 $out/share/man/man1/yabai.1
+      cp ./bin/yabai $out/bin/yabai
+      cp ./doc/yabai.1 $out/share/man/man1/yabai.1
     '';
   });
 })]

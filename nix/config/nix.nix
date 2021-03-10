@@ -11,11 +11,12 @@ let
     nix-community = mkCache "https://nix-community.cachix.org" "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
   in [ nixos cachix nix-tools nix-community ];
 in {
-  services.nix-daemon.enable = true;
+  services.nix-daemon.enable = false;
   nix = rec {
     package = pkgs.nix;
-    gc.automatic = true;
-    useDaemon = true;
+    gc.automatic = false;
+    gc.user = "luiscm";
+    useDaemon = false;
     buildCores = 4;
     useSandbox = true;
     sandboxPaths = [] ++ lib.optionals isDarwin [
@@ -30,5 +31,6 @@ in {
     binaryCaches = map (x: x.url) caches;
     binaryCachePublicKeys = map (x: x.key) caches;
     trustedBinaryCaches = binaryCaches;
+    trustedUsers = [ "root" "luiscm" ];
   };
 }

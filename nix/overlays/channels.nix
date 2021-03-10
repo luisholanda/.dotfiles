@@ -1,5 +1,6 @@
 self: super:
-{
-  nur = import <nur> { pkgs = self; };
-  unstable = import <nixpkgs-unstable> { pkgs = self; };
+let channels = import ../channels;
+in {
+  nur = import channels.nur { pkgs = self; };
+  unstable = import channels.nixpkgs-unstable { pkgs = self; };
 }

@@ -12,7 +12,7 @@ in {
     source (pyenv virtualenv-init -|psub)
   '';
   loginShellInit = ''
-    set -p fish_function_path ${pkgs.fish-foreign-env}/share/fish-foreign-env/functions
+    set -p fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d
     if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
       fenv source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     end
