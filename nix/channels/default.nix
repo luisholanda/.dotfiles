@@ -1,4 +1,6 @@
+{ lib, pkgs, ... }:
 let
+  stdenv = pkgs.stdenv;
   HOME = builtins.getEnv "HOME";
   fetchFromGitHub = { owner, repo, rev ? null, tag ? null, sha256 }:
     assert rev == null -> tag != null;
@@ -26,7 +28,7 @@ let
   nixUnstable = fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "fbecdac147c149e96ba0d79f7926c62c1eb1cf65";
+    rev = "870137af3c529722a449f7731890453583985edc";
     sha256 = "1mzlkq9nm3if6lh479w8i39cnky2kicas529s4yms87krmbz61w9";
   };
   homeManager = fetchFromGitHub {
@@ -40,17 +42,20 @@ in rec {
     { prefix = "nur"; src = nurRepos; }
     { prefix = "nixpkgs-unstable"; src = nixUnstable; }
     { prefix = "home-manager"; src = homeManager; }
+  ] ++ lib.optionals stdenv.isDarwin [
     { prefix = "darwin"; src = nixDarwin; }
     { prefix = "darwin-config"; src = "${HOME}/.dotfiles/nix/configuration.nix"; }
-  ];
+  ] ++ lib.optional stdenv.isLinux
+    { prefix = "nixos-config"; src = "${HOME}/.dotfiles/nix/machines/plutus/configuration.nix"; };
   nixPath = map ({ prefix, src }: { "${prefix}" = "${src}"; }) __nixPath
   ++ [
+    "/nix/var/nix/profiles/per-user/luiscm/channels"
     "/nix/var/nix/profiles/per-user/root/channels"
-    "${HOME}/.nix-defexpr/channels"
   ];
   nixPathStr = map ({ prefix, src }: "${prefix}=${src}") __nixPath
   ++ [
+    "/nix/var/nix/profiles/per-user/luiscm/channels"
     "/nix/var/nix/profiles/per-user/root/channels"
-    "${HOME}/.nix-defexpr/channels"
   ];
 }
+

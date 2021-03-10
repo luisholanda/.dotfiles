@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
-let channels = import ../channels;
+let nixPath = config.nix.nixPath;
 in {
   enable = true;
   interactiveShellInit = ''
@@ -26,7 +26,7 @@ in {
     end
     set -e fish_function_path[1]
 
-    set -p NIX_PATH ${builtins.concatStringsSep " " channels.nixPathStr}
+    set -x NIX_PATH ${builtins.concatStringsSep " " nixPath}
   '';
   shellAliases = rec {
     grep = "grep --color";

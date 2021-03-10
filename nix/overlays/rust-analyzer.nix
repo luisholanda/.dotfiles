@@ -9,7 +9,7 @@ self: super:
       url = "https://github.com/rust-analyzer/rust-analyzer/releases/download/${version}/${name}";
       sha256 = if isDarwin
         then "1yqlsg1jwqkssg42rbsrp9g86l3iwziyyfhxix76akq4xjyklh3n"
-        else "0000000000000000000000000000000000000000000000000000";
+        else "1d7k2sgpgfmcly5maa0lxmkrc3gdh2nyjbk6fxh4kjq7zxghmqgc";
     };
 
     buildInputs = [ gzip ];
@@ -26,7 +26,7 @@ self: super:
       description = "An experimental modular compiler frontend for the Rust language";
       homepage = "https://github.com/rust-analyzer/rust-analyzer";
       license = with licenses; [ mit asl20 ];
-      platforms = platforms.darwin;
+      platforms = platforms.x86_64;
     };
   };
 }

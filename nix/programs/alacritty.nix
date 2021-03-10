@@ -1,7 +1,9 @@
 super@{ pkgs, ... }:
-{
+let
+  isDarwin = pkgs.stdenv.isDarwin;
+in {
   enable = true;
-  package = pkgs.unstable.alacritty;
+  package = pkgs.alacritty;
   settings = let
     xy = x: y: { inherit x y; };
   in {
@@ -57,7 +59,7 @@ super@{ pkgs, ... }:
     selection.save_to_clipboard = true;
 
     window = {
-      decorations = "buttonless";
+      decorations = if isDarwin then "buttonless" else "None";
       dimensions = { columns = 120; lines = 48; };
       dynamic_title = false;
       dynamic_padding = true;

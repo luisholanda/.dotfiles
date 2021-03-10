@@ -1,8 +1,8 @@
-super@{ lib, pkgs, ... }:
+super@{ cfg, lib, pkgs, ... }:
 
 with pkgs.stdenv;
 let
-  applications = [ pkgs.telegram ];
+  applications = [ ];
 
   otherPackages = with pkgs; let
     gcpPkgs = [ cloud-sql-proxy unstable.google-cloud-sdk ];

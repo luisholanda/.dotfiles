@@ -17,7 +17,10 @@ rec {
   };
 
   extraConfig = {
-    core = { commentChar = "@"; };
+    core = { 
+      commentChar = "@";
+      sshCommand = "ssh -i ~/.ssh/github";
+    };
     credential = { helper = "osxkeychain"; };
     color = { ui = true; };
     branch = { autosetuprebase = "always"; };
