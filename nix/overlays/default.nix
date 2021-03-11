@@ -33,6 +33,10 @@ in fileOverlays ++ [(self: super: {
       sha256 = "1yprjglkbpgbkjv2j1nmw32gx0ph3c6f0n3c5ykwyf7c37v9aaxn";
     };
   };
+  waybar = super.waybar.override {
+    pulseSupport = true;
+    libdbusmenu-gtk3 = self.libappindicator;
+  };
   yabai = super.yabai.overrideAttrs (o: rec {
     version = "3.3.7";
     src = builtins.fetchTarball {

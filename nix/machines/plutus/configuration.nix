@@ -2,21 +2,23 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, ... }:
+{ colors, config, lib, pkgs, ... }:
 {
+  _module.args.colors = lib.mkDefault (import ../../config/colors.nix);
   imports =
     [ # Include the results of the hardware scan.
       ./hardware.nix
       ./security.nix
+      ./desktop.nix
       <home-manager/nixos>
       ../../config/home.nix
       ../../config/nix.nix
     ];
 
-  console.colors = (import ../../config/colors.nix).term;
+  console.colors = colors.term;
 
   documentation = {
-    dev.enable = true;
+    dev.enable = false;
     doc.enable = true;
     man.generateCaches = true;
   };
@@ -36,10 +38,10 @@
     brightnessctl
     curl
     coreutils
-    dhcpcd
     gtk-engine-murrine
     gtk_engines
     gsettings-desktop-schemas
+    libappindicator
     lxappearance
     wget
   ];
@@ -50,9 +52,11 @@
     enableFontDir = true;
     fontconfig = {
       useEmbeddedBitmaps = true;
+      defaultFonts.monospace = [ "JetBrainsMono Nerd Font" ];
     };
 
     fonts = with pkgs; [
+      font-awesome
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
@@ -63,18 +67,12 @@
   location.provider = "geoclue2";
 
   networking = {
-    enableIPv6 = false;
     hostId = "cb4a1fd3";
     hostName = "plutus";
 
-    # TODO: replace network manager with wpa_suppliant
-    networkmanager.enable = true;
-
-    # The global useDHCP flag is deprecated, therefore explicitly set to false here.
-    # Per-interface useDHCP will be mandatory in the future, so this generated config
-    # replicates the default behaviour.
-    useDHCP = false;
-    interfaces.eno1.useDHCP = true;
+    networkmanager = {
+      enable = true;
+    };
   };
 
   nix.trustedUsers = [ "root" "luiscm" ];
@@ -127,14 +125,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.09"; # Did you read the comment?
-
-  systemd.user.targets.sway-session = {
-    description = "Sway compositor session";
-    documentation = [ "man:systemd.special(7)" ];
-    bindsTo = [ "graphical-session.target" ];
-    wants = [ "graphical-session-pre.target" ];
-    after = [ "graphical-session-pre.target" ];
-  };
 
   systemd.user.services.kanshi = {
     description = "Kanshi output autoconfig";

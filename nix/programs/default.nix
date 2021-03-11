@@ -12,6 +12,7 @@ in {
   mako = import ./mako.nix args;
   ssh = import ./ssh.nix args;
   tmux = import ./tmux.nix args;
+  waybar = import ./waybar.nix args;
 
   bat = {
     enable = true;

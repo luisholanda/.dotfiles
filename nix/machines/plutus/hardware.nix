@@ -66,7 +66,10 @@
 
   hardware = {
     brillo.enable = true;
-    bluetooth.enable = true;
+    bluetooth = {
+      enable = true;
+      config.General.Enable = "Source,Sink,Media,Socket";
+    };
     cpu.intel.updateMicrocode = true;
     ksm.enable = true;
     pulseaudio = {
@@ -75,6 +78,8 @@
       extraModules = [ pkgs.pulseaudio-modules-bt ];
       extraConfig = ''
         load-module module-switch-on-connect
+        load-module module-bluetooth-policy
+        load-module module-bluetooth-discover
       '';
     };
     # high-resolution display

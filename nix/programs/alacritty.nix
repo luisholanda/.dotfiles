@@ -3,7 +3,7 @@ let
   isDarwin = pkgs.stdenv.isDarwin;
 in {
   enable = true;
-  package = pkgs.alacritty;
+  package = pkgs.unstable.alacritty;
   settings = let
     xy = x: y: { inherit x y; };
   in {
@@ -48,7 +48,7 @@ in {
       italic = fontWithStyle "Italic";
       bold_italic = fontWithStyle "Bold Italic";
 
-      size = 14;
+      size = 10;
 
       # External monitors aren't retina, for now ;)
       use_thin_strokes = false;
