@@ -8,6 +8,11 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  # Use the systemd-boot EFI boot loader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.consoleMode = "auto";
+  boot.loader.efi.canTouchEfiVariables = true;
+
   boot.cleanTmpDir = true;
   boot.extraModulePackages = [ ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
@@ -18,14 +23,14 @@
     # Slab/slub sanity checks, redzoning, and poisoning
     "slub_debug=FZP"
     # Enable page allocator randomization
-    "page_alloc.shuffle=1"  
+    "page_alloc.shuffle=1"
   ];
   boot.blacklistedKernelModules = [
     # obscure network protocols
     "ax25"
-    "netrom" 
+    "netrom"
     "rose"
-    
+
     # Old or rare or insufficiently audited filesystems
     "adfs"
     "affs"
@@ -50,33 +55,33 @@
     "ufs"
   ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/nixos";
-      fsType = "xfs";
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-label/boot";
-      fsType = "vfat";
-    };
+  fileSystems = {
+    "/" = { label = "nixos"; fsType = "xfs"; };
+    "/boot" = { label = "boot"; fsType = "vfat"; };
+  };
 
   swapDevices =
-    [ { device = "/dev/disk/by-label/swap"; }
+    [ { label = "swap"; priority = 1; }
     ];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-  hardware.brillo.enable = true;
-  hardware.bluetooth.enable = true;
-  hardware.cpu.intel.updateMicrocode = true;
-  hardware.ksm.enable = true;
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-    extraModules = [ pkgs.pulseaudio-modules-bt ];
-    extraConfig = ''
-      load-module module-switch-on-connect
-    '';
+  hardware = {
+    brillo.enable = true;
+    bluetooth.enable = true;
+    cpu.intel.updateMicrocode = true;
+    ksm.enable = true;
+    pulseaudio = {
+      enable = true;
+      package = pkgs.pulseaudioFull;
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
+      extraConfig = ''
+        load-module module-switch-on-connect
+      '';
+    };
+    # high-resolution display
+    video.hidpi.enable = lib.mkDefault true;
   };
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
+
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
+
+  zramSwap.enable = true;
 }

@@ -84,19 +84,29 @@ set signcolumn=yes:2
 set synmaxcol=240
 
 " Use system clipboard
-let g:clipboard = {
-  \ 'name': 'pbcopy',
+if has("pbcopy")
+  let s:copy = "pbcopy" 
+  let s:paste = "pbpaste"
+elseif has("wl-copy")
+  let s:copy = "wl-copy"
+  let s:paste = "wl-paste"
+endif
+
+if has_key(s:, "copy")
+  let g:clipboard = {
+  \ 'name': s:copy,
   \ 'copy': {
-  \    '+': 'pbcopy',
-  \    '*': 'pbcopy',
+  \    '+': s:copy,
+  \    '*': s:copy,
   \  },
   \ 'paste': {
-  \    '+': 'pbpaste',
-  \    '*': 'pbpaste',
+  \    '+': s:paste,
+  \    '*': s:paste,
   \ },
   \ 'cache_enabled': 1,
   \ }
-set clipboard=unnamedplus
+  set clipboard=unnamedplus
+endif
 
 " Always show at least two lines below/above the cursor
 if !&scrolloff

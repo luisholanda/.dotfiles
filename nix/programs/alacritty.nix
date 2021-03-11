@@ -1,4 +1,4 @@
-super@{ pkgs, ... }:
+super@{ colors, pkgs, ... }:
 let
   isDarwin = pkgs.stdenv.isDarwin;
 in {
@@ -9,30 +9,30 @@ in {
   in {
     colors = {
       primary = {
-          background = "0x282C34";
-          foreground = "0xBBC2CF";
+          background = colors.background.xHex;
+          foreground = colors.foreground.xHex;
       };
 
       normal = {
-        black = "0x1B2229";
-        red = "0xEC5F67";
-        green = "0x5FAF5F";
-        yellow = "0xD8A657";
-        blue = "0x51AFEF";
-        magenta = "0xD16D9E";
-        cyan = "0x56B6C2";
-        white = "0x504945";
+        black = colors.normal.black.xHex;
+        red = colors.normal.red.xHex;
+        green = colors.normal.green.xHex;
+        yellow = colors.normal.yellow.xHex;
+        blue = colors.normal.blue.xHex;
+        magenta = colors.normal.magenta.xHex;
+        cyan = colors.normal.cyan.xHex;
+        white = colors.normal.white.xHex;
       };
 
       bright = {
-        black = "0x666660";
-        red = "0xEC5F67";
-        green = "0x5FAF5F";
-        yellow = "0xD8A657";
-        blue = "0x51AFEF";
-        magenta = "0xD16D9E";
-        cyan = "0x56B6C2";
-        white = "0xBBC2CF";
+        black = colors.bright.black.xHex;
+        red = colors.bright.red.xHex;
+        green = colors.bright.green.xHex;
+        yellow = colors.bright.yellow.xHex;
+        blue = colors.bright.blue.xHex;
+        magenta = colors.bright.magenta.xHex;
+        cyan = colors.bright.cyan.xHex;
+        white = colors.bright.white.xHex;
       };
     };
     draw_bold_text_with_bright_colors = true;
@@ -59,7 +59,7 @@ in {
     selection.save_to_clipboard = true;
 
     window = {
-      decorations = if isDarwin then "buttonless" else "None";
+      decorations = if isDarwin then "buttonless" else "none";
       dimensions = { columns = 120; lines = 48; };
       dynamic_title = false;
       dynamic_padding = true;

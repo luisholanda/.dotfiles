@@ -6,9 +6,8 @@ let
 
   otherPackages = with pkgs; let
     gcpPkgs = [ cloud-sql-proxy unstable.google-cloud-sdk ];
-    lspPkgs = [ ccls rnix-lsp terraform-lsp rust-analyzer ];
+    lspPkgs = [ rnix-lsp terraform-lsp rust-analyzer ];
   in [
-    bat
     exa
     fish-foreign-env
     gitAndTools.gh
