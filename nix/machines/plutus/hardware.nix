@@ -51,17 +51,17 @@
   ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/4eff97d4-5743-4482-9429-77c500c3f422";
+    { device = "/dev/disk/by-label/nixos";
       fsType = "xfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/34C9-998C";
+    { device = "/dev/disk/by-label/boot";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/97d70e93-3d04-4c35-89e9-69e7cb07b6a9"; }
+    [ { device = "/dev/disk/by-label/swap"; }
     ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
