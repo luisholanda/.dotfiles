@@ -12,3 +12,7 @@ require('gitsigns').setup {
   }
 }
 
+require("zephyr")
+require("colorizer").setup()
+require("lsp/config").setup()
+require("lsp/saga").setup()

@@ -17,10 +17,7 @@ local packages = {
   -- 'axvr/photon.vim',
   -- 'davidosomething/vim-colors-meh',
   -- 'andreypopp/vim-colors-plain',
-  {
-    'glepnir/zephyr-nvim',
-    config = 'require[[zephyr]]'
-  },
+  'glepnir/zephyr-nvim',
 
   -- Syntax
   'sheerun/vim-polyglot',
@@ -32,10 +29,7 @@ local packages = {
   -- Appearance
   'Yggdroot/indentLine',
   'rbong/vim-crystalline',
-  {
-    'norcalli/nvim-colorizer.lua',
-    config = 'require [[colorizer]].setup()'
-  },
+  'norcalli/nvim-colorizer.lua',
 
   -- LSP
   {
@@ -45,7 +39,6 @@ local packages = {
       'nvim-lua/lsp-status.nvim',
       'tjdevries/lsp_extensions.nvim',
     },
-    config = 'require"lsp/config".setup()'
   },
   {
     'RishabhRD/nvim-lsputils',
@@ -54,10 +47,7 @@ local packages = {
     }
   },
   'kosayoda/nvim-lightbulb',
-  {
-    'glepnir/lspsaga.nvim',
-    config = 'require"lsp/saga".setup()'
-  },
+  'glepnir/lspsaga.nvim',
 
   -- Git
   {

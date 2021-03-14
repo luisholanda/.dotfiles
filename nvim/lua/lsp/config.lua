@@ -141,15 +141,15 @@ local function rename_rust_analyzer_4901_fixed(_err, _method, result)
 end
 
 local function setup_callbacks()
-  vim.lsp.callbacks["textDocument/codeAction"] = lsputil.codeAction.code_action_handler
-  vim.lsp.callbacks["textDocument/references"] = lsputil.locations.references_handler
-  vim.lsp.callbacks["textDocument/definition"] = lsputil.locations.definition_handler
-  vim.lsp.callbacks["textDocument/declaration"] = lsputil.locations.declaration_handler
-  vim.lsp.callbacks["textDocument/typeDefinition"] = lsputil.locations.typeDefinition_handler
-  vim.lsp.callbacks["textDocument/implementation"] = lsputil.locations.implementation_handler
-  vim.lsp.callbacks["textDocument/documentSymbol"] = lsputil.locations.document_handler
-  vim.lsp.callbacks["textDocument/rename"] = rename_rust_analyzer_4901_fixed
-  vim.lsp.callbacks["workspace/symbol"] = lsputil.symbols.workspace_handler
+  vim.lsp.handlers["textDocument/codeAction"] = lsputil.codeAction.code_action_handler
+  vim.lsp.handlers["textDocument/references"] = lsputil.locations.references_handler
+  vim.lsp.handlers["textDocument/definition"] = lsputil.locations.definition_handler
+  vim.lsp.handlers["textDocument/declaration"] = lsputil.locations.declaration_handler
+  vim.lsp.handlers["textDocument/typeDefinition"] = lsputil.locations.typeDefinition_handler
+  vim.lsp.handlers["textDocument/implementation"] = lsputil.locations.implementation_handler
+  vim.lsp.handlers["textDocument/documentSymbol"] = lsputil.locations.document_handler
+  vim.lsp.handlers["textDocument/rename"] = rename_rust_analyzer_4901_fixed
+  vim.lsp.handlers["workspace/symbol"] = lsputil.symbols.workspace_handler
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics, {
       signs = true,
