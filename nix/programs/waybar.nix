@@ -1,6 +1,8 @@
-{ colors, pkgs, ... }:
-{
-  enable = true;
+{ colors, config, pkgs, ... }:
+let
+  cfgSway = config.programs.sway;
+in {
+  enable = cfgSway.enable;
   package = pkgs.waybar;
   settings = [{
     layer = "top";

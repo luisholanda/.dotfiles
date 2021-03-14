@@ -14,16 +14,28 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.cleanTmpDir = true;
+  boot.consoleLogLevel = 4;
   boot.extraModulePackages = [ ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel" "btusb" ];
+  boot.kernelPatches = [rec {
+    name = "enable-btusb-module";
+    patch = null;
+    extraConfig = "BT_HCIBTUSB m";
+  }];
   boot.kernelParams = [
     # Slab/slub sanity checks, redzoning, and poisoning
     "slub_debug=FZP"
     # Enable page allocator randomization
     "page_alloc.shuffle=1"
+    # Fix weird CSR firmware behaviour
+    "btusb.reset=1"
+    "btusb.enable_autosuspend=0"
+    # Reduce TTY output during boot
+    "quiet"
+    "vga=current"
   ];
   boot.blacklistedKernelModules = [
     # obscure network protocols
@@ -68,18 +80,27 @@
     brillo.enable = true;
     bluetooth = {
       enable = true;
-      config.General.Enable = "Source,Sink,Media,Socket";
+      settings.General = {
+        AutoConnect = "true";
+        Enable = "Source,Sink,Media,Socket";
+        FastConnectable = "true";
+        MultiProfile = "multiple";
+      };
     };
     cpu.intel.updateMicrocode = true;
     ksm.enable = true;
     pulseaudio = {
-      enable = true;
+      enable = false;
       package = pkgs.pulseaudioFull;
       extraModules = [ pkgs.pulseaudio-modules-bt ];
       extraConfig = ''
         load-module module-switch-on-connect
-        load-module module-bluetooth-policy
-        load-module module-bluetooth-discover
+
+        unload module-bluetooth-policy
+        load-module module-bluetooth-policy auto_switch=2
+
+        unload module-bluetooth-discover
+        load-module module-bluetooth-discover headset=native
       '';
     };
     # high-resolution display

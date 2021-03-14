@@ -51,6 +51,7 @@ in {
 
   neovim = {
     enable = true;
+    extraConfig = builtins.readFile ../../nvim/init.vim;
     package = pkgs.neovim-unwrapped;
     viAlias = true;
     vimAlias = true;

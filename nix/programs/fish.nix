@@ -8,11 +8,9 @@ in {
     set -g fish_cursor_default block
     set -g fish_cursor_insert line
     set -g fish_cursor_replace_one underscore
-    source (pyenv init -|psub)
-    source (pyenv virtualenv-init -|psub)
   '';
   loginShellInit = ''
-    set -p fish_function_path ${pkgs.fish-foreign-env}/share/fish-foreign-env/functions
+    set -p fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish-foreign-env/functions
     if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
       fenv source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     end
@@ -26,7 +24,11 @@ in {
     end
     set -e fish_function_path[1]
 
+    set -e NIX_PATH
     set -x NIX_PATH ${builtins.concatStringsSep " " nixPath}
+  '';
+  promptInit = ''
+    any-nix-shell fish --info-right | source
   '';
   shellAliases = rec {
     grep = "grep --color";

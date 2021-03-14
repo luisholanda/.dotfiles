@@ -6,6 +6,7 @@ let
       enable = true;
       config = {
         inherit modifier;
+        bars = [ { command = "waybar"; } ];
         gaps = {
           outer = 4;
           inner = 4;
@@ -14,7 +15,9 @@ let
         input = {
           "type:keyboard" = {
             repeat_delay = "150";
-            repeat_rate = "25";
+            repeat_rate = "30";
+            xkb_layout = "us";
+            xkb_variant = "intl";
           };
           "type:pointer" = {
             accel_profile = "adaptive";

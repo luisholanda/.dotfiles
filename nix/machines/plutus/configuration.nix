@@ -5,6 +5,7 @@
 { colors, config, lib, pkgs, ... }:
 {
   _module.args.colors = lib.mkDefault (import ../../config/colors.nix);
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware.nix
@@ -13,6 +14,7 @@
       <home-manager/nixos>
       ../../config/home.nix
       ../../config/nix.nix
+      ../../services
     ];
 
   console.colors = colors.term;
@@ -28,6 +30,9 @@
   # TODO: We use Wayland instead of Xorg
   # environment.noXlibs = true;
 
+  environment.sessionVariables = {
+    XDG_CURRENT_DESKTOP = "sway";
+  };
   environment.shells = [ pkgs.fish ];
   environment.shellInit = ''
     if [[ "$tty" = "/dev/tty1" ]]; then
@@ -43,13 +48,18 @@
     gsettings-desktop-schemas
     libappindicator
     lxappearance
+    numix-gtk-theme
+    numix-icon-theme
+    numix-cursor-theme
     wget
+    xdg_utils
+    xdg-user-dirs
   ];
 
   fonts = {
     # TODO: Maybe we should drop this and list the specific fonts we want?
     enableDefaultFonts = true;
-    enableFontDir = true;
+    fontDir.enable = true;
     fontconfig = {
       useEmbeddedBitmaps = true;
       defaultFonts.monospace = [ "JetBrainsMono Nerd Font" ];
@@ -88,7 +98,6 @@
     enable = true;
     wrapperFeatures.gtk = true;
     extraPackages = with pkgs; [
-      kanshi
       swaylock
       swayidle
       xwayland
@@ -105,7 +114,6 @@
       export XDG_CURRENT_DESKTOP=sway
     '';
   };
-  programs.waybar.enable = true;
 
   services.blueman.enable = true;
   services.localtime.enable = true;
@@ -113,6 +121,7 @@
     enable = true;
     interval = "12:20";
   };
+
   services.redshift = {
     enable = true;
     package = pkgs.redshift-wlr;
@@ -125,17 +134,6 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.09"; # Did you read the comment?
-
-  systemd.user.services.kanshi = {
-    description = "Kanshi output autoconfig";
-    wantedBy = [ "graphical-session.target" ];
-    partOf = [ "graphical-session.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.kanshi}/bin/kanshi";
-      RestartSec = 5;
-      Restart = "always";
-    };
-  };
 
   systemd.user.services.mpris-proxy = {
     description = "MPRIS proxy";
@@ -161,6 +159,7 @@
 
   virtualisation.docker = {
     enable = true;
+    enableOnBoot = false;
     autoPrune = { enable = true; };
   };
 

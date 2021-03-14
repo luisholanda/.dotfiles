@@ -4,13 +4,15 @@ self: super:
     ts = self.unstable.tree-sitter.override {
       enableStatic = true;
     };
-  in super.neovim-unwrapped.overrideAttrs (old: rec {
-    version = "c1fbc2ddf15b2f44b615f90b2511349ab974cb83";
+  in (super.neovim-unwrapped
+    .override { inherit (self) fish; python = null; nodejs = null; })
+    .overrideAttrs (old: rec {
+    version = "9808c8d9ddea2a8e29e7b979581ba67f8871a1b1";
     src = super.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
       rev = version;
-      sha256 = "0kvk3r4by8r3asmfl69iw93xnd8lwfr0pynynlhr5y8h5pjd3rfi";
+      sha256 = "0msrya0xdl895igjpsxh31mm414pki9jm8k2ldmzk1ij407aabr5";
     };
 
     buildInputs = old.buildInputs ++ [ts];

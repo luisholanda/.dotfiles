@@ -1,6 +1,5 @@
 { pkgs, ... }:
 let
-  stdenv = pkgs.stdenv;
   lib = pkgs.lib;
   HOME = builtins.getEnv "HOME";
   fetchFromGitHub = { owner, repo, rev ? null, tag ? null, sha256 }:
@@ -35,17 +34,18 @@ let
   homeManager = fetchFromGitHub {
     owner = "nix-community";
     repo = "home-manager";
-    rev = "d8dd2a09b0a9c2c12d733f5d1eb3fa39bbe215b8";
-    sha256 = "1dxhgsg7081c50h8z146lrhx6aj6f4h905f45im7ilj6c3q4z0z9";
+    rev = "040ea28e448a93d24540b7cf2eda4b25300c5ab1";
+    sha256 = "0llviiyi3crf3giq95d1xa6zjvrf6rndjr36r4mqcyh6qk903v7r";
   };
   __nixPath = [
     { prefix = "nur"; src = nurRepos; }
+    { prefix = "nixpkgs"; src = nixUnstable; }
     { prefix = "nixpkgs-unstable"; src = nixUnstable; }
-    #{ prefix = "home-manager"; src = homeManager; }
-  ] ++ lib.optionals stdenv.isDarwin [
+    { prefix = "home-manager"; src = homeManager; }
+  ] ++ lib.optionals pkgs.stdenv.isDarwin [
     { prefix = "darwin"; src = nixDarwin; }
     { prefix = "darwin-config"; src = "/Users/luiscm/.dotfiles/nix/configuration.nix"; }
-  ] ++ lib.optional stdenv.isLinux
+  ] ++ lib.optional pkgs.stdenv.isLinux
     { prefix = "nixos-config"; src = "/home/luiscm/.dotfiles/nix/machines/plutus/configuration.nix"; };
 in rec {
   nur = nurRepos;

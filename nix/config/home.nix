@@ -1,23 +1,27 @@
 super@{ cfg, lib, pkgs, ... }:
 
-with pkgs.stdenv;
 let
-  applications = [ ];
+  inherit (pkgs.stdenv) isLinux isDarwin;
+  applications = with pkgs; if isLinux
+    then [ tdesktop ]
+    else [];
 
   otherPackages = with pkgs; let
     gcpPkgs = [ cloud-sql-proxy unstable.google-cloud-sdk ];
-    lspPkgs = [ rnix-lsp terraform-lsp rust-analyzer ];
+    lspPkgs = [ unstable.nodePackages.pyright rnix-lsp terraform-lsp rust-analyzer ];
   in [
+    any-nix-shell
+    devicon-lookup
     exa
-    fish-foreign-env
+    fishPlugins.foreign-env
     gitAndTools.gh
     git.doc
     httpie
     jq
     nixfmt
+    ripgrep
     yarn
     protobuf
-    androidenv.androidPkgs_9_0.platform-tools
   ] ++ gcpPkgs
   ++ lspPkgs
   ++ (import ./scripts.nix super);
@@ -46,6 +50,7 @@ let
       sessionVariables = {
         MANPAGER = "nvim -c 'set ft=man' -";
         EDITOR = "nvim";
+        CHROMIUM_FLAGS = lib.optionalString isLinux "--use-gl=desktop --enable-features=UseOzonePlatform --ozone-platform=wayland";
       };
 
       file = {
@@ -69,6 +74,11 @@ let
     submoduleSupport = {
       enable = true;
       externalPackageInstall = false;
+    };
+
+    xdg = lib.mkIf isLinux {
+      enable = true;
+      userDirs.enable = true;
     };
   };
 in {

@@ -15,8 +15,6 @@ in {
       identityFile = "${home}/.ssh/github";
       extraOptions = {
         PreferredAuthentications = "publickey";
-        IgnoreUnknown = "UseKeychain";
-        UseKeychain = "yes";
         AddKeysToAgent = "yes";
       };
     };

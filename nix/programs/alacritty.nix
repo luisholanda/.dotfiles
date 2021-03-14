@@ -55,7 +55,7 @@ in {
     };
 
     live_config_reload = true;
-    mouse.hide_when_typing = true;
+    mouse.hide_when_typing = false;
     selection.save_to_clipboard = true;
 
     window = {

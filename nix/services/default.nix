@@ -1,4 +1,4 @@
-super@{ lib, pkgs, ... }:
+super@{ lib, config, pkgs, ... }:
 let
   mkIfLinux = x: lib.mkIf pkgs.stdenv.isLinux x;
   enableIfLinux = mkIfLinux { enable = true; };
@@ -7,17 +7,38 @@ in {
     ./dnscrypt-proxy2.nix
   ];
 
-  gpg-agent = mkIfLinux {
-    enable = true;
-    defaultCacheTtl = 600;
-    maxCacheTtl = 7200;
-    enableSshSupport = true;
+  services = mkIfLinux {
+    #gpg-agent = {
+    #  enable = true;
+    #  defaultCacheTtl = 600;
+    #  maxCacheTtl = 7200;
+    #  enableSshSupport = true;
+    #};
+
+    irqbalance.enable = true;
+
+    pipewire = {
+      enable = !(config.hardware.pulseaudio.enable || config.sound.enable);
+      pulse.enable = true;
+      jack.enable = true;
+      alsa.enable = true;
+      media-session.config.bluez-monitor = {
+        properties.bluez5 = {
+          mbsc-support = true;
+          sbc-xq-support = true;
+          headset-roles = [ "hfp_hf" "hfp_ag" ];
+        };
+      };
+    };
+
+    #pulseeffects.enable = true;
   };
 
-  irqbalance = enableIfLinux;
-
-  # Support WebRTC and simillars
-  pipewire = enableIfLinux;
-
-  pulseeffects = enableIfLinux;
+  home-manager.users.luiscm.services = mkIfLinux {
+    kanshi.enable = true;
+    pulseeffects = {
+      enable = true;
+      package = pkgs.pulseeffects-pw;
+    };
+  };
 }
