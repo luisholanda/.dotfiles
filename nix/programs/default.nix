@@ -1,5 +1,8 @@
-super@{ pkgs, ... }:
+super@{ lib, pkgs, ... }:
 let
+  inherit (pkgs.stdenv) isLinux;
+
+  mkIfLinux = x: lib.mkIf isLinux x;
   colors = import ../config/colors.nix;
   args = super // { inherit colors; };
 in {
@@ -9,10 +12,11 @@ in {
   git = import ./git.nix args;
   gpg = import ./gpg.nix args;
   kitty = import ./kitty.nix args;
-  mako = import ./mako.nix args;
+  mako = mkIfLinux (import ./mako.nix args);
+  mpv = mkIfLinux (import ./mpv args);
   ssh = import ./ssh.nix args;
   tmux = import ./tmux.nix args;
-  waybar = import ./waybar.nix args;
+  waybar = mkIfLinux (import ./waybar.nix args);
 
   bat = {
     enable = true;
