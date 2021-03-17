@@ -17,7 +17,7 @@ rec {
   };
 
   extraConfig = {
-    core = { 
+    core = {
       commentChar = "@";
       sshCommand = "ssh -i ~/.ssh/github";
     };
@@ -25,7 +25,7 @@ rec {
     color = { ui = true; };
     branch = { autosetuprebase = "always"; };
     pull = { rebase = true; };
-    #url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
+    url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
   };
 
   aliases = {

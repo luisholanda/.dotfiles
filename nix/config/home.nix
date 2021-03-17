@@ -3,7 +3,7 @@ super@{ cfg, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) isLinux isDarwin;
   applications = with pkgs; if isLinux
-    then [ tdesktop ]
+    then [ tdesktop osu-lazer ]
     else [];
 
   otherPackages = with pkgs; let

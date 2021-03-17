@@ -49,6 +49,9 @@ in fileOverlays ++ [(self: super: {
     };
   };
 
+  vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
+
+
   waybar = super.waybar.override {
     pulseSupport = true;
     libdbusmenu-gtk3 = self.libappindicator;

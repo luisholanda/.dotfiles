@@ -89,6 +89,15 @@
     };
     cpu.intel.updateMicrocode = true;
     ksm.enable = true;
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+      ];
+    };
     pulseaudio = {
       enable = false;
       package = pkgs.pulseaudioFull;

@@ -23,6 +23,9 @@ let
             accel_profile = "adaptive";
             natural_scroll = "enabled";
           };
+          "type:tablet_tool" = {
+            map_from_region = "0.3x0.0 1.0x0.3";
+          };
         };
         menu = ''${pkgs.wofi}/bin/wofi \
           --normal-window \
