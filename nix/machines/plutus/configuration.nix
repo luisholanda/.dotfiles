@@ -150,7 +150,7 @@
   users.users.luiscm = {
     createHome = true;
     description = "Luis C. M. de Holanda";
-    extraGroups = [ "wheel" "networking" "video" "adbusers" ];
+    extraGroups = [ "wheel" "networking" "video" "adbusers" "docker" ];
     home = "/home/luiscm";
     isNormalUser = true;
     hashedPassword = "$6$9FTY2/BA$SNnE6OAWlL4fK/cURdYQUJ33pp6xMQcUsFCkzD1HnDidI.cP6WDmQMUhYapi/NiAT3gXKh//N09q2fYO1V3eN.";
