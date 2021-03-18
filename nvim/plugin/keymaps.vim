@@ -8,6 +8,15 @@ nnoremap <silent> :Q<CR>  :q<CR>
 nnoremap <silent> <leader>bd :Bclose<CR>
 nnoremap <silent> <leader>q  :q<CR>
 
+inoremap <up> <nop>
+inoremap <down> <nop>
+nnoremap <silent> <left> :bp<CR>
+nnoremap <silent> <right> :bn<CR>
+nnoremap <CR><CR> <c-^>
+
+nnoremap Y y$
+
+" Window commands
 nnoremap <silent> <leader>ww <cmd>up<CR>
 nnoremap <silent> <leader>ws <cmd>rightbelow split<CR>
 nnoremap <silent> <leader>wv <cmd>rightbelow vsplit<CR>
@@ -17,6 +26,12 @@ nnoremap <silent> <leader>wk <cmd>wincmd k<CR>
 nnoremap <silent> <leader>wl <cmd>wincmd l<CR>
 nnoremap <silent> <leader>wq <cmd>wincmd c<CR>
 nnoremap <silent> <tab>      <cmd>wincmd w<CR>
+
+" Search
+nnoremap <leader>sf <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>sg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>sb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>sh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 " LSP stuff
 nnoremap <silent> gd         <cmd>lua vim.lsp.buf.definition()<CR>
@@ -36,15 +51,13 @@ nnoremap <silent> <leader>rn <cmd>lua require'lspsaga.rename'.rename()<CR>
 nnoremap <silent> <C-f>      <cmd>lua require'lspsaga.hover'.smart_scroll_hover(1)<CR>
 nnoremap <silent> <C-b>      <cmd>lua require'lspsaga.hover'.smart_scroll_hover(-1)<CR>
 
-inoremap <up> <nop>
-inoremap <down> <nop>
-nnoremap <silent> <left> :bp<CR>
-nnoremap <silent> <right> :bn<CR>
-nnoremap <CR><CR> <c-^>
+" Git
+nnoremap <silent> <leader>gs <cmd>lua require'neogit'.status.create('floating')<CR>
+nnoremap <silent> <leader>ghpl <cmd>Octo pr list<CR>
+nnoremap <silent> <leader>ghpe <cmd>Octo pr edit<space>
+nnoremap <silent> <leader>ghpo <cmd>Octo pr open<CR>
 
-nnoremap Y y$
-
-" Terminal mode stuff
+" " Terminal mode stuff
 nnoremap <silent> <leader>t  <cmd>terminal<CR>
 nnoremap <silent> <leader>T  <cmd>rightbelow vsplit<CR><cmd>terminal<CR>
 tnoremap <silent> <Esc>      <C-\><C-n>
@@ -54,3 +67,7 @@ tnoremap <silent> <leader>wj <C-\><C-n><cmd>wincmd j<CR>
 tnoremap <silent> <leader>wk <C-\><C-n><cmd>wincmd k<CR>
 tnoremap <silent> <leader>wl <C-\><C-n><cmd>wincmd l<CR>
 tnoremap <silent> <leader>wq <C-\><C-n><cmd>wincmd c<CR>
+
+" Auto-completion stuff
+inoremap <silent><expr> <TAB> <cmd>lua require"completion".tab()<CR>
+inoremap <silent><expr> <S-Tab> <cmd>lua require"completion".s_tab()<CR>

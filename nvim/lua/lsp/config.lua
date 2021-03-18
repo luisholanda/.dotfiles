@@ -1,7 +1,5 @@
 local nvim_lsp = nil;
 local lsp_status = nil;
-local completion = nil;
---local diagnostics = nil;
 local protocol = nil;
 local lsputil = nil;
 
@@ -44,12 +42,13 @@ local function lsp_on_attach(client, bufnr)
     client.config.flags.allow_incremental_sync = true
   end
 
-  completion.on_attach(client, bufnr)
   --lsp_status.on_attach(client, bufnr)
 end
 
 local function configure_servers()
   nvim_lsp.util.default_config.capabilities = vim.tbl_deep_extend("keep", nvim_lsp.util.default_config.capabilities or {}, lsp_status.capabilities)
+  nvim_lsp.util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport = true
+
   nvim_lsp.rust_analyzer.setup{
     root_dir = nvim_lsp.util.root_pattern("Cargo.lock", "rust-project.json"),
     cmd = {"rust-analyzer"},
@@ -63,8 +62,8 @@ local function configure_servers()
         allFeatures = true,
       },
       completion = {
-        addCallArgumentSnippets = false,
-        postfix = { enable = false },
+        addCallArgumentSnippets = true,
+        postfix = { enable = true },
       },
       procMacro = { enable = true },
     }
@@ -162,7 +161,6 @@ end
 function M.setup()
   nvim_lsp = require('lspconfig')
   lsp_status = require('lsp-status')
-  completion = require('completion')
   protocol = require('vim.lsp.protocol')
   lsputil = {
     codeAction = require('lsputil.codeAction'),

@@ -12,19 +12,11 @@ local packages = {
   'gcmt/wildfire.vim',
 
   -- Color-schemes
-  -- 'Iron-E/nvim-highlite',
-  -- 'nightsense/snow',
-  -- 'axvr/photon.vim',
-  -- 'davidosomething/vim-colors-meh',
-  -- 'andreypopp/vim-colors-plain',
-  'glepnir/zephyr-nvim',
+  'sainnhe/sonokai',
 
   -- Syntax
   'sheerun/vim-polyglot',
-  --{
-  --  'nvim-treesitter/nvim-treesitter',
-  --  config = 'require [[treesitter]].setup()'
-  --},
+  'nvim-treesitter/nvim-treesitter',
 
   -- Appearance
   'Yggdroot/indentLine',
@@ -35,9 +27,10 @@ local packages = {
   {
     'neovim/nvim-lspconfig',
     requires = {
-      'nvim-lua/completion-nvim',
+      'hrsh7th/nvim-compe',
       'nvim-lua/lsp-status.nvim',
       'tjdevries/lsp_extensions.nvim',
+      'norcalli/snippets.nvim',
     },
   },
   {
@@ -46,8 +39,23 @@ local packages = {
       'RishabhRD/popfix'
     }
   },
-  'kosayoda/nvim-lightbulb',
   'glepnir/lspsaga.nvim',
+
+  -- Interface
+  {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      'nvim-lua/popup.nvim',
+      'nvim-lua/plenary.nvim'
+    },
+  },
+  {
+    'kristijanhusak/vim-dadbod-ui',
+    requires = {
+      'tpope/vim-dadbod',
+      'kristijanhusak/vim-dadbod-completion'
+    },
+  },
 
   -- Git
   {
@@ -56,6 +64,8 @@ local packages = {
       'nvim-lua/plenary.nvim'
     },
   },
+  'TimUntersberger/neogit',
+  'pwntester/octo.nvim',
 
   -- Language specific
   'rust-lang/rust.vim',

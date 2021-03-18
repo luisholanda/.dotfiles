@@ -1,29 +1,31 @@
 let
-  mkColor = c: { xHex = "0x${c}"; plain = c; hex = "#${c}"; };
+  inherit (builtins) substring stringLength;
+  mkColor = hex: let
+      plain = substring 1 (stringLength hex) hex;
+  in { inherit hex plain; xHex = "0x${plain}"; };
 in rec {
-  background = mkColor "282C34";
-  foreground = mkColor "BBC2CF";
-
+  background = mkColor "#2B2D3A";
+  foreground = mkColor "#E1E3E4";
   normal = {
-    black   = mkColor "1B2229";
-    red     = mkColor "EC5F67";
-    green   = mkColor "5FAF5F";
-    yellow  = mkColor "D8A657";
-    blue    = mkColor "51AFEF";
-    magenta = mkColor "D16D9E";
-    cyan    = mkColor "56B6C2";
-    white   = mkColor "504945";
+    black   = mkColor "#181A1C";
+    red     = mkColor "#FB617E";
+    green   = mkColor "#9ED06C";
+    yellow  = mkColor "#EDC763";
+    blue    = mkColor "#6DCAE8";
+    magenta = mkColor "#BB97EE";
+    cyan    = mkColor "#F89860";
+    white   = mkColor "#E1E3E4";
   };
 
   bright = {
-    black   = mkColor "666660";
-    red     = mkColor "EC5F67";
-    green   = mkColor "5FAF5F";
-    yellow  = mkColor "D8A657";
-    blue    = mkColor "51AFEF";
-    magenta = mkColor "D16D9E";
-    cyan    = mkColor "56B6C2";
-    white   = mkColor "BBC2CF";
+    black   = mkColor "#181A1C";
+    red     = mkColor "#FB617E";
+    green   = mkColor "#9ED06C";
+    yellow  = mkColor "#EDC763";
+    blue    = mkColor "#6DCAE8";
+    magenta = mkColor "#BB97EE";
+    cyan    = mkColor "#F89860";
+    white   = mkColor "#E1E3E4";
   };
 
   term = [
