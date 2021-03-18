@@ -26,7 +26,10 @@ in {
     };
   };
 
-  brave.enable = true;
+  brave = {
+    enable = true;
+    package = pkgs.brave;
+  };
 
   fzf = rec {
     enable = true;

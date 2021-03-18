@@ -11,9 +11,8 @@ let
   ];
   fileOverlays = builtins.map (x: import x) overlays;
 in fileOverlays ++ [(self: super: {
-  ccls = super.ccls.override {
-    llvmPackages = self.unstable.llvmPackages_11;
-  };
+  # TODO: try remove self.xorg
+  brave = import ../pkgs/networking/browsers/brave (self // self.xorg);
 
   devicon-lookup = self.rustPlatform.buildRustPackage rec {
     pname = "devicon-lookup";
@@ -51,7 +50,6 @@ in fileOverlays ++ [(self: super: {
   };
 
   vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
-
 
   waybar = super.waybar.override {
     pulseSupport = true;

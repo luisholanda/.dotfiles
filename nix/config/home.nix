@@ -68,6 +68,7 @@ let
           # Prevent that we add generated files to git.
           recursive = true;
         };
+        ".config/brave-flags.conf".text = "--use-gl=desktop  --enable-features=UseOzonePlatform --ozone-platform=wayland";
       };
     };
 
