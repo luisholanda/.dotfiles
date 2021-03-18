@@ -7,6 +7,7 @@ let
     ./myLib.nix
     ./neovim.nix
     ./rust-analyzer.nix
+    ./rtl8188eu.nix
   ];
   fileOverlays = builtins.map (x: import x) overlays;
 in fileOverlays ++ [(self: super: {

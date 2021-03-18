@@ -15,29 +15,24 @@
 
   boot.cleanTmpDir = true;
   boot.consoleLogLevel = 4;
-  boot.extraModulePackages = [ ];
+  boot.extraModulePackages = [ pkgs.firmware-rtl8188eu ];
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.kernelModules = [ "kvm-intel" "btusb" ];
-  boot.kernelPatches = [rec {
-    name = "enable-btusb-module";
-    patch = null;
-    extraConfig = "BT_HCIBTUSB m";
-  }];
+  boot.initrd.kernelModules = [];
+  boot.kernelPackages = pkgs.linuxPackages_5_10;
+  boot.kernelModules = [ "kvm-intel" "8188eu" ];
   boot.kernelParams = [
     # Slab/slub sanity checks, redzoning, and poisoning
     "slub_debug=FZP"
     # Enable page allocator randomization
     "page_alloc.shuffle=1"
-    # Fix weird CSR firmware behaviour
-    "btusb.reset=1"
-    "btusb.enable_autosuspend=0"
     # Reduce TTY output during boot
     "quiet"
     "vga=current"
   ];
   boot.blacklistedKernelModules = [
+    # Bad Realtek driver
+    "r8188eu"
+
     # obscure network protocols
     "ax25"
     "netrom"
