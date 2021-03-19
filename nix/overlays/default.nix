@@ -1,13 +1,14 @@
 let
   overlays = [
     ./channels.nix
-    ./installApplication.nix
-    ./emacs.nix
-    ./firefox.nix
-    ./myLib.nix
-    ./neovim.nix
-    ./rust-analyzer.nix
-    ./rtl8188eu.nix
+    ./applications/editors/emacs.nix
+    ./applications/editors/neovim.nix
+    ./applications/networking/browsers/firefox.nix
+    ./applications/networking/instant-messengers/telegram.nix
+    ./development/tools/rust/rust-analyzer.nix
+    ./lib/installApplication.nix
+    ./lib/myLib.nix
+    ./os-specific/linux/firmware/rtl8188eu.nix
   ];
   fileOverlays = builtins.map (x: import x) overlays;
 in fileOverlays ++ [(self: super: {
@@ -26,27 +27,6 @@ in fileOverlays ++ [(self: super: {
     };
 
     cargoSha256 = "048yb45zr589gxvff520wh7cwlhsb3h64zqsjfy85c5y28sv6sas";
-  };
-
-  telegram = let
-    name = "Telegram";
-    version = "2.5.8";
-    isBeta = false;
-  in self.installApplication {
-    inherit version name;
-
-    description = "Telegram Desktop messaging app";
-    homepage = "https://desktop.telegram.org";
-
-    src = super.fetchurl {
-      name = "${name}-${version}.dmg";
-      url =  let
-        urlVersion = if isBeta
-          then "${version}.beta"
-          else "${version}";
-      in "https://github.com/telegramdesktop/tdesktop/releases/download/v${version}/tsetup.${urlVersion}.dmg";
-      sha256 = "1yprjglkbpgbkjv2j1nmw32gx0ph3c6f0n3c5ykwyf7c37v9aaxn";
-    };
   };
 
   vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };

@@ -22,13 +22,6 @@ in {
       pulse.enable = true;
       jack.enable = true;
       alsa.enable = true;
-      media-session.config.bluez-monitor = {
-        properties.bluez5 = {
-          mbsc-support = true;
-          sbc-xq-support = true;
-          headset-roles = [ "hfp_hf" "hfp_ag" ];
-        };
-      };
     };
 
     #pulseeffects.enable = true;
