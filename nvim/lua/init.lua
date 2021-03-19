@@ -1,3 +1,4 @@
+require("completion")
 require('config')
 require('plugins')
 

@@ -1,11 +1,12 @@
 local snippets = require("snippets")
-local comp_complete = vim.fn["compe#complete"]
+local complete = vim.fn["compe#complete"]
+local confirm = vim.fn["compe#confirm"]
 
-local function t(str)
+local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-local function check_back_space()
+local check_back_space = function()
     local col = vim.fn.col('.') - 1
     if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
         return true
@@ -14,22 +15,26 @@ local function check_back_space()
     end
 end
 
-local function in_snippet()
+local in_snippet = function()
   local _, expanded = snippets.lookup_snippet_at_cursor()
-  return expanded ~ nil
+  return expanded ~= nil
 end
 
-local function tab()
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-n>"
+  elseif check_back_space() then
+    return t "<Tab>"
   elseif in_snippet() then
     return snippets.expand_or_advance(1)
   else
-    return comp_complete()
+    return complete()
   end
 end
-
-local function s_tab()
+_G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-p>"
   elseif in_snippet() then
@@ -38,5 +43,20 @@ local function s_tab()
     return t "<S-Tab>"
   end
 end
+_G.enter_confirm = function()
+  if snippets.has_active_snippet() then
+    return snippets.expand_or_advance(1)
+  elseif vim.fn.pumvisible() == 1 then
+    return confirm("<CR>")
+  else
+    return t "<CR>"
+  end
+end
 
-return { tab = tab; s_tab = s_tab; }
+vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", {expr = true})
+vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete", {expr = true})
+vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", {expr = true})
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})

@@ -67,7 +67,3 @@ tnoremap <silent> <leader>wj <C-\><C-n><cmd>wincmd j<CR>
 tnoremap <silent> <leader>wk <C-\><C-n><cmd>wincmd k<CR>
 tnoremap <silent> <leader>wl <C-\><C-n><cmd>wincmd l<CR>
 tnoremap <silent> <leader>wq <C-\><C-n><cmd>wincmd c<CR>
-
-" Auto-completion stuff
-inoremap <silent><expr> <TAB> <cmd>lua require"completion".tab()<CR>
-inoremap <silent><expr> <S-Tab> <cmd>lua require"completion".s_tab()<CR>
