@@ -15,7 +15,7 @@ self: super:
           mkdir -p "$out/Applications/${appname}.app"
           mv ${appname}.app "$out/Applications/"
         '' + postInstall;
-        meta = with stdenv.lib; {
+        meta = with self.lib; {
           inherit description homepage;
           platforms = platforms.darwin;
         };

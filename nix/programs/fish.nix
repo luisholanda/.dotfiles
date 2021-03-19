@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
-let channels = import ../channels;
+let nixPath = config.nix.nixPath;
 in {
   enable = true;
   interactiveShellInit = ''
@@ -8,8 +8,8 @@ in {
     set -g fish_cursor_default block
     set -g fish_cursor_insert line
     set -g fish_cursor_replace_one underscore
-    source (pyenv init -|psub)
-    source (pyenv virtualenv-init -|psub)
+    _pure_set_default pure_show_prefix_root_prompt true
+    set_color pure_color_mute white
   '';
   loginShellInit = ''
     set -p fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d
@@ -26,7 +26,11 @@ in {
     end
     set -e fish_function_path[1]
 
-    set -p NIX_PATH ${builtins.concatStringsSep " " channels.nixPathStr}
+    set -e NIX_PATH
+    set -x NIX_PATH ${builtins.concatStringsSep " " nixPath}
+  '';
+  promptInit = ''
+    any-nix-shell fish --info-right | source
   '';
   shellAliases = rec {
     grep = "grep --color";
@@ -114,8 +118,8 @@ in {
       src = pkgs.fetchFromGitHub {
         owner = "rafaelrinaldi";
         repo = name;
-        rev = "d66aa7f0fec5555144d29faec34a4e7eff7af32b";
-        sha256 = "0klcwlgsn6nr711syshrdqgjy8yd3m9kxakfzv94jvcnayl0h62w";
+        rev = "69e9a074125ad853aae244ce2aabc33811b99970";
+        sha256 = "1x1h65l8582p7h7w5986sc9vfd7b88a7hsi68dbikm090gz8nlxx";
       };
     }
     rec {

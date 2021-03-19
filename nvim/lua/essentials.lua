@@ -1,10 +1,11 @@
 local o = vim.o or {}
+local g = vim.g or {}
 
 o.shell = "/usr/local/bin/fish"
 vim.api.nvim_command('let mapleader=";"')
 
-vim.g.loaded_python_provider = 0
-vim.g.python3_host_prog = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
+g.loaded_python_provider = 0
+g.python3_host_prog = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
 o.pyxversion = 3
 
 o.number = true
@@ -59,7 +60,7 @@ o.lazyredraw = true
 o.updatetime = 100
 
 -- Better behaviour from autocomplete pop-up.
-o.completeopt = "noinsert,menu,noselect"
+o.completeopt = "noinsert,menuone,noselect"
 o.pumheight   = 25
 
 -- highlight matching parenthesis, braces, brackets, etc.
@@ -79,13 +80,10 @@ o.wildmenu = true
 o.wildmode = "list:longest,full"
 o.wildignore = vim.o.wildignore .. "vendor/**,node_modules/**,target/**"
 
-o.foldmethod = "syntax"
-o.foldenable = false
-
 o.signcolumn = "yes:2"
 o.synmaxcol = 240
 
-vim.g.clipboard = {
+g.clipboard = {
   name = "pbcopy",
   copy = {
     ["+"] = "pbcopy",
@@ -98,8 +96,6 @@ vim.g.clipboard = {
   cache_enabled = 1
 }
 o.clipboard = "unnamedplus"
-
-o.termguicolors = true
 
 -- Configure undo history
 o.undofile = true

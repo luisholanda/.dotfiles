@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+super@{ lib, pkgs, ... }:
 
 with pkgs.stdenv;
 with builtins;
@@ -11,12 +11,10 @@ let
     nix-community = mkCache "https://nix-community.cachix.org" "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
   in [ nixos cachix nix-tools nix-community ];
 in {
-  services.nix-daemon.enable = false;
   nix = rec {
-    package = pkgs.nix;
+    autoOptimiseStore = true;
+    nixPath = lib.mkDefault (lib.mkBefore (import ../channels super).nixPathStr);
     gc.automatic = false;
-    gc.user = "luiscm";
-    useDaemon = false;
     buildCores = 4;
     useSandbox = true;
     sandboxPaths = [] ++ lib.optionals isDarwin [

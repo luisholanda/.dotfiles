@@ -1,11 +1,35 @@
-super@{ pkgs, ... }:
-{
-  alacritty = import ./alacritty.nix super;
-  firefox = import ./firefox super;
-  fish = import ./fish.nix super;
-  git = import ./git.nix super;
-  kitty = import ./kitty.nix super;
-  tmux = import ./tmux.nix super;
+super@{ lib, pkgs, ... }:
+let
+  inherit (pkgs.stdenv) isLinux;
+
+  mkIfLinux = x: lib.mkIf isLinux x;
+  colors = import ../config/colors.nix;
+  args = super // { inherit colors; };
+in {
+  alacritty = import ./alacritty.nix args;
+  firefox = import ./firefox args;
+  fish = import ./fish.nix args;
+  git = import ./git.nix args;
+  gpg = import ./gpg.nix args;
+  kitty = import ./kitty.nix args;
+  mako = mkIfLinux (import ./mako.nix args);
+  mpv = mkIfLinux (import ./mpv args);
+  ssh = import ./ssh.nix args;
+  tmux = import ./tmux.nix args;
+  waybar = mkIfLinux (import ./waybar.nix args);
+
+  bat = {
+    enable = true;
+    config = {
+      theme = "OneHalfDark";
+      italic-text = "always";
+    };
+  };
+
+  brave = {
+    enable = true;
+    package = pkgs.brave;
+  };
 
   fzf = rec {
     enable = true;
@@ -21,31 +45,6 @@ super@{ pkgs, ... }:
     goBin = "${goPath}/bin";
   };
 
-  gpg = {
-    enable = true;
-    settings = rec {
-      default-key = "E88FEEF182345568289945A7DA2223669494475C";
-      personal-cipher-preferences = "AES256 AES192 AES";
-      personal-digest-preferences = "SHA512 SHA384 SHA256";
-      personal-compress-preferences = "ZLIB BZIP2 ZIP Uncompressed";
-      cert-digest-algo = "SHA512";
-      s2k-digest-algo = cert-digest-algo;
-      s2k-cipher-algo = "AES256";
-      fixed-list-mode = true;
-      no-comments = true;
-      no-emit-version = true;
-      keyid-format = "0xlong";
-      list-options = "show-uid-validity";
-      verify-options = list-options;
-      with-fingerprint = true;
-      require-cross-certification = true;
-      no-symkey-cache = true;
-      throw-keyids = true;
-      use-agent = true;
-      auto-key-retrieve = true;
-    };
-  };
-
   htop = {
     enable = true;
     cpuCountFromZero = true;
@@ -59,6 +58,7 @@ super@{ pkgs, ... }:
 
   neovim = {
     enable = true;
+    extraConfig = builtins.readFile ../../nvim/init.vim;
     package = pkgs.neovim-unwrapped;
     viAlias = true;
     vimAlias = true;

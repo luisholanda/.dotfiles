@@ -1,14 +1,17 @@
-super@{ lib, pkgs, ... }:
+super@{ cfg, lib, pkgs, ... }:
 
-with pkgs.stdenv;
 let
-  applications = [ pkgs.telegram ];
+  inherit (pkgs.stdenv) isLinux isDarwin;
+  applications = with pkgs; if isLinux
+    then [ tdesktop osu-lazer ]
+    else [];
 
   otherPackages = with pkgs; let
     gcpPkgs = [ cloud-sql-proxy unstable.google-cloud-sdk ];
-    lspPkgs = [ rnix-lsp terraform-lsp rust-analyzer ];
+    lspPkgs = [ unstable.nodePackages.pyright rnix-lsp terraform-lsp rust-analyzer ];
   in [
-    bat
+    any-nix-shell
+    devicon-lookup
     exa
     fishPlugins.foreign-env
     gitAndTools.gh
@@ -16,9 +19,9 @@ let
     httpie
     jq
     nixfmt
+    ripgrep
     yarn
     protobuf
-    androidenv.androidPkgs_9_0.platform-tools
   ] ++ gcpPkgs
   ++ lspPkgs
   ++ (import ./scripts.nix super);
@@ -42,6 +45,7 @@ let
       sessionVariables = {
         MANPAGER = "nvim -c 'set ft=man' -";
         EDITOR = "nvim";
+        CHROMIUM_FLAGS = lib.optionalString isLinux "--use-gl=desktop --enable-features=UseOzonePlatform --ozone-platform=wayland";
       };
 
       file = {
@@ -59,7 +63,18 @@ let
           # Prevent that we add generated files to git.
           recursive = true;
         };
+        ".config/brave-flags.conf".text = "--use-gl=desktop  --enable-features=UseOzonePlatform --ozone-platform=wayland";
       };
+    };
+
+    submoduleSupport = {
+      enable = true;
+      externalPackageInstall = false;
+    };
+
+    xdg = lib.mkIf isLinux {
+      enable = true;
+      userDirs.enable = true;
     };
   };
 in {

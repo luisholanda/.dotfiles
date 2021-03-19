@@ -1,18 +1,20 @@
 self: super:
-{
-  rust-analyzer = with super; stdenv.mkDerivation rec {
+let
+  inherit (self.stdenv) mkDerivation isDarwin;
+in {
+  rust-analyzer = mkDerivation rec {
     name = "rust-analyzer";
     version = "2021-03-01";
 
-    src = with stdenv; fetchurl rec {
+    src = builtins.fetchurl rec {
       name = "rust-analyzer-${if isDarwin then "mac" else "linux"}.gz";
       url = "https://github.com/rust-analyzer/rust-analyzer/releases/download/${version}/${name}";
       sha256 = if isDarwin
         then "1yqlsg1jwqkssg42rbsrp9g86l3iwziyyfhxix76akq4xjyklh3n"
-        else "0000000000000000000000000000000000000000000000000000";
+        else "1d7k2sgpgfmcly5maa0lxmkrc3gdh2nyjbk6fxh4kjq7zxghmqgc";
     };
 
-    buildInputs = [ gzip ];
+    buildInputs = [ self.gzip ];
     phases = [ "unpackPhase" "installPhase" ];
     sourceRoot = ".";
     unpackCmd = "gunzip -c $src > ./rust-analyzer";
@@ -22,11 +24,11 @@ self: super:
       mv rust-analyzer $out/bin/rust-analyzer
     '';
 
-    meta = with stdenv.lib; {
+    meta = with self.lib; {
       description = "An experimental modular compiler frontend for the Rust language";
       homepage = "https://github.com/rust-analyzer/rust-analyzer";
       license = with licenses; [ mit asl20 ];
-      platforms = platforms.darwin;
+      platforms = platforms.x86_64;
     };
   };
 }

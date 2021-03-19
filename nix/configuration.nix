@@ -31,7 +31,6 @@ in
     curl
     coreutils
     wget
-    dnscrypt-proxy2
   ];
 
   environment.shells = optional fishEnable pkgs.fish;

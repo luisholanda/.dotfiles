@@ -1,39 +1,41 @@
 let
   overlays = [
     ./channels.nix
-    ./installApplication.nix
-    ./emacs.nix
-    ./firefox.nix
-    ./myLib.nix
-    ./neovim.nix
-    ./rust-analyzer.nix
+    ./applications/editors/emacs.nix
+    ./applications/editors/neovim.nix
+    ./applications/networking/browsers/firefox.nix
+    ./applications/networking/instant-messengers/telegram.nix
+    ./development/tools/rust/rust-analyzer.nix
+    ./lib/installApplication.nix
+    ./lib/myLib.nix
+    ./os-specific/linux/firmware/rtl8188eu.nix
   ];
   fileOverlays = builtins.map (x: import x) overlays;
 in fileOverlays ++ [(self: super: {
-  ccls = super.ccls.override {
-    llvmPackages = self.unstable.llvmPackages_11;
-  };
-  fish-foreign-env = super.fishPlugins.foreign-env;
-  telegram = let
-    name = "Telegram";
-    version = "2.5.8";
-    isBeta = false;
-  in self.installApplication {
-    inherit version name;
+  # TODO: try remove self.xorg
+  brave = import ../pkgs/networking/browsers/brave (self // self.xorg);
 
-    description = "Telegram Desktop messaging app";
-    homepage = "https://desktop.telegram.org";
+  devicon-lookup = self.rustPlatform.buildRustPackage rec {
+    pname = "devicon-lookup";
+    version = "0.8.0";
 
-    src = super.fetchurl {
-      name = "${name}-${version}.dmg";
-      url =  let
-        urlVersion = if isBeta
-          then "${version}.beta"
-          else "${version}";
-      in "https://github.com/telegramdesktop/tdesktop/releases/download/v${version}/tsetup.${urlVersion}.dmg";
-      sha256 = "1yprjglkbpgbkjv2j1nmw32gx0ph3c6f0n3c5ykwyf7c37v9aaxn";
+    src = super.fetchFromGitHub {
+      owner = "coreyja";
+      repo = pname;
+      rev = version;
+      sha256 = "0v4jc9ckbk6rvhw7apdfr6wp2v8gfx0w13gwpr8ka1sph9n4p3a7";
     };
+
+    cargoSha256 = "048yb45zr589gxvff520wh7cwlhsb3h64zqsjfy85c5y28sv6sas";
   };
+
+  vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
+
+  waybar = super.waybar.override {
+    pulseSupport = true;
+    libdbusmenu-gtk3 = self.libappindicator;
+  };
+
   yabai = super.yabai.overrideAttrs (o: rec {
     version = "v3.3.7";
     src = builtins.fetchTarball {

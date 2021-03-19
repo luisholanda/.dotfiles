@@ -1,16 +1,13 @@
+set termguicolors
 lua require('init')
 filetype plugin indent off
 " packadd vim-polyglot
 
 filetype on
 
-" Replace the line number highlight from the Snow Dark colorscheme.
-augroup CursorLineHighlight
-  " Make the rest of number darker.
-  autocmd! ColorScheme snow highlight LineNr ctermfg=236 guifg=#2c2d30
-  " Highlight the current line and make the number lighter.
-  autocmd! ColorScheme snow highlight CursorLineNr ctermfg=249 ctermbg=237 guifg=#afb7c0 guibg=#363a3e
-augroup END
+let g:sonokai_style = 'andromeda'
+let g:sonokai_enable_italic = 1
+colorscheme sonokai
 
 set background=dark
 
@@ -38,32 +35,11 @@ augroup END
 " Auto close pop-up menu when finish completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ completion#trigger_completion()
-inoremap <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Configure completion triggers for LSP client.
-augroup CompletionTriggerCharacter
-    autocmd!
-    autocmd BufEnter * let g:completion_trigger_character = ['.']
-    autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::', '->']
-    autocmd BufEnter *.rust let g:completion_trigger_character = ['.','::']
-augroup END
-
 " Extra commands specifics for LSP servers.
 augroup LspCmds
     autocmd!
     " Enable rust-analyzer type hints.
     autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter *.rs lua require('lsp_extensions').inlay_hints{ prefix = ' » ', highlight = 'NonText' }
-    " Update Code Actions lightbulb.
-    autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()
     "autocmd CursorHold,CursorHoldI * lua require('lspsaga.signaturehelp').signature_help()
     "autocmd User LspMessageUpdate call sl#update_lsp_messages()
 augroup END
