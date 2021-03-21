@@ -23,7 +23,7 @@ in {
         sha256 = "1yprjglkbpgbkjv2j1nmw32gx0ph3c6f0n3c5ykwyf7c37v9aaxn";
       };
     }
-    else super.tdesktop.overrideAttrs {
+    else super.tdesktop.overrideAttrs (old: {
       inherit version;
-    };
+    });
 }

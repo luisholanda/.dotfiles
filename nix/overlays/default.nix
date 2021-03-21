@@ -29,6 +29,18 @@ in fileOverlays ++ [(self: super: {
     cargoSha256 = "048yb45zr589gxvff520wh7cwlhsb3h64zqsjfy85c5y28sv6sas";
   };
 
+  obs-studio = super.obs-studio.overrideAttrs (old: {
+    src = self.fetchFromGitHub {
+      owner = "GeorgesStavracas";
+      repo = "obs-studio";
+      rev = "6641603eeff695113e7fc738a855efece6750ac1";
+      sha256 = "0bx2hh1ysc2fk88zlviy934gxs8vbfxc4cc614b2qz44bd1xh4jr";
+    };
+
+    buildInputs = [ self.pipewire ] ++ old.buildInputs;
+    cmakeFlags = ["-DENABLE_PIPEWIRE=ON"] ++ old.cmakeFlags;
+  });
+
   vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
 
   waybar = super.waybar.override {

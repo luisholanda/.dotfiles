@@ -17,6 +17,5 @@
     profile = "gpu-hq";
     gpu-context = "wayland";
     scale = "bicubic_fast";
-    vf = "format=yuv420p,vapoursynth=${./motioninterpolation.vpy}:4:4";
   };
 }

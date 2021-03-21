@@ -2,8 +2,9 @@ super@{ cfg, lib, pkgs, ... }:
 
 let
   inherit (pkgs.stdenv) isLinux isDarwin;
+  inherit (pkgs.lib) optionalString mkIf;
   applications = with pkgs; if isLinux
-    then [ tdesktop osu-lazer ]
+    then [ tdesktop osu-lazer obs-studio ]
     else [];
 
   otherPackages = with pkgs; let
@@ -45,7 +46,7 @@ let
       sessionVariables = {
         MANPAGER = "nvim -c 'set ft=man' -";
         EDITOR = "nvim";
-        CHROMIUM_FLAGS = lib.optionalString isLinux "--use-gl=desktop --enable-features=UseOzonePlatform --ozone-platform=wayland";
+        CHROMIUM_FLAGS = optionalString isLinux "--use-gl=desktop --enable-features=UseOzonePlatform --ozone-platform=wayland";
       };
 
       file = {
@@ -63,13 +64,10 @@ let
           # Prevent that we add generated files to git.
           recursive = true;
         };
-        ".config/brave-flags.conf".text = "--use-gl=desktop  --enable-features=UseOzonePlatform --ozone-platform=wayland";
+        ".config/brave-flags.conf".text = mkIf isLinux "--use-gl=desktop  --enable-features=UseOzonePlatform --ozone-platform=wayland";
+        ".confg/obs-studio/plugins/wlrobs".source = mkIf isLinux "${pkgs.obs-wlrobs}/share/obs/obs-plugins/wlrobs";
+        ".confg/obs-studio/plugins/v4l2sink".source = mkIf isLinux "${pkgs.obs-v4l2sink}/share/obs/obs-plugins/v4l2sink";
       };
-    };
-
-    submoduleSupport = {
-      enable = true;
-      externalPackageInstall = false;
     };
 
     xdg = lib.mkIf isLinux {
