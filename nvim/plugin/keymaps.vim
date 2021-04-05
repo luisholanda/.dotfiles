@@ -52,7 +52,9 @@ nnoremap <silent> <C-f>      <cmd>lua require'lspsaga.hover'.smart_scroll_hover(
 nnoremap <silent> <C-b>      <cmd>lua require'lspsaga.hover'.smart_scroll_hover(-1)<CR>
 
 " Git
-nnoremap <silent> <leader>gs <cmd>lua require'neogit'.status.create('floating')<CR>
+nnoremap <silent> <leader>gs <cmd>lua require'neogit'.open({ kind = 'split' })<CR>
+nnoremap <silent> <leader>gc <cmd>lua require'neogit'.open({ "commit" })<CR>
+nnoremap <silent> <leader>gl <cmd>lua require'neogit'.open({ "log" })<CR>
 nnoremap <silent> <leader>ghpl <cmd>Octo pr list<CR>
 nnoremap <silent> <leader>ghpe <cmd>Octo pr edit<space>
 nnoremap <silent> <leader>ghpo <cmd>Octo pr open<CR>
@@ -60,10 +62,3 @@ nnoremap <silent> <leader>ghpo <cmd>Octo pr open<CR>
 " " Terminal mode stuff
 nnoremap <silent> <leader>t  <cmd>terminal<CR>
 nnoremap <silent> <leader>T  <cmd>rightbelow vsplit<CR><cmd>terminal<CR>
-tnoremap <silent> <Esc>      <C-\><C-n>
-tnoremap <silent> <leader>bd <C-\><C-n><cmd>Bclose!<CR>
-tnoremap <silent> <leader>wh <C-\><C-n><cmd>wincmd h<CR>
-tnoremap <silent> <leader>wj <C-\><C-n><cmd>wincmd j<CR>
-tnoremap <silent> <leader>wk <C-\><C-n><cmd>wincmd k<CR>
-tnoremap <silent> <leader>wl <C-\><C-n><cmd>wincmd l<CR>
-tnoremap <silent> <leader>wq <C-\><C-n><cmd>wincmd c<CR>

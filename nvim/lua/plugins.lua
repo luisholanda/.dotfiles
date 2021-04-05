@@ -49,13 +49,13 @@ local packages = {
       'nvim-lua/plenary.nvim'
     },
   },
-  {
-    'kristijanhusak/vim-dadbod-ui',
-    requires = {
-      'tpope/vim-dadbod',
-      'kristijanhusak/vim-dadbod-completion'
-    },
-  },
+  -- {
+  --   'kristijanhusak/vim-dadbod-ui',
+  --   requires = {
+  --     'tpope/vim-dadbod',
+  --     'kristijanhusak/vim-dadbod-completion'
+  --   },
+  -- },
 
   -- Git
   {

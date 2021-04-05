@@ -1,6 +1,7 @@
 require("completion")
 require('config')
 require('plugins')
+require("essentials")
 
 require('gitsigns').setup {
   numhl = false,
@@ -25,9 +26,10 @@ require("nvim-treesitter.configs").setup {
       scope_incremental = "grc",
       node_decremental = "grm",
     },
-  }, indent = {
-    enable = true
-  }
+  },
+  indent = {
+    enable = false,
+  },
 }
 
 vim.cmd [[set foldmethod=expr]]
@@ -62,7 +64,7 @@ require'compe'.setup {
     tags = false;
     snippets_nvim = true;
     treesitter = false;
-    vim_dadbod_completion = true;
+    vim_dadbod_completion = false;
   };
 }
 

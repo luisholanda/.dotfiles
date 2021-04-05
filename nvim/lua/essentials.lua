@@ -1,7 +1,7 @@
 local o = vim.o or {}
 local g = vim.g or {}
 
-o.shell = "/usr/local/bin/fish"
+o.shell = vim.fn.exepath("fish")
 vim.api.nvim_command('let mapleader=";"')
 
 g.loaded_python_provider = 0
@@ -14,12 +14,10 @@ o.colorcolumn = "+0,+10"
 
 -- Always show tabline
 o.showtabline = 2
--- Never show statusline on the last window
-o.laststatus = 0
+o.laststatus = 2
 
 -- number of lines at the beginning and end of files checked for file-specific vars
-o.modelines = 0
-
+o.modelines = 1
 
 -- time waited for key press(es) to complete. It makes for a faster key response.
 o.ttimeout = true
@@ -83,15 +81,23 @@ o.wildignore = vim.o.wildignore .. "vendor/**,node_modules/**,target/**"
 o.signcolumn = "yes:2"
 o.synmaxcol = 240
 
+if vim.fn.executable("pbcopy") == 1 then
+  copy = "pbcopy"
+  paste = "pbpaste"
+elseif vim.fn.executable("wl-copy") == 1 then
+  copy = "wl-copy"
+  paste = "wl-paste"
+end
+
 g.clipboard = {
-  name = "pbcopy",
+  name = copy,
   copy = {
-    ["+"] = "pbcopy",
-    ["*"] = "pbcopy",
+    ["+"] = copy,
+    ["*"] = copy,
   },
   paste = {
-    ["+"] = "pbpaste",
-    ["*"] = "pbpaste",
+    ["+"] = paste,
+    ["*"] = paste,
   },
   cache_enabled = 1
 }
@@ -103,4 +109,4 @@ o.undodir = vim.env.HOME .. "/.local/share/nvim/vimundo"
 o.undolevels = 1000
 o.undoreload = 10000
 
-o.ruler = true
+o.ruler = false
