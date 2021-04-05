@@ -62,10 +62,15 @@
     fontDir.enable = true;
     fontconfig = {
       useEmbeddedBitmaps = true;
-      defaultFonts.monospace = [ "JetBrainsMono Nerd Font" ];
+      defaultFonts = {
+        monospace = [ "JetBrainsMono Nerd Font" ];
+        serif = [ "Noto Serif" ];
+        sansSerif = [ "Noto Sans" ];
+      };
     };
 
     fonts = with pkgs; [
+      bmono
       font-awesome
       noto-fonts
       noto-fonts-cjk

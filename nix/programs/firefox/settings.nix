@@ -98,7 +98,8 @@
   plugin.state.flash = 0;
   privacy = {
     donottrackheader.enabled = true;
-    resistFingerprinting = true;
+    # Breaks TimeZone reporting
+    resistFingerprinting = false;
     trackingprotection = {
       enabled = true;
       socialtracking = {

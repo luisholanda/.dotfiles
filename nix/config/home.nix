@@ -4,7 +4,7 @@ let
   inherit (pkgs.stdenv) isLinux isDarwin;
   inherit (pkgs.lib) optionalString mkIf;
   applications = with pkgs; if isLinux
-    then [ tdesktop osu-lazer obs-studio ]
+    then [ tdesktop osu-lazer obs-studio nomacs pcmanfm ]
     else [];
 
   otherPackages = with pkgs; let
@@ -35,7 +35,7 @@ let
 
     home = {
       packages = otherPackages ++ applications;
-      stateVersion = "20.09";
+      stateVersion = "21.03";
       sessionPath = [
         "$HOME/.pyenv/bin"
         "$HOME/.local/bin"

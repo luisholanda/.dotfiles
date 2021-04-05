@@ -28,6 +28,10 @@ in {
 
     set -e NIX_PATH
     set -x NIX_PATH ${builtins.concatStringsSep " " nixPath}
+
+    if test (tty) = "/dev/tty0"
+      exec sway
+    end
   '';
   promptInit = ''
     any-nix-shell fish --info-right | source

@@ -9,12 +9,10 @@ let
     ./lib/installApplication.nix
     ./lib/myLib.nix
     ./os-specific/linux/firmware/rtl8188eu.nix
+    ../pkgs
   ];
   fileOverlays = builtins.map (x: import x) overlays;
 in fileOverlays ++ [(self: super: {
-  # TODO: try remove self.xorg
-  brave = import ../pkgs/networking/browsers/brave (self // self.xorg);
-
   devicon-lookup = self.rustPlatform.buildRustPackage rec {
     pname = "devicon-lookup";
     version = "0.8.0";
@@ -40,6 +38,15 @@ in fileOverlays ++ [(self: super: {
     buildInputs = [ self.pipewire ] ++ old.buildInputs;
     cmakeFlags = ["-DENABLE_PIPEWIRE=ON"] ++ old.cmakeFlags;
   });
+
+  #steam = super.steam.override {
+  #  extraLibraries = pkgs: with pkgs; [
+  #    libxkbcommon
+  #    mesa
+  #    wayland
+  #    sndio
+  #  ];
+  #};
 
   vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
 

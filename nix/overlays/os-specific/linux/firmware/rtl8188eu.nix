@@ -10,7 +10,7 @@ in {
     src = self.fetchgit {
       url = "https://github.com/lwfinger/rtl8188eu.git";
       rev = "6d74135f34d3d4d521ae5bc000d3788b219dbd8c";
-      sha256 = "1kp9b2944g3595ycv0s8v8pjc179c59r2b2v2a9fhh0kbjkncmwx";
+      sha256 = "1rvzwgljb0klv33sq9gbc6fdyjhpdk31ldb5nngn5nd6jv38j3zm";
       leaveDotGit = true;
     };
 

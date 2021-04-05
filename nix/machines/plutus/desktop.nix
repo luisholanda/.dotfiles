@@ -1,5 +1,6 @@
-{ colors, pkgs, ... }:
+{ colors, lib, pkgs, ... }:
 let
+  inherit (lib.strings) floatToString;
   modifier = "Mod4";
   homeCfg = {
     wayland.windowManager.sway = {
@@ -24,8 +25,15 @@ let
             natural_scroll = "enabled";
           };
           "type:tablet_tool" = {
-            map_from_region = "0.3x0.0 1.0x0.3";
+            map_from_region = let
+              height = 0.265;
+              width = height * 21 / 9;
+            in "${floatToString (1 - width)}x0.0 1.0x${floatToString height}";
           };
+        };
+        keybindings = lib.mkOptionDefault {
+          "${modifier}+Shift+s" = "exec GRIM_DEFAULT_DIR=~/Screenshots ${pkgs.grim}/bin/grim";
+          "${modifier}+v" = "split toggle";
         };
         menu = ''${pkgs.wofi}/bin/wofi \
           --normal-window \

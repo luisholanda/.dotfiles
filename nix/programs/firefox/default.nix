@@ -2,10 +2,14 @@
 
 with pkgs.myLib;
 let
+  inherit (pkgs.stdenv) isLinux;
+
   defaultSettings = import ./settings.nix { inherit config; };
 in {
-  enable = false;
-  package = pkgs.firefox;
+  enable = true;
+  package = if isLinux
+    then pkgs.firefox-wayland
+    else pkgs.firefox;
 
   extensions =
     with pkgs.nur.repos.rycee.firefox-addons; [

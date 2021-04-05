@@ -4,14 +4,14 @@ let
 in {
   rust-analyzer = mkDerivation rec {
     name = "rust-analyzer";
-    version = "2021-03-01";
+    version = "2021-04-05";
 
     src = builtins.fetchurl rec {
       name = "rust-analyzer-${if isDarwin then "mac" else "linux"}.gz";
       url = "https://github.com/rust-analyzer/rust-analyzer/releases/download/${version}/${name}";
       sha256 = if isDarwin
-        then "1yqlsg1jwqkssg42rbsrp9g86l3iwziyyfhxix76akq4xjyklh3n"
-        else "1d7k2sgpgfmcly5maa0lxmkrc3gdh2nyjbk6fxh4kjq7zxghmqgc";
+        then "0000000000000000000000000000000000000000000000000000"
+        else "00469z77z437dn48qf3s0pzbqywicm44hxkxha6mjvki9z3nr0pj";
     };
 
     buildInputs = [ self.gzip ];
