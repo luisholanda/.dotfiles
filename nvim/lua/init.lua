@@ -2,6 +2,7 @@ require("completion")
 require('config')
 require('plugins')
 require("essentials")
+require("statusline")
 
 require('gitsigns').setup {
   numhl = false,
@@ -17,6 +18,7 @@ require('gitsigns').setup {
 require("nvim-treesitter.configs").setup {
   highlight = {
     enable = true,
+    use_languagetree = true,
   },
   incremental_selection = {
     enable = true,
@@ -71,6 +73,23 @@ require'compe'.setup {
 require('telescope').load_extension('octo')
 require('telescope').setup {
   defaults = {
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case"
+    },
+    layout_strategy = "horizontal",
+    layout_defaults = {
+      horizontal = {
+        mirror = false,
+        preview_width = 0.5,
+      }
+    },
+    file_sorter = require("telescope.sorters").get_fuzzy_file,
     mapping = {
       i = {
         ["<esc>"] = require("telescope.actions").close

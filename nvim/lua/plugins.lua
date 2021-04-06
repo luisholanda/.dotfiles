@@ -19,8 +19,7 @@ local packages = {
   'nvim-treesitter/nvim-treesitter',
 
   -- Appearance
-  'Yggdroot/indentLine',
-  'rbong/vim-crystalline',
+  {'lukas-reineke/indent-blankline.nvim', branch = "lua"},
   'norcalli/nvim-colorizer.lua',
 
   -- LSP
@@ -48,6 +47,11 @@ local packages = {
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim'
     },
+  },
+  {
+    'glepnir/galaxyline.nvim',
+    branch = 'main',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
   },
   -- {
   --   'kristijanhusak/vim-dadbod-ui',

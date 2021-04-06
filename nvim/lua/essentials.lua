@@ -1,20 +1,23 @@
 local o = vim.o or {}
 local g = vim.g or {}
 
-o.shell = vim.fn.exepath("fish")
-vim.api.nvim_command('let mapleader=";"')
+o.shell = vim.env["SHELL"]
+g.mapleader = ";"
 
 g.loaded_python_provider = 0
 g.python3_host_prog = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
 o.pyxversion = 3
 
+o.signcolumn = "auto:4"
+o.synmaxcol = 240
+
 o.number = true
 o.cursorline = true
 o.colorcolumn = "+0,+10"
 
--- Always show tabline
-o.showtabline = 2
+o.showtabline = 0
 o.laststatus = 2
+o.ruler = false
 
 -- number of lines at the beginning and end of files checked for file-specific vars
 o.modelines = 1
@@ -78,15 +81,12 @@ o.wildmenu = true
 o.wildmode = "list:longest,full"
 o.wildignore = vim.o.wildignore .. "vendor/**,node_modules/**,target/**"
 
-o.signcolumn = "yes:2"
-o.synmaxcol = 240
-
 if vim.fn.executable("pbcopy") == 1 then
   copy = "pbcopy"
   paste = "pbpaste"
 elseif vim.fn.executable("wl-copy") == 1 then
-  copy = "wl-copy"
-  paste = "wl-paste"
+  copy = "wl-copy -n"
+  paste = "wl-paste -n"
 end
 
 g.clipboard = {
@@ -108,5 +108,3 @@ o.undofile = true
 o.undodir = vim.env.HOME .. "/.local/share/nvim/vimundo"
 o.undolevels = 1000
 o.undoreload = 10000
-
-o.ruler = false

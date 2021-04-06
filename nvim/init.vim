@@ -45,8 +45,6 @@ augroup LspCmds
 augroup END
 
 " Make comments italic.
-let &t_ZH="\e[3m"
-let &t_ZR="\e[23m"
 augroup ColorschemePatches
     autocmd!
     autocmd ColorScheme * highlight Comment cterm=italic gui=italic

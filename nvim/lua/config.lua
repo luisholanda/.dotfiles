@@ -1,27 +1,7 @@
 vim.g.async_open = 14
-vim.g.indentLine_char = "▏"
-vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
-vim.g.completion_matching_smart_case = 1
 
-vim.g.gitgutter_map_keys = 0
-vim.g.gitgutter_sign_added =  '┃'
-vim.g.gitgutter_sign_modified = '┃'
-vim.g.gitgutter_sign_removed = '◢'
-vim.g.gitgutter_sign_removed_first_line = '◥'
-vim.g.gitgutter_sign_modified_removed = '◢'
-vim.g.gitgutter_override_sign_column_highlight = 0
-
-vim.g.crystalline_enable_sep = 1
-vim.g.crystalline_separators = {'', ''}
-vim.g.crystalline_tabline_fn = 'sl#tabline'
-vim.g.crystalline_statusline_fn = 'sl#statusline'
-vim.g.crystalline_theme = 'sonokai'
-vim.g.crystalline_supported_sep = {
-  InsertMode  = {'', 'Fill', 'TabFill', 'Tab', 'TabSel'},
-  ReplaceMode = {'', 'Fill', 'TabFill', 'Tab', 'TabSel'},
-  TabSel      = {'Tab', 'TabFill', 'InsertMode', 'ReplaceMode'},
-  TabFill     = {'Tab', 'TabSel', 'TabFill', 'NormalMode', 'InsertMode', 'VisualMode', 'ReplaceMode'},
-}
+vim.g.indent_blankline_char = "▏"
+vim.g.indent_blankline_use_treesitter = 1
 
 vim.g.indicator_errors = ''
 vim.g.indicator_warnings = ''
