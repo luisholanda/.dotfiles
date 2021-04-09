@@ -28,8 +28,8 @@ let
   nixUnstable = fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "470e4a9bbc98b171a7e733dfc9e62531f7b9ceca";
-    sha256 = "1smavpjclj6s5bnhhvavr4ajav8xvgpfdxa46ac2whbpr3k2z61q";
+    rev = "cb29de02c4c0e0bcb95ddbd7cc653dd720689bab";
+    sha256 = "1daxszcvj3bq6qkki7rfzkd0f026n08xvvfx7gkr129nbcnpg24p";
   };
   homeManager = fetchFromGitHub {
     owner = "nix-community";

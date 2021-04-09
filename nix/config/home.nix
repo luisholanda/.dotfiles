@@ -12,7 +12,6 @@ let
     lspPkgs = [ unstable.nodePackages.pyright rnix-lsp terraform-lsp rust-analyzer ];
   in [
     any-nix-shell
-    devicon-lookup
     exa
     fishPlugins.foreign-env
     gitAndTools.gh

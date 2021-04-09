@@ -37,13 +37,11 @@ in {
     };
     draw_bold_text_with_bright_colors = true;
 
-    env.TERM = "screen-256color";
-
     font = let
       family = "JetBrainsMono Nerd Font Mono";
       fontWithStyle = style: { inherit family style; };
     in {
-      normal = fontWithStyle "Regular";
+      normal = fontWithStyle "Normal";
       bold = fontWithStyle "Bold";
       italic = fontWithStyle "Italic";
       bold_italic = fontWithStyle "Bold Italic";

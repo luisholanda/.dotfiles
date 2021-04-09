@@ -99,6 +99,7 @@
 
   programs.adb.enable = true;
   programs.qt5ct.enable = true;
+  programs.steam.enable = false;
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;

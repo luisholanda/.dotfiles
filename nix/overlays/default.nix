@@ -13,20 +13,6 @@ let
   ];
   fileOverlays = builtins.map (x: import x) overlays;
 in fileOverlays ++ [(self: super: {
-  devicon-lookup = self.rustPlatform.buildRustPackage rec {
-    pname = "devicon-lookup";
-    version = "0.8.0";
-
-    src = super.fetchFromGitHub {
-      owner = "coreyja";
-      repo = pname;
-      rev = version;
-      sha256 = "0v4jc9ckbk6rvhw7apdfr6wp2v8gfx0w13gwpr8ka1sph9n4p3a7";
-    };
-
-    cargoSha256 = "048yb45zr589gxvff520wh7cwlhsb3h64zqsjfy85c5y28sv6sas";
-  };
-
   obs-studio = super.obs-studio.overrideAttrs (old: {
     src = self.fetchFromGitHub {
       owner = "GeorgesStavracas";
@@ -38,15 +24,6 @@ in fileOverlays ++ [(self: super: {
     buildInputs = [ self.pipewire ] ++ old.buildInputs;
     cmakeFlags = ["-DENABLE_PIPEWIRE=ON"] ++ old.cmakeFlags;
   });
-
-  #steam = super.steam.override {
-  #  extraLibraries = pkgs: with pkgs; [
-  #    libxkbcommon
-  #    mesa
-  #    wayland
-  #    sndio
-  #  ];
-  #};
 
   vaapiIntel = super.vaapiIntel.override { enableHybridCodec = true; };
 
