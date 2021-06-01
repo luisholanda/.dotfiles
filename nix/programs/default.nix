@@ -63,6 +63,5 @@ in {
     viAlias = true;
     vimAlias = true;
     withNodeJs = false;
-    withPython = false;
   };
 }

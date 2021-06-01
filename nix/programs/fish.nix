@@ -10,6 +10,11 @@ in {
     set -g fish_cursor_replace_one underscore
     _pure_set_default pure_show_prefix_root_prompt true
     set_color pure_color_mute white
+
+    set --prepend fish_function_path /nix/store/mwhwbzvdf32hmnfkid34k2cjnajvp6qv-fishplugin-foreign-env-git-20200209/share/fish/vendor_functions.d
+    set -e __HM_SESS_VARS_SOURCED
+    fenv source /etc/profiles/per-user/luiscm/etc/profile.d/hm-session-vars.sh > /dev/null
+    set -e fish_function_path[1]
   '';
   loginShellInit = ''
     set -p fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d
@@ -86,18 +91,24 @@ in {
       argumentNames = "project";
       description = "Go to the given project";
       body = ''
+        set --local prev_dir (pwd)
         set --local projects_dirs ~/TerraMagna/repositories ~/Projects
 
         for proj_dir in $projects_dirs
           if test -d $proj_dir/$project
-            cd $proj_dir/$project
+            set --local project_dir $proj_dir/$project
+            cd $project_dir
 
             if test -d ~/.pyenv/version/$project
               pyenv activate $project
             end
 
-            if test -f $proj_dir/$project/shell.nix
+            if test -f $project_dir/shell.nix
               nix-shell
+            end
+
+            function __on_exit --on-event fish_exit --inherit-variable prev_dir
+              cd $prev_dir
             end
 
             return 0

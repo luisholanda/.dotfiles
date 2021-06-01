@@ -8,5 +8,6 @@ super@{ colors, ... }:
   textColor = colors.foreground.hex;
   borderSize = 0;
   progressColor = "over ${colors.normal.blue.hex}";
-  defaultTimeout = 5 * 1000;
+  defaultTimeout = 3 * 1000;
+  width = 500;
 }

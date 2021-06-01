@@ -25,6 +25,7 @@ rec {
     color = { ui = true; };
     branch = { autosetuprebase = "always"; };
     pull = { rebase = true; };
+    rebase = { autoSquash = true; autoStash = true; abbreviateCommands = true; };
     url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
   };
 
@@ -49,12 +50,14 @@ rec {
     nb = "checkout -b";
     # checkout to a branch.
     ch = "checkout";
+    # current branch
+    current-branch = "rev-parse --abbrev-ref HEAD";
 
     # sync to remove
-    sync = ''!git push origin "$(git rev-parse --abbrev-ref HEAD)"'';
+    sync = ''!git push origin "$(git current-branch)"'';
     # update branch with base branch.
     upwb = ''
-      !git pull origin develop --rebase && git push origin "$(git rev-parse --abbrev-ref HEAD)" --force'';
+      !git pull origin develop --rebase && git push origin "$(git current-branch)" --force'';
 
     # cherry-pick
     cp = "cherry-pick";
@@ -75,6 +78,8 @@ rec {
     # commit interactive
     ci = "co --interactive";
 
+    fixup = ''!git l --no-decorate "$(git merge-base $(git current-branch) origin/develop)".. | fzf | cut -c -7 | xargs -o git commit --fixup'';
+
     df = "diff";
     # diff - show changes not yet staged
     dc = "df --cached";
@@ -90,16 +95,10 @@ rec {
 
     # log with a text-based graphical representation of the commit history.
     lg = "log --graph";
-    # log with one line per item.
-    lo = "log --oneline";
     # log with patch generation.
     lp = "log --patch";
-    # log with first-parent, useful for team branch that only accepts
-    # pull requests.
-    lfp = "log --first-parent";
-    # log with items appearing in topological order, i.e. descedant commits
-    # are show before their parents.
-    lt = "log --topo-order";
+    # log with one line per item.
+    l = "log --oneline --no-merges";
     ll =
       "log --graph --topo-order --date=short --abbrev-commit --decorate --all --boundary --pretty=format:'%Cgreen%ad %Cred%h%Creset -%C(yellow)%d%Creset %s %Cblue[%cn]%Creset %Cblue%G?%Creset'";
     lll =

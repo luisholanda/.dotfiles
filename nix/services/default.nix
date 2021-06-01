@@ -20,7 +20,7 @@ in {
     pipewire = {
       enable = !(config.hardware.pulseaudio.enable || config.sound.enable);
       pulse.enable = true;
-      jack.enable = true;
+      jack.enable = false;
       alsa.enable = true;
     };
 

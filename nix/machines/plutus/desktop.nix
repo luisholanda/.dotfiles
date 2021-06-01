@@ -55,6 +55,8 @@ let
               before-sleep 'swaylock -f -c 000000'
             '';
           }
+          { command = "exec mako";
+          }
         ];
         window = {
           hideEdgeBorders = "smart";

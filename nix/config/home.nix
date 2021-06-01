@@ -4,12 +4,12 @@ let
   inherit (pkgs.stdenv) isLinux isDarwin;
   inherit (pkgs.lib) optionalString mkIf;
   applications = with pkgs; if isLinux
-    then [ tdesktop osu-lazer obs-studio nomacs pcmanfm ]
+    then [ tdesktop nomacs pcmanfm texlab zathura minecraft osu-lazer ]
     else [];
 
   otherPackages = with pkgs; let
-    gcpPkgs = [ cloud-sql-proxy unstable.google-cloud-sdk ];
-    lspPkgs = [ unstable.nodePackages.pyright rnix-lsp terraform-lsp rust-analyzer ];
+    gcpPkgs = [ cloud-sql-proxy google-cloud-sdk ];
+    lspPkgs = [ nodePackages.pyright rnix-lsp terraform-lsp rust-analyzer nodePackages.typescript-language-server nodejs ];
   in [
     any-nix-shell
     exa
@@ -42,10 +42,11 @@ let
         "/run/current-system/sw/bin"
       ];
 
-      sessionVariables = {
+      sessionVariables = rec {
         MANPAGER = "nvim -c 'set ft=man' -";
         EDITOR = "nvim";
-        CHROMIUM_FLAGS = optionalString isLinux "--use-gl=desktop --enable-features=UseOzonePlatform --ozone-platform=wayland";
+        GIT_SEQUENCE_EDITOR = EDITOR;
+        CHROMIUM_FLAGS = optionalString isLinux "--enable-features=UseOzonePlatform --ozone-platform=wayland";
       };
 
       file = {
@@ -63,9 +64,7 @@ let
           # Prevent that we add generated files to git.
           recursive = true;
         };
-        ".config/brave-flags.conf".text = mkIf isLinux "--use-gl=desktop  --enable-features=UseOzonePlatform --ozone-platform=wayland";
-        ".confg/obs-studio/plugins/wlrobs".source = mkIf isLinux "${pkgs.obs-wlrobs}/share/obs/obs-plugins/wlrobs";
-        ".confg/obs-studio/plugins/v4l2sink".source = mkIf isLinux "${pkgs.obs-v4l2sink}/share/obs/obs-plugins/v4l2sink";
+        ".config/brave-flags.conf".text = mkIf isLinux "--enable-features=UseOzonePlatform --ozone-platform=wayland";
       };
     };
 

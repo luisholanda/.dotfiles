@@ -72,6 +72,7 @@
     fonts = with pkgs; [
       bmono
       font-awesome
+      lmodern
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
@@ -98,6 +99,14 @@
   nixpkgs.overlays = import ../../overlays;
 
   programs.adb.enable = true;
+  programs.gnupg = {
+    agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryFlavor = "qt";
+    };
+    dirmngr.enable = true;
+  };
   programs.qt5ct.enable = true;
   programs.steam.enable = false;
   programs.sway = {

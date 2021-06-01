@@ -5,14 +5,14 @@ self: super:
       enableStatic = true;
     };
   in (super.neovim-unwrapped
-    .override { inherit (self) fish; python = null; nodejs = null; })
+    .override { inherit (self) fish; nodejs = null; })
     .overrideAttrs (old: rec {
-    version = "3d25a72a60323c9d6eab2daf9dbd4920b94b8a94";
+    version = "a282a177d3320db25fa8f854cbcdbe0bc6abde7f";
     src = super.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
       rev = version;
-      sha256 = "1dwiwslxca8zjsdva5d1xbahl60f42qk6n7nngl75r70hmrw10b3";
+      sha256 = "03ckzr75jf1mps0y3v9rj2jifsfapkpqyxaw1rs5ify9zdmja593";
     };
 
     buildInputs = old.buildInputs ++ [ts];
