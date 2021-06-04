@@ -77,7 +77,7 @@ rec {
     cane = "ca --no-edit";
     # commit interactive
     ci = "co --interactive";
-
+    # create a fixup commit using a fzf commit list selector
     fixup = ''!git l --no-decorate "$(git merge-base $(git current-branch) origin/develop)".. | fzf | cut -c -7 | xargs -o git commit --fixup'';
 
     df = "diff";
@@ -88,10 +88,12 @@ rec {
     dh = "df HEAD";
     # diff - show changes by word, not line
     dw = "!git diff --word-diff";
-
     # diff deep
     dd =
       "diff --check --dirstat --find-copies --find-renames --histogram --color";
+
+    fe = "fetch --prune";
+    feo = "fe origin";
 
     # log with a text-based graphical representation of the commit history.
     lg = "log --graph";
@@ -159,7 +161,6 @@ rec {
     #
     # We also add the --window-memory limit of 1G, which helps protect
     # us from a window that has very large objects such as binary blobs.
-
     repacker = "repack -a -d -f --depth=300 --window=300 --window-memory=1g";
 
     optimize = "!git pruner && git repacker";

@@ -99,15 +99,8 @@
   nixpkgs.overlays = import ../../overlays;
 
   programs.adb.enable = true;
-  programs.gnupg = {
-    agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryFlavor = "qt";
-    };
-    dirmngr.enable = true;
-  };
   programs.qt5ct.enable = true;
+  programs.ssh.startAgent = true;
   programs.steam.enable = false;
   programs.sway = {
     enable = true;

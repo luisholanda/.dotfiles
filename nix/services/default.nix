@@ -8,13 +8,6 @@ in {
   ];
 
   services = mkIfLinux {
-    #gpg-agent = {
-    #  enable = true;
-    #  defaultCacheTtl = 600;
-    #  maxCacheTtl = 7200;
-    #  enableSshSupport = true;
-    #};
-
     irqbalance.enable = true;
 
     pipewire = {
