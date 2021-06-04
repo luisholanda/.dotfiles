@@ -45,6 +45,7 @@ nnoremap <silent> <leader>lh <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 nnoremap <silent> <leader>ld <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
 nnoremap <silent> <leader>lf <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> <leader>la <cmd>lua require'lspsaga.codeaction'.code_action()<CR>
+vnoremap <silent> <leader>la <cmd>lua require'lspsaga.codeaction'.range_code_action()<CR>
 nnoremap <silent> <leader>do <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 nnoremap <silent> <leader>rn <cmd>lua require'lspsaga.rename'.rename()<CR>
 

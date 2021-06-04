@@ -7,12 +7,12 @@ self: super:
   in (super.neovim-unwrapped
     .override { inherit (self) fish; nodejs = null; })
     .overrideAttrs (old: rec {
-    version = "a282a177d3320db25fa8f854cbcdbe0bc6abde7f";
+    version = "ca802046bf0667b211f72330619a18fec3fea5f0";
     src = super.fetchFromGitHub {
       owner = "neovim";
       repo = "neovim";
       rev = version;
-      sha256 = "03ckzr75jf1mps0y3v9rj2jifsfapkpqyxaw1rs5ify9zdmja593";
+      sha256 = "05aswlzgqjy2v6ryh9mn0gskxq12xsl31pds6r69d0hdx9hcv1sj";
     };
 
     buildInputs = old.buildInputs ++ [ts];

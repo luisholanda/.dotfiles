@@ -47,13 +47,15 @@ in {
 
   htop = {
     enable = true;
-    cpuCountFromZero = true;
-    delay = 5;
-    detailedCpuTime = true;
-    highlightBaseName = true;
-    shadowOtherUsers = true;
-    showCpuFrequency = true;
-    treeView = true;
+    settings = {
+      cpu_count_from_zero = true;
+      delay = 5;
+      detailed_cpu_time = true;
+      highlight_base_name = true;
+      shadow_other_users = true;
+      show_cpu_frequency = true;
+      tree_view = true;
+    };
   };
 
   neovim = {

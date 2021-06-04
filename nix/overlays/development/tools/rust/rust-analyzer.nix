@@ -1,19 +1,19 @@
 self: super:
 let
   inherit (self) lib stdenv fetchFromGitHub fetchpatch;
-  version = "2021-05-24";
+  version = "2021-05-31";
 in {
   rust-analyzer-unwrapped = self.rustPlatform.buildRustPackage {
     inherit version;
 
     pname = "rust-analyzer-unwrapped";
-    cargoSha256 = "0m04b3z30wm655jhjgjmx9p3kcibngsv3vnqnn43g8cgim5clgaj";
+    cargoSha256 = "0y5wpqgzjqknslwjf0hapxbnfza05jllr1akv88c9c6yzmqfkmva";
 
     src = fetchFromGitHub {
       owner = "rust-analyzer";
       repo = "rust-analyzer";
       rev = version;
-      sha256 = "0wlys4acy23wqwvj9qkl362w1if5kl60xancdq0x9nggraad3sdi";
+      sha256 = "1qihbdhql4n263q0piqmm4j0n33a336m6akm8ckb4dpgm7vd4v5z";
     };
 
     buildAndTestSubdir = "crates/rust-analyzer";
