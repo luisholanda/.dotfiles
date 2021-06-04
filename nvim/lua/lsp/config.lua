@@ -44,6 +44,7 @@ local function configure_servers()
   nvim_lsp.util.default_config.capabilities = vim.tbl_deep_extend("keep", nvim_lsp.util.default_config.capabilities or {}, lsp_status.capabilities)
   nvim_lsp.util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+  vim.lsp.set_log_level("debug")
   nvim_lsp.rust_analyzer.setup{
     root_dir = nvim_lsp.util.root_pattern("Cargo.lock", "rust-project.json"),
     cmd = {"rust-analyzer"},
@@ -64,9 +65,6 @@ local function configure_servers()
     }
   }
 
-  nvim_lsp.bashls.setup{
-    on_attach = lsp_on_attach,
-  }
   nvim_lsp.ccls.setup{
     on_attach = lsp_on_attach,
   }
@@ -95,6 +93,37 @@ local function configure_servers()
   }
   nvim_lsp.rnix.setup {
     on_attach = lsp_on_attach,
+  }
+  nvim_lsp.texlab.setup {
+    root_dir = nvim_lsp.util.root_pattern(".git", "shell.nix"),
+    on_attach = lsp_on_attach,
+    settings = {
+      latex = {
+        rootDirectory = vim.fn.getcwd(),
+        build = {
+          args = { "-pdf", "-shell-escape", "-synctex=1", "-output-directory=latex.out", "-interaction=nonstopmode", "%f" },
+          forwardSearchAfter = true,
+          onSave = true,
+          outputDirectory = "latex.out"
+        },
+        forwardSearch = {
+          executable = "zathura",
+          args = {"--synctex-forward", "%l:1:%f", "%p"},
+          onSave = true
+        }
+      }
+    }
+  }
+  nvim_lsp.vuels.setup{
+    cmd = { vim.env["HOME"] .. "/.yarn/bin/vls" },
+    init_options = {
+      vetur = {
+        completion = {
+          autoImport = true,
+        },
+        useWorkspaceDependencies = true,
+      }
+    }
   }
 end
 

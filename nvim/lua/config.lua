@@ -1,19 +1,21 @@
-vim.g.async_open = 14
+local g = vim.g;
 
-vim.g.indent_blankline_char = "▏"
-vim.g.indent_blankline_use_treesitter = 1
+g.async_open = 14
 
-vim.g.indicator_errors = ''
-vim.g.indicator_warnings = ''
-vim.g.indicator_info = 'כֿ'
-vim.g.indicator_hint = '!'
-vim.g.indicator_ok = ''
-vim.g.spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'}
+g.indent_blankline_char = "▏"
+g.indent_blankline_use_treesitter = 1
 
-vim.g.db_ui_env_variable_url = 'DATABASE_URL'
-vim.g.db_ui_env_variable_name = 'DB_NAME'
+g.indicator_errors = ''
+g.indicator_warnings = ''
+g.indicator_info = 'כֿ'
+g.indicator_hint = '!'
+g.indicator_ok = ''
+g.spinner_frames = {'⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷'}
 
-vim.g.fzf_colors = {
+g.db_ui_env_variable_url = 'DATABASE_URL'
+g.db_ui_env_variable_name = 'DB_NAME'
+
+g.fzf_colors = {
   fg      = {'fg', 'Normal'},
   bg      = {'bg', 'Normal'},
   hl      = {'fg', 'Comment'},
@@ -29,6 +31,8 @@ vim.g.fzf_colors = {
   header  = {'fg', 'Comment'}
 }
 
-vim.g.fzf_commits_log_options = '--graph --color=always ' ..
+g.fzf_commits_log_options = '--graph --color=always ' ..
   '--format="%C(yellow)%h%C(read)%d%C(reset)" ' ..
   '- %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)'
+
+g.tex_flavor = "latex"

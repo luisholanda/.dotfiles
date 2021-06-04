@@ -68,8 +68,6 @@ local packages = {
       'nvim-lua/plenary.nvim'
     },
   },
-  'TimUntersberger/neogit',
-  'pwntester/octo.nvim',
 
   -- Language specific
   'rust-lang/rust.vim',

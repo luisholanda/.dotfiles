@@ -70,7 +70,6 @@ require'compe'.setup {
   };
 }
 
-require('telescope').load_extension('octo')
 require('telescope').setup {
   defaults = {
     vimgrep_arguments = {

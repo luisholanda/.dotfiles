@@ -8,7 +8,7 @@ g.loaded_python_provider = 0
 g.python3_host_prog = vim.fn.expand("~/.pyenv/versions/neovim/bin/python")
 o.pyxversion = 3
 
-o.signcolumn = "auto:4"
+o.signcolumn = "yes:1"
 o.synmaxcol = 240
 
 o.number = true
