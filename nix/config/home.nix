@@ -47,6 +47,7 @@ let
         EDITOR = "nvim";
         GIT_SEQUENCE_EDITOR = EDITOR;
         CHROMIUM_FLAGS = optionalString isLinux "--enable-features=UseOzonePlatform --ozone-platform=wayland";
+        SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
       };
 
       file = {
