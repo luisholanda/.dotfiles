@@ -81,7 +81,7 @@ local packages = {
   },
 
   -- Language specific
-  'rust-lang/rust.vim',
+  { 'rust-lang/rust.vim', ft = {'rust'} },
 
   -- Fuzzy search
   {
@@ -93,7 +93,7 @@ local packages = {
   },
 
   -- Extras
-  'mhinz/vim-rfc',
+  { 'mhinz/vim-rfc', opt = true, cmd = {'RFC'} },
   'prabirshrestha/async.vim',
   'airblade/vim-rooter',
 }

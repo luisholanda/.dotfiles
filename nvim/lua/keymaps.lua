@@ -70,6 +70,15 @@ leader_group("ld", "LSP diagnostics", {
   q = { "<cmd>Trouble quickfix<cr>", "Quickfix diagnostics" },
 })
 
+leader_group("g", "Git", {
+  b = { require("gitsigns").blame_line, "Blame current line" },
+  s = { require("gitsigns").stage_hunk, "Stage current hunk" },
+  S = { require("gitsigns").stage_buffer, "Stage current buffer" },
+  p = { require("gitsigns").preview_hunk, "Preview current hunk" },
+  r = { require("gitsigns").reset_hunk, "Reset current hunk" },
+  d = { require("gitsigns").diffthis, "Diff current file" },
+})
+
 group("g", "Go to", {
   d = { vim.lsp.buf.definition, "Definition" },
   D = { vim.lsp.buf.declaration, "Declaration" },
@@ -81,12 +90,12 @@ group("g", "Go to", {
 })
 
 group("[", "Previous", {
-  c = { "Git Chunk" },
+  c = { "Git hunk" },
   d = { require("lspsaga.diagnostic").lsp_jump_diagnostic_prev, "Diagnostic" }
 })
 
 group("]", "Next", {
-  c = { "Git Chunk" },
+  c = { "Git hunk" },
   d = { require("lspsaga.diagnostic").lsp_jump_diagnostic_next, "Diagnostic" }
 })
 
