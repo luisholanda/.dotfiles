@@ -5,18 +5,27 @@ vim.cmd [[packadd packer.nvim]]
 local packages = {
   'wbthomason/packer.nvim',
 
-    -- Text objects
+  -- Keymaps,
+  'folke/which-key.nvim',
+
+  -- Text objects
   'jiangmiao/auto-pairs',
   'tpope/vim-surround',
   'wellle/targets.vim',
   'gcmt/wildfire.vim',
+  'ggandor/lightspeed.nvim',
 
   -- Color-schemes
   'sainnhe/sonokai',
 
   -- Syntax
   'sheerun/vim-polyglot',
-  'nvim-treesitter/nvim-treesitter',
+  {
+    'nvim-treesitter/nvim-treesitter',
+    requires = {
+      'RRethy/nvim-treesitter-textsubjects'
+    }
+  },
 
   -- Appearance
   {'lukas-reineke/indent-blankline.nvim', branch = "lua"},
@@ -27,8 +36,8 @@ local packages = {
     'neovim/nvim-lspconfig',
     requires = {
       'hrsh7th/nvim-compe',
+      'simrat39/rust-tools.nvim',
       'nvim-lua/lsp-status.nvim',
-      'tjdevries/lsp_extensions.nvim',
       'norcalli/snippets.nvim',
     },
   },
@@ -39,6 +48,8 @@ local packages = {
     }
   },
   'glepnir/lspsaga.nvim',
+  'folke/lsp-colors.nvim',
+  'folke/trouble.nvim',
 
   -- Interface
   {

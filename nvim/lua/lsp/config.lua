@@ -1,12 +1,11 @@
 local nvim_lsp = nil;
 local lsp_status = nil;
-local protocol = nil;
 local lsputil = nil;
 
 local M = {}
 
 function M.update_completion_kinds()
-  protocol.CompletionItemKind = {
+  vim.lsp.protocol.CompletionItemKind = {
     '',
     'ƒ',
     '',
@@ -37,18 +36,30 @@ local function lsp_on_attach(client, bufnr)
     client.config.flags.allow_incremental_sync = true
   end
 
-  --lsp_status.on_attach(client, bufnr)
+  lsp_status.on_attach(client, bufnr)
+end
+
+local function get_capabilities()
+  capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities = vim.tbl_extend("keep", capabilities, lsp_status.capabilities)
+
+  return capabilities
 end
 
 local function configure_servers()
-  nvim_lsp.util.default_config.capabilities = vim.tbl_deep_extend("keep", nvim_lsp.util.default_config.capabilities or {}, lsp_status.capabilities)
-  nvim_lsp.util.default_config.capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities = get_capabilities()
 
-  vim.lsp.set_log_level("debug")
-  nvim_lsp.rust_analyzer.setup{
+  setup = function(server, config)
+    server.setup(vim.tbl_extend("force", config or {}, {
+          capabilities = capabilities,
+          on_attach = lsp_on_attach,
+      }))
+  end
+
+  setup(nvim_lsp.rust_analyzer, {
     root_dir = nvim_lsp.util.root_pattern("Cargo.lock", "rust-project.json"),
     cmd = {"rust-analyzer"},
-    on_attach = lsp_on_attach,
     init_options = {
       cargo = {
         allFeatures = true,
@@ -63,19 +74,12 @@ local function configure_servers()
       },
       procMacro = { enable = true },
     }
-  }
+  })
 
-  nvim_lsp.ccls.setup{
-    on_attach = lsp_on_attach,
-  }
-  nvim_lsp.cmake.setup{
-    on_attach = lsp_on_attach,
-  }
-  nvim_lsp.vimls.setup{
-    on_attach = lsp_on_attach,
-  }
-  nvim_lsp.pyright.setup{
-    on_attach = lsp_on_attach,
+  setup(nvim_lsp.ccls)
+  setup(nvim_lsp.cmake)
+  setup(nvim_lsp.vimls)
+  setup(nvim_lsp.pyright, {
     root_dir = nvim_lsp.util.root_pattern(".git"),
     settings = {
       python = {
@@ -87,16 +91,11 @@ local function configure_servers()
         venvPath = "/Users/luiscm/.pyenv/versions"
       }
     }
-  }
-  nvim_lsp.tsserver.setup{
-    on_attach = lsp_on_attach,
-  }
-  nvim_lsp.rnix.setup {
-    on_attach = lsp_on_attach,
-  }
-  nvim_lsp.texlab.setup {
+  })
+  setup(nvim_lsp.tsserver)
+  setup(nvim_lsp.rnix)
+  setup(nvim_lsp.texlab, {
     root_dir = nvim_lsp.util.root_pattern(".git", "shell.nix"),
-    on_attach = lsp_on_attach,
     settings = {
       latex = {
         rootDirectory = vim.fn.getcwd(),
@@ -113,8 +112,8 @@ local function configure_servers()
         }
       }
     }
-  }
-  nvim_lsp.vuels.setup{
+  })
+  setup(nvim_lsp.vuels, {
     cmd = { vim.env["HOME"] .. "/.yarn/bin/vls" },
     init_options = {
       vetur = {
@@ -124,7 +123,7 @@ local function configure_servers()
         useWorkspaceDependencies = true,
       }
     }
-  }
+  })
 end
 
 -- for rust-analyzer. Fixed https://github.com/rust-analyzer/rust-analyzer/issues/4901
@@ -185,7 +184,6 @@ end
 function M.setup()
   nvim_lsp = require('lspconfig')
   lsp_status = require('lsp-status')
-  protocol = require('vim.lsp.protocol')
   lsputil = {
     codeAction = require('lsputil.codeAction'),
     locations = require('lsputil.locations'),
@@ -194,7 +192,13 @@ function M.setup()
 
   M.update_completion_kinds()
 
-  -- lsp_status.register_progress()
+  lsp_status.config{
+    current_function = false,
+    diagnostics = false,
+    spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
+  }
+  lsp_status.register_progress()
+
   setup_callbacks()
   configure_servers()
 end

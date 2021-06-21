@@ -1,5 +1,8 @@
 local g = vim.g;
 
+g.polyglot_disabled = { "sensible" }
+g.loaded_matchit = 1
+
 g.async_open = 14
 
 g.indent_blankline_char = "▏"

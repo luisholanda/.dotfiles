@@ -3,6 +3,7 @@ require('config')
 require('plugins')
 require("essentials")
 require("statusline")
+require("keymaps")
 
 require('gitsigns').setup {
   numhl = false,
@@ -20,14 +21,11 @@ require("nvim-treesitter.configs").setup {
     enable = true,
     use_languagetree = true,
   },
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
-    },
+  textsubjects = {
+      enable = true,
+      keymaps = {
+          ['<cr>'] = 'textsubjects-smart',
+      }
   },
   indent = {
     enable = false,
@@ -95,4 +93,17 @@ require('telescope').setup {
       }
     }
   }
+}
+
+require("lightspeed").setup{
+  highlight_unique_chars = true
+}
+
+require("rust-tools").setup{
+  tools = {
+    inlay_hints = {
+      parameter_hints_prefix = "ᐊ",
+      other_hints_prefix = "ᐅ ",
+    },
+  },
 }

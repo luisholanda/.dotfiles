@@ -35,15 +35,6 @@ augroup END
 " Auto close pop-up menu when finish completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" Extra commands specifics for LSP servers.
-augroup LspCmds
-    autocmd!
-    " Enable rust-analyzer type hints.
-    autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter *.rs lua require('lsp_extensions').inlay_hints{ prefix = ' » ', highlight = 'NonText' }
-    "autocmd CursorHold,CursorHoldI * lua require('lspsaga.signaturehelp').signature_help()
-    "autocmd User LspMessageUpdate call sl#update_lsp_messages()
-augroup END
-
 " Make comments italic.
 augroup ColorschemePatches
     autocmd!

@@ -162,13 +162,10 @@ gls.right[1] = {
   }
 }
 gls.right[2] = {
-  CurrSymbol = {
-    provider = function()
-       return (vim.b.lsp_current_function or "ﳠ symbol")..' '
-    end,
+  LspStatus = {
+    provider = require("lsp-status").status_progress,
+    condition = glc.buffer_not_empty,
     highlight = { colors.fg, colors.fg_green },
-    separator = " ",
-    separator_highlight = { colors.bg, colors.fg_green },
   }
 }
 gls.right[3] = {
