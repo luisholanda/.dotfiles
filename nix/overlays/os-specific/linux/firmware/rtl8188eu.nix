@@ -34,8 +34,8 @@ in {
     meta = {
       description = "Realtek rtl8188eu driver";
       homepage = "https://github.com/lwfinger/rtl8188eu";
-      license = self.stdenv.lib.licenses.gpl2;
-      platforms = self.stdenv.lib.platforms.linux;
+      license = self.lib.licenses.gpl2;
+      platforms = self.lib.platforms.linux;
     };
   };
 }

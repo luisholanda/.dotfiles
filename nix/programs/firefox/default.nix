@@ -6,7 +6,7 @@ let
 
   defaultSettings = import ./settings.nix { inherit config; };
 in {
-  enable = true;
+  enable = false;
   package = if isLinux
     then pkgs.firefox-wayland
     else pkgs.firefox;
