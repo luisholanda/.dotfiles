@@ -47,6 +47,7 @@ let
 
       sessionVariables = rec {
         MANPAGER = "nvim -c 'set ft=man' -";
+        MANWIDTH = "88";
         EDITOR = "nvim";
         GIT_SEQUENCE_EDITOR = EDITOR;
         CHROMIUM_FLAGS = optionalString isLinux
