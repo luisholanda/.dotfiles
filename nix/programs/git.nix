@@ -52,6 +52,7 @@ rec {
     ch = "checkout";
     # current branch
     current-branch = "rev-parse --abbrev-ref HEAD";
+    unstage = "restore --staged";
 
     # sync to remove
     sync = ''!git push origin "$(git current-branch)"'';
@@ -117,6 +118,7 @@ rec {
     rbc = "rb --continue";
     # rebase - restart the rebasing process by skipping the current patch.
     rbs = "rb --skip";
+    rbt = ''!git l --no-decorate "$(git merge-base $(git current-branch) origin/develop)".. | fzf | cut -c -7 | xargs -o git rbi'';
 
     save = if package.version < "2.16.0" then "stash save -u" else "stash push -u";
     pop = "stash pop";

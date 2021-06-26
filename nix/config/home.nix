@@ -11,7 +11,6 @@ let
     gcpPkgs = [ cloud-sql-proxy google-cloud-sdk ];
     lspPkgs = [ nodePackages.pyright rnix-lsp terraform-lsp rust-analyzer nodePackages.typescript-language-server nodejs ];
   in [
-    any-nix-shell
     exa
     fishPlugins.foreign-env
     gitAndTools.gh

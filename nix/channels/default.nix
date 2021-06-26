@@ -28,14 +28,14 @@ let
   nixUnstable = fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs";
-    rev = "1f6d9acafc8c5ad382585fea0b9d72095ea3976a";
-    sha256 = "1h58kgq6sgambhiybqg0wvqbvsl1ngxi4kl0laxs7khsmy4ircvb";
+    rev = "013f2ce9b3f02f0d46a3f9ef39aefd61c603f89f";
+    sha256 = "06w3n2m97v8aas5zbwl187q4zbdhqfxc0k1kmnwj953h9pczf3q9";
   };
   homeManager = fetchFromGitHub {
     owner = "nix-community";
     repo = "home-manager";
-    rev = "90493027e33ba9eb3f50dc1da365d0e4ca31bf14";
-    sha256 = "0jnxpc1ywnccri1d3m7hqrmxzifi65dk1zyh9xdlbx1fjm4x6xr5";
+    rev = "0ada50fc9c620f7ad9f7c6ff70bf40514f4400a9";
+    sha256 = "0zlgihyy3gwkb409lhrfnslhd3lcqar8vwp4mkcw8kvzjfz8vyqx";
   };
   __nixPath = [
     { prefix = "nur"; src = nurRepos; }

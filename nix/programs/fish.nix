@@ -9,15 +9,13 @@ in {
     set -g fish_cursor_insert line
     set -g fish_cursor_replace_one underscore
     _pure_set_default pure_show_prefix_root_prompt true
-    set_color pure_color_mute white
-
-    set --prepend fish_function_path /nix/store/mwhwbzvdf32hmnfkid34k2cjnajvp6qv-fishplugin-foreign-env-git-20200209/share/fish/vendor_functions.d
-    set -e __HM_SESS_VARS_SOURCED
-    fenv source /etc/profiles/per-user/luiscm/etc/profile.d/hm-session-vars.sh > /dev/null
-    set -e fish_function_path[1]
   '';
   loginShellInit = ''
     set -p fish_function_path ${pkgs.fishPlugins.foreign-env}/share/fish/vendor_functions.d
+    set -e __HM_SESS_VARS_SOURCED
+    fenv source /etc/profiles/per-user/luiscm/etc/profile.d/hm-session-vars.sh > /dev/null
+    set -e fish_function_path[1]
+
     if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
       fenv source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
     end
@@ -39,7 +37,7 @@ in {
     end
   '';
   promptInit = ''
-    any-nix-shell fish --info-right | source
+    ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
   '';
   shellAliases = rec {
     grep = "grep --color";
