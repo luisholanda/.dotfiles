@@ -2,7 +2,8 @@ super@{ pkgs, ... }:
 
 let
   domainsBlacklist = builtins.fetchurl {
-    url = "https://raw.githubusercontent.com/notracking/hosts-blocklists/b5083b66309399c47a2414885285cdb754256898/dnscrypt-proxy/dnscrypt-proxy.blacklist.txt";
+    url =
+      "https://raw.githubusercontent.com/notracking/hosts-blocklists/b5083b66309399c47a2414885285cdb754256898/dnscrypt-proxy/dnscrypt-proxy.blacklist.txt";
     sha256 = "1n9bfij0fg17rpa0d8b4nk285m54x773pm7zfpz2mixlc5k09jcd";
   };
 in {
@@ -41,8 +42,7 @@ in {
           "https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md"
         ];
         cache_file = "public-resolvers.md";
-        minisign_key =
-          "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+        minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
         refresh_delay = 72;
         prefix = "";
       };

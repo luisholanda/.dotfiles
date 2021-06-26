@@ -25,14 +25,17 @@ rec {
     color = { ui = true; };
     branch = { autosetuprebase = "always"; };
     pull = { rebase = true; };
-    rebase = { autoSquash = true; autoStash = true; abbreviateCommands = true; };
+    rebase = {
+      autoSquash = true;
+      autoStash = true;
+      abbreviateCommands = true;
+    };
     url = { "git@github.com:" = { insteadOf = "https://github.com/"; }; };
   };
 
   aliases = {
     # list all aliases
-    aliases =
-      "!git config --get-regexp '^alias\\.' | cut -c 7- | sed 's/ / = /'";
+    aliases = "!git config --get-regexp '^alias\\.' | cut -c 7- | sed 's/ / = /'";
 
     # list all tags
     tags = "tag -n1 --list";
@@ -79,7 +82,8 @@ rec {
     # commit interactive
     ci = "co --interactive";
     # create a fixup commit using a fzf commit list selector
-    fixup = ''!git l --no-decorate "$(git merge-base $(git current-branch) origin/develop)".. | fzf | cut -c -7 | xargs -o git commit --fixup'';
+    fixup = ''
+      !git l --no-decorate "$(git merge-base $(git current-branch) origin/develop)".. | fzf | cut -c -7 | xargs -o git commit --fixup'';
 
     df = "diff";
     # diff - show changes not yet staged
@@ -90,8 +94,7 @@ rec {
     # diff - show changes by word, not line
     dw = "!git diff --word-diff";
     # diff deep
-    dd =
-      "diff --check --dirstat --find-copies --find-renames --histogram --color";
+    dd = "diff --check --dirstat --find-copies --find-renames --histogram --color";
 
     fe = "fetch --prune";
     feo = "fe origin";
@@ -118,12 +121,12 @@ rec {
     rbc = "rb --continue";
     # rebase - restart the rebasing process by skipping the current patch.
     rbs = "rb --skip";
-    rbt = ''!git l --no-decorate "$(git merge-base $(git current-branch) origin/develop)".. | fzf | cut -c -7 | xargs -o git rbi'';
+    rbt = ''
+      !git l --no-decorate "$(git merge-base $(git current-branch) origin/develop)".. | fzf | cut -c -7 | xargs -o git rbi'';
 
     save = if package.version < "2.16.0" then "stash save -u" else "stash push -u";
     pop = "stash pop";
-    snapshot =
-      "!git save \"snapshot: $(date)\" && git stash apply 'stash@{0}'";
+    snapshot = "!git save \"snapshot: $(date)\" && git stash apply 'stash@{0}'";
 
     # pruner: prune everything that is unreachable now.
     #

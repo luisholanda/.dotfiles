@@ -1,16 +1,14 @@
 super@{ colors, pkgs, ... }:
-let
-  isDarwin = pkgs.stdenv.isDarwin;
+let isDarwin = pkgs.stdenv.isDarwin;
 in {
   enable = true;
   package = pkgs.unstable.alacritty;
-  settings = let
-    xy = x: y: { inherit x y; };
+  settings = let xy = x: y: { inherit x y; };
   in {
     colors = {
       primary = {
-          background = colors.background.xHex;
-          foreground = colors.foreground.xHex;
+        background = colors.background.xHex;
+        foreground = colors.foreground.xHex;
       };
 
       normal = {
@@ -58,7 +56,10 @@ in {
 
     window = {
       decorations = if isDarwin then "buttonless" else "none";
-      dimensions = { columns = 120; lines = 48; };
+      dimensions = {
+        columns = 120;
+        lines = 48;
+      };
       dynamic_title = false;
       dynamic_padding = true;
       startup_mode = "Maximized";

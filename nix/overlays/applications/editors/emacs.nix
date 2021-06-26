@@ -1,14 +1,25 @@
 self: super:
 let
   nativeCompRev = "fd9e9308d27138a16e2e93417bd7ad4448fea40a";
-  fetchHomebrewEmacsPlusPatch = { patch, sha256 }: builtins.fetchurl {
-    url = "https://github.com/d12frosted/homebrew-emacs-plus/raw/master/patches/emacs-28/${patch}.patch";
-    inherit sha256;
-  };
+  fetchHomebrewEmacsPlusPatch = { patch, sha256 }:
+    builtins.fetchurl {
+      url =
+        "https://github.com/d12frosted/homebrew-emacs-plus/raw/master/patches/emacs-28/${patch}.patch";
+      inherit sha256;
+    };
   homebrewPatches = map fetchHomebrewEmacsPlusPatch [
-    { patch = "fix-window-role"; sha256 = "0c41rgpi19vr9ai740g09lka3nkjk48ppqyqdnncjrkfgvm2710z"; }
-    { patch = "system-appearance"; sha256 = "1100dy6i12gwa41zr5s41qmydi6jynh84gsraidy8w9ii7i43d92"; }
-    { patch = "no-titlebar"; sha256 = "02lc92jflpn4mzxh242s2ws9lwqhngk19rjkiw8xh6q3w2qgj2lr"; }
+    {
+      patch = "fix-window-role";
+      sha256 = "0c41rgpi19vr9ai740g09lka3nkjk48ppqyqdnncjrkfgvm2710z";
+    }
+    {
+      patch = "system-appearance";
+      sha256 = "1100dy6i12gwa41zr5s41qmydi6jynh84gsraidy8w9ii7i43d92";
+    }
+    {
+      patch = "no-titlebar";
+      sha256 = "02lc92jflpn4mzxh242s2ws9lwqhngk19rjkiw8xh6q3w2qgj2lr";
+    }
   ];
 in {
   gccemacs = (super.emacs.override {
@@ -51,9 +62,7 @@ in {
       substituteInPlace lib-src/Makefile.in --replace '/bin/pwd' 'pwd'
     '';
 
-    configureFlags = old.configureFlags ++ [
-      "--with-mac"
-      "--enable-mac-app=$$out/Applications"
-    ];
+    configureFlags = old.configureFlags
+      ++ [ "--with-mac" "--enable-mac-app=$$out/Applications" ];
   });
 }

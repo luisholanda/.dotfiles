@@ -3,9 +3,7 @@ let
   mkIfLinux = x: lib.mkIf pkgs.stdenv.isLinux x;
   enableIfLinux = mkIfLinux { enable = true; };
 in {
-  imports = [
-    ./dnscrypt-proxy2.nix
-  ];
+  imports = [ ./dnscrypt-proxy2.nix ];
 
   services = mkIfLinux {
     irqbalance.enable = true;

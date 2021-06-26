@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   enable = true;
   customPaneNavigationAndResize = true;
   disableConfirmationPrompt = true;

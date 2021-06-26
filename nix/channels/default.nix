@@ -6,11 +6,11 @@ let
     assert rev == null -> tag != null;
     builtins.fetchTarball {
       inherit sha256;
-      url = let
-        urlPrefix = "https://github.com/${owner}/${repo}/archive";
-      in if tag == null
-      then "${urlPrefix}/${rev}.tar.gz"
-      else "${urlPrefix}/${tag}.tar.gz";
+      url = let urlPrefix = "https://github.com/${owner}/${repo}/archive";
+      in if tag == null then
+        "${urlPrefix}/${rev}.tar.gz"
+      else
+        "${urlPrefix}/${tag}.tar.gz";
     };
 
   nurRepos = fetchFromGitHub {
@@ -38,27 +38,45 @@ let
     sha256 = "0zlgihyy3gwkb409lhrfnslhd3lcqar8vwp4mkcw8kvzjfz8vyqx";
   };
   __nixPath = [
-    { prefix = "nur"; src = nurRepos; }
-    { prefix = "nixpkgs"; src = nixUnstable; }
-    { prefix = "nixpkgs-unstable"; src = nixUnstable; }
-    { prefix = "home-manager"; src = homeManager; }
+    {
+      prefix = "nur";
+      src = nurRepos;
+    }
+    {
+      prefix = "nixpkgs";
+      src = nixUnstable;
+    }
+    {
+      prefix = "nixpkgs-unstable";
+      src = nixUnstable;
+    }
+    {
+      prefix = "home-manager";
+      src = homeManager;
+    }
   ] ++ lib.optionals pkgs.stdenv.isDarwin [
-    { prefix = "darwin"; src = nixDarwin; }
-    { prefix = "darwin-config"; src = "/Users/luiscm/.dotfiles/nix/configuration.nix"; }
-  ] ++ lib.optional pkgs.stdenv.isLinux
-    { prefix = "nixos-config"; src = "/home/luiscm/.dotfiles/nix/machines/plutus/configuration.nix"; };
+    {
+      prefix = "darwin";
+      src = nixDarwin;
+    }
+    {
+      prefix = "darwin-config";
+      src = "/Users/luiscm/.dotfiles/nix/configuration.nix";
+    }
+  ] ++ lib.optional pkgs.stdenv.isLinux {
+    prefix = "nixos-config";
+    src = "/home/luiscm/.dotfiles/nix/machines/plutus/configuration.nix";
+  };
 in rec {
   nur = nurRepos;
   darwin = nixDarwin;
   nixpkgs-unstable = nixUnstable;
   home-manager = homeManager;
-  nixPath = map ({ prefix, src }: { "${prefix}" = "${src}"; }) __nixPath
-  ++ [
+  nixPath = map ({ prefix, src }: { "${prefix}" = "${src}"; }) __nixPath ++ [
     "/nix/var/nix/profiles/per-user/luiscm/channels"
     "/nix/var/nix/profiles/per-user/root/channels"
   ];
-  nixPathStr = map ({ prefix, src }: "${prefix}=${src}") __nixPath
-  ++ [
+  nixPathStr = map ({ prefix, src }: "${prefix}=${src}") __nixPath ++ [
     "/nix/var/nix/profiles/per-user/luiscm/channels"
     "/nix/var/nix/profiles/per-user/root/channels"
   ];

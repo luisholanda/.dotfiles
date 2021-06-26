@@ -1,7 +1,6 @@
 self: super:
 with builtins;
-with super.lib;
-{
+with super.lib; {
   myLib = {
     # Flattens an attribute set, that is
     #
@@ -25,7 +24,11 @@ with super.lib;
     #   "a.f" = "bla";
     # }
     flattenAttrs = let
-      expandAttr = path: value: { inherit value; name = concatStringsSep "." path; __expanded__ = true; };
+      expandAttr = path: value: {
+        inherit value;
+        name = concatStringsSep "." path;
+        __expanded__ = true;
+      };
       isExpanded = v: isAttrs v -> v ? "__expanded__";
     in flip pipe [ (mapAttrsRecursive expandAttr) (collect isExpanded) listToAttrs ];
   };

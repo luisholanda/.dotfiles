@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   defaults = {
     NSGlobalDomain = {
       AppleKeyboardUIMode = 3;

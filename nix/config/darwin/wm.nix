@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }:
-let
-  home = builtins.getEnv "HOME";
+let home = builtins.getEnv "HOME";
 in {
   services.skhd = {
     enable = true;
@@ -15,8 +14,8 @@ in {
       height = 24;
       spacing_left = 24;
       spacing_right = 15;
-      text_font = "\".SF NS Display:Regular:13.0\"";
-      icon_font = "\"JetBrainsMono Nerd Font:Regular:13.0\"";
+      text_font = ''".SF NS Display:Regular:13.0"'';
+      icon_font = ''"JetBrainsMono Nerd Font:Regular:13.0"'';
       background_color = "0xff202020";
       foreground_color = "0xffa8a8a8";
       space_icon_color = "0xff458588";
@@ -24,7 +23,7 @@ in {
       battery_icon_color = "0xffd75f5f";
       dnd_icon_color = "0xffa8a8a8";
       clock_icon_color = "0xffa8a8a8";
-      clock_format = "\"%a %d %b %I:%M %p\"";
+      clock_format = ''"%a %d %b %I:%M %p"'';
     };
   };
 

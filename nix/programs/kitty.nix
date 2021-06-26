@@ -1,5 +1,4 @@
-{ lib, pkgs, ... }:
-{
+{ lib, pkgs, ... }: {
   enable = false;
   settings = {
     font_family = "JetBrainsMono Nerd Font";

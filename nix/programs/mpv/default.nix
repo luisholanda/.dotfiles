@@ -1,5 +1,4 @@
-{ lib, pkgs, ... }:
-{
+{ lib, pkgs, ... }: {
   enable = true;
   package = pkgs.mpv-unwrapped.override {
     waylandSupport = true;

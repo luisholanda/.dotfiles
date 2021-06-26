@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   app = {
     normandy = {
       enabled = false;
@@ -65,9 +64,7 @@
     };
   };
   identity.fxaccounts.account.device.name = config.networking.hostName;
-  javascript = {
-    use_us_english_locale = false;
-  };
+  javascript = { use_us_english_locale = false; };
   media.peerconnection = {
     enabled = true;
     ice = {
@@ -165,5 +162,6 @@
     coverage.endpoint.base = "";
     legacyUserProfileCustomizations.stylesheets = true;
   };
-  urlclassifier.trackingTable = "moztest-track-simple,ads-track-digest256,social-track-digest256,analytics-track-digest256";
+  urlclassifier.trackingTable =
+    "moztest-track-simple,ads-track-digest256,social-track-digest256,analytics-track-digest256";
 }

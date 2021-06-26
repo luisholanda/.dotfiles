@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
-let
-  home = config.users.users.luiscm.home;
+let home = config.users.users.luiscm.home;
 in {
   enable = true;
   forwardAgent = true;

@@ -1,7 +1,6 @@
 super@{ lib, pkgs, ... }:
 
 with pkgs.stdenv;
-with lib;
-{
+with lib; {
   imports = [ ./nix.nix ./home.nix ];
 }

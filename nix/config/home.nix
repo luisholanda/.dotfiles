@@ -3,46 +3,37 @@ super@{ cfg, lib, pkgs, ... }:
 let
   inherit (pkgs.stdenv) isLinux isDarwin;
   inherit (pkgs.lib) optionalString mkIf;
-  applications = with pkgs; if isLinux
-    then [ tdesktop nomacs pcmanfm texlab zathura minecraft osu-lazer ]
-    else [];
+  applications = with pkgs;
+    if isLinux then [
+      tdesktop
+      nomacs
+      pcmanfm
+      texlab
+      zathura
+      minecraft
+      osu-lazer
+    ] else
+      [ ];
 
-  otherPackages = with pkgs; let
-    gcpPkgs = [ cloud-sql-proxy google-cloud-sdk ];
-    lspPkgs = [
-      cmake-language-server
-      nodePackages.pyright
-      nodePackages.typescript-language-server
-      nodePackages.vim-language-server
-      rnix-lsp
-      rust-analyzer
-      terraform-lsp
-    ];
-    gitPkgs = [
-      gitAndTools.gh
-      gitAndTools.git-absorb
-      gitAndTools.stgit
-      git.doc
-    ];
-  in [
-    exa
-    fishPlugins.foreign-env
-    httpie
-    jq
-    nixfmt
-    ripgrep
-    yarn
-    protobuf
-  ] ++ gcpPkgs
-  ++ lspPkgs
-  ++ gitPkgs
-  ++ (import ./scripts.nix super);
+  otherPackages = with pkgs;
+    let
+      gcpPkgs = [ cloud-sql-proxy google-cloud-sdk ];
+      lspPkgs = [
+        cmake-language-server
+        nodePackages.pyright
+        nodePackages.typescript-language-server
+        nodePackages.vim-language-server
+        rnix-lsp
+        rust-analyzer
+        terraform-lsp
+      ];
+      gitPkgs = [ gitAndTools.gh gitAndTools.git-absorb gitAndTools.stgit git.doc ];
+    in [ exa fishPlugins.foreign-env httpie jq nixfmt ripgrep yarn protobuf ] ++ gcpPkgs
+    ++ lspPkgs ++ gitPkgs ++ (import ./scripts.nix super);
 
   username = "luiscm";
   myHomeConfig = {
-    programs = import ../programs super // {
-      home-manager.enable = true;
-    };
+    programs = import ../programs super // { home-manager.enable = true; };
 
     home = {
       packages = otherPackages ++ applications;
@@ -58,7 +49,8 @@ let
         MANPAGER = "nvim -c 'set ft=man' -";
         EDITOR = "nvim";
         GIT_SEQUENCE_EDITOR = EDITOR;
-        CHROMIUM_FLAGS = optionalString isLinux "--enable-features=UseOzonePlatform --ozone-platform=wayland";
+        CHROMIUM_FLAGS = optionalString isLinux
+          "--enable-features=UseOzonePlatform --ozone-platform=wayland";
         SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
       };
 
@@ -77,7 +69,8 @@ let
           # Prevent that we add generated files to git.
           recursive = true;
         };
-        ".config/brave-flags.conf".text = mkIf isLinux "--enable-features=UseOzonePlatform --ozone-platform=wayland";
+        ".config/brave-flags.conf".text =
+          mkIf isLinux "--enable-features=UseOzonePlatform --ozone-platform=wayland";
       };
     };
 

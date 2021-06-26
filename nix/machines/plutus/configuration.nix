@@ -2,20 +2,18 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ colors, config, lib, pkgs, ... }:
-{
+{ colors, config, lib, pkgs, ... }: {
   _module.args.colors = lib.mkDefault (import ../../config/colors.nix);
 
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware.nix
-      ./security.nix
-      ./desktop.nix
-      <home-manager/nixos>
-      ../../config/home.nix
-      ../../config/nix.nix
-      ../../services
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware.nix
+    ./security.nix
+    ./desktop.nix
+    <home-manager/nixos>
+    ../../config/home.nix
+    ../../config/nix.nix
+    ../../services
+  ];
 
   console.colors = colors.term;
 
@@ -30,9 +28,7 @@
   # TODO: We use Wayland instead of Xorg
   # environment.noXlibs = true;
 
-  environment.sessionVariables = {
-    XDG_CURRENT_DESKTOP = "sway";
-  };
+  environment.sessionVariables = { XDG_CURRENT_DESKTOP = "sway"; };
   environment.shells = [ pkgs.fish ];
   environment.shellInit = ''
     if [[ "$tty" = "/dev/tty1" ]]; then
@@ -86,9 +82,7 @@
     hostId = "cb4a1fd3";
     hostName = "plutus";
 
-    networkmanager = {
-      enable = true;
-    };
+    networkmanager = { enable = true; };
   };
 
   nix.trustedUsers = [ "root" "luiscm" ];
@@ -105,14 +99,7 @@
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-    extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      xwayland
-      waybar
-      wl-clipboard
-      wofi
-    ];
+    extraPackages = with pkgs; [ swaylock swayidle xwayland waybar wl-clipboard wofi ];
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland
       export QT_QPA_PLATFORM=wayland
@@ -161,7 +148,8 @@
     extraGroups = [ "wheel" "networking" "video" "adbusers" "docker" ];
     home = "/home/luiscm";
     isNormalUser = true;
-    hashedPassword = "$6$9FTY2/BA$SNnE6OAWlL4fK/cURdYQUJ33pp6xMQcUsFCkzD1HnDidI.cP6WDmQMUhYapi/NiAT3gXKh//N09q2fYO1V3eN.";
+    hashedPassword =
+      "$6$9FTY2/BA$SNnE6OAWlL4fK/cURdYQUJ33pp6xMQcUsFCkzD1HnDidI.cP6WDmQMUhYapi/NiAT3gXKh//N09q2fYO1V3eN.";
     shell = pkgs.fish;
   };
 

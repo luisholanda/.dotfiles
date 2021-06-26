@@ -1,5 +1,4 @@
-super@{ colors, ... }:
-{
+super@{ colors, ... }: {
   enable = true;
   maxVisible = 3;
   layer = "overlay";

@@ -1,6 +1,5 @@
 { lib, fetchzip, ... }:
-let
-  version = "1.1-5.0.1-0";
+let version = "1.1-5.0.1-0";
 in fetchzip {
   name = "bmono-${version}";
   url = "https://github.com/NNBnh/bmono/releases/download/${version}/bmono-ttf.zip";

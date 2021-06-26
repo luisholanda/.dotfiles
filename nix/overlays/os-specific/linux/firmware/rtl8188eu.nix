@@ -1,7 +1,8 @@
 self: super:
 let
   kernel = self.linuxPackages_5_10.kernel;
-  modDestDir = "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtl8188eu";
+  modDestDir =
+    "$out/lib/modules/${kernel.modDirVersion}/kernel/drivers/net/wireless/realtek/rtl8188eu";
 in {
   firmware-rtl8188eu = self.stdenv.mkDerivation rec {
     name = "rtl8188eu-${kernel.version}-${version}";

@@ -5,8 +5,8 @@ let
   version = "2.7.0";
   isBeta = false;
 in {
-  tdesktop = if isDarwin
-    then self.installApplicaton rec {
+  tdesktop = if isDarwin then
+    self.installApplicaton rec {
       inherit version;
       name = "Telegram";
 
@@ -15,15 +15,11 @@ in {
 
       src = super.fetchurl {
         name = "${name}-${version}.dmg";
-        url =  let
-          urlVersion = if isBeta
-            then "${version}.beta"
-            else "${version}";
+        url = let urlVersion = if isBeta then "${version}.beta" else "${version}";
         in "https://github.com/telegramdesktop/tdesktop/releases/download/v${version}/tsetup.${urlVersion}.dmg";
         sha256 = "1yprjglkbpgbkjv2j1nmw32gx0ph3c6f0n3c5ykwyf7c37v9aaxn";
       };
     }
-    else super.tdesktop.overrideAttrs (old: {
-      inherit version;
-    });
+  else
+    super.tdesktop.overrideAttrs (old: { inherit version; });
 }

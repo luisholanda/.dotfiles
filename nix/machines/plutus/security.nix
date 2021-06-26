@@ -1,9 +1,11 @@
-super:
-{
+super: {
   security.doas = {
     enable = true;
-    extraRules =
-      [ { users = [ "luiscm" ]; persist = true; keepEnv = true; } ];
+    extraRules = [{
+      users = [ "luiscm" ];
+      persist = true;
+      keepEnv = true;
+    }];
   };
 
   security.protectKernelImage = true;

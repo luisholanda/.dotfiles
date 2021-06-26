@@ -7,7 +7,7 @@ let
       enable = true;
       config = {
         inherit modifier;
-        bars = [ { command = "waybar"; } ];
+        bars = [{ command = "waybar"; }];
         gaps = {
           outer = 4;
           inner = 4;
@@ -32,39 +32,38 @@ let
           };
         };
         keybindings = lib.mkOptionDefault {
-          "${modifier}+Shift+s" = "exec GRIM_DEFAULT_DIR=~/Screenshots ${pkgs.grim}/bin/grim";
+          "${modifier}+Shift+s" =
+            "exec GRIM_DEFAULT_DIR=~/Screenshots ${pkgs.grim}/bin/grim";
           "${modifier}+v" = "split toggle";
         };
-        menu = ''${pkgs.wofi}/bin/wofi \
-          --normal-window \
-          --gtk-dark \
-          --insensitive \
-          --maching=fuzzy \
-          --hide-scroll \
-          --allow-markup \
-          --allow-images \
-          --show run \
-          --fork
-        '';
+        menu = ''
+          ${pkgs.wofi}/bin/wofi \
+                    --normal-window \
+                    --gtk-dark \
+                    --insensitive \
+                    --maching=fuzzy \
+                    --hide-scroll \
+                    --allow-markup \
+                    --allow-images \
+                    --show run \
+                    --fork
+                  '';
         terminal = "${pkgs.alacritty}/bin/alacritty";
         startup = [
-          { command = ''swayidle -w \
-              timeout 300 'swaylock -f -c 000000' \
-              timout 600 'swaymsg \"output * dpms off\"' \
-              resume 'swaymsg \"output * dpms on\"' \
-              before-sleep 'swaylock -f -c 000000'
-            '';
+          {
+            command = ''
+              swayidle -w \
+                            timeout 300 'swaylock -f -c 000000' \
+                            timout 600 'swaymsg \"output * dpms off\"' \
+                            resume 'swaymsg \"output * dpms on\"' \
+                            before-sleep 'swaylock -f -c 000000'
+                          '';
           }
-          { command = "exec mako";
-          }
+          { command = "exec mako"; }
         ];
-        window = {
-          hideEdgeBorders = "smart";
-        };
+        window = { hideEdgeBorders = "smart"; };
         workspaceAutoBackAndForth = true;
       };
     };
   };
-in {
-  home-manager.users.luiscm = homeCfg;
-}
+in { home-manager.users.luiscm = homeCfg; }
