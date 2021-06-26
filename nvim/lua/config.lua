@@ -1,4 +1,5 @@
 local g = vim.g;
+local opt = vim.opt;
 
 g.polyglot_disabled = { "sensible" }
 g.loaded_matchit = 1
@@ -39,3 +40,6 @@ g.fzf_commits_log_options = "--graph --color=always " ..
                                 "- %C(bold green)(%ar)%C(reset) %s %C(blue)<%an>%C(reset)"
 
 g.tex_flavor = "latex"
+
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"

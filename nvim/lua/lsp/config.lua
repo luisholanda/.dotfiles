@@ -50,6 +50,26 @@ local function configure_servers()
 
     setup(nvim_lsp.ccls)
     setup(nvim_lsp.cmake)
+    setup(nvim_lsp.sumneko_lua, {
+        -- Assumes installed via nixpkgs, it already takes care of passing main.lua path.
+        cmd = { vim.fn.exepath("lua-language-server") },
+        settings = {
+            Lua = {
+                runtime = {
+                    version = "LuaJIT",
+                    path = (function()
+                        local path = vim.split(package.path, ";")
+                        table.insert(path, "lua/?.lua")
+                        table.insert(path, "lua/?/init.lua")
+                        return path
+                    end)(),
+                },
+                diagnostics = { globals = { "vim" } },
+                workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                telemetry = { enable = false },
+            },
+        },
+    })
     setup(nvim_lsp.vimls)
     setup(nvim_lsp.pyright, {
         root_dir = nvim_lsp.util.root_pattern(".git"),

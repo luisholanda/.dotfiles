@@ -25,6 +25,7 @@ let
         nodePackages.vim-language-server
         rnix-lsp
         rust-analyzer
+        sumneko-lua-language-server
         terraform-lsp
       ];
       gitPkgs = [ gitAndTools.gh gitAndTools.git-absorb gitAndTools.stgit git.doc ];

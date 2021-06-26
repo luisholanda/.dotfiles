@@ -1,3 +1,6 @@
+local utils = require("utils")
+vim.opt.termguicolors = true
+
 require("completion")
 require("config")
 require("plugins")
@@ -21,9 +24,6 @@ require("nvim-treesitter.configs").setup {
     textsubjects = { enable = true, keymaps = { ["<cr>"] = "textsubjects-smart" } },
     indent = { enable = false },
 }
-
-vim.cmd [[set foldmethod=expr]]
-vim.cmd [[set foldexpr=nvim_treesitter#foldexpr()]]
 
 require("colorizer").setup()
 require("lsp/config").setup()
@@ -78,3 +78,32 @@ require("rust-tools").setup {
         inlay_hints = { parameter_hints_prefix = "ᐊ", other_hints_prefix = "ᐅ " },
     },
 }
+
+require("colorscheme")
+
+-- Toggle relative line numbers when entering insert mode.
+utils.create_augroup("RelativeNumbersToggle", {
+    { "BufEnter,FocusGained,InsertLeave,WinEnter", "*", "if &nu | set rnu | endif" },
+    { "BufLeave,FocusLost,InsertEnter,WinLeave", "*", "if &nu | set nornu | endif" },
+})
+
+-- Map custom extensions to filetypes.
+utils.create_augroup("MapCustomFileTypes", {
+    { "BufNew,BufNewFile,BufRead", "*.lalrpop", ":setlocal filetype=rust" },
+})
+
+-- Trim trailing whitespaces when saving.
+utils.create_augroup("TrimSpaces", { { "BufWritePre", "*", "%s/\\s\\+$//e" } })
+
+utils.create_augroup("OpenHelpVertically", { { "FileType", "help", "wincmd L" } })
+
+-- Trigger a resize when open neovim.
+--
+-- Fixes some sizing issues when opening a new terminal directly to neovim.
+utils.create_augroup("TriggerResizeOnEnter", {
+    { "VimEnter", "*", ":silent exec \"!kill -s SIGWINCH $PPID\"" },
+})
+
+vim.cmd[[filetype plugin indent off]]
+vim.cmd[[packadd vim-polyglot]]
+vim.cmd[[filetype on]]
