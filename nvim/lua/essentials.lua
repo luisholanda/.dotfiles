@@ -38,7 +38,7 @@ o.backup = false
 
 -- c: don't give |ins-completion-menu| messages.
 -- F: don't show statusline in unfocused buffers.
-o.shortmess = vim.o.shortmess .. 'cF'
+o.shortmess = vim.o.shortmess .. "cF"
 
 -- number of lines offset when jumping
 o.scrolloff = 2
@@ -46,9 +46,9 @@ o.sidescrolloff = 5
 
 -- Tab key enters 2 spaces
 -- To enter a TAB character when 'expandtab' is in effect, CTRL-v-TAB.
-o.expandtab   = true
-o.tabstop     = 2
-o.shiftwidth  = 2
+o.expandtab = true
+o.tabstop = 2
+o.shiftwidth = 2
 o.softtabstop = o.tabstop
 
 -- Indent new line the same as the preceding line
@@ -62,7 +62,7 @@ o.updatetime = 100
 
 -- Better behaviour from autocomplete pop-up.
 o.completeopt = "noinsert,menuone,noselect"
-o.pumheight   = 25
+o.pumheight = 25
 
 -- highlight matching parenthesis, braces, brackets, etc.
 o.showmatch = true
@@ -82,24 +82,18 @@ o.wildmode = "list:longest,full"
 o.wildignore = vim.o.wildignore .. "vendor/**,node_modules/**,target/**"
 
 if vim.fn.executable("pbcopy") == 1 then
-  copy = "pbcopy"
-  paste = "pbpaste"
+    copy = "pbcopy"
+    paste = "pbpaste"
 elseif vim.fn.executable("wl-copy") == 1 then
-  copy = "wl-copy -n"
-  paste = "wl-paste -n"
+    copy = "wl-copy -n"
+    paste = "wl-paste -n"
 end
 
 g.clipboard = {
-  name = copy,
-  copy = {
-    ["+"] = copy,
-    ["*"] = copy,
-  },
-  paste = {
-    ["+"] = paste,
-    ["*"] = paste,
-  },
-  cache_enabled = 1
+    name = copy,
+    copy = { ["+"] = copy, ["*"] = copy },
+    paste = { ["+"] = paste, ["*"] = paste },
+    cache_enabled = 1,
 }
 o.clipboard = "unnamedplus"
 
