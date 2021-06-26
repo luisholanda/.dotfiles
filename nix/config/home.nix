@@ -9,12 +9,24 @@ let
 
   otherPackages = with pkgs; let
     gcpPkgs = [ cloud-sql-proxy google-cloud-sdk ];
-    lspPkgs = [ nodePackages.pyright rnix-lsp terraform-lsp rust-analyzer nodePackages.typescript-language-server nodejs ];
+    lspPkgs = [
+      cmake-language-server
+      nodePackages.pyright
+      nodePackages.typescript-language-server
+      nodePackages.vim-language-server
+      rnix-lsp
+      rust-analyzer
+      terraform-lsp
+    ];
+    gitPkgs = [
+      gitAndTools.gh
+      gitAndTools.git-absorb
+      gitAndTools.stgit
+      git.doc
+    ];
   in [
     exa
     fishPlugins.foreign-env
-    gitAndTools.gh
-    git.doc
     httpie
     jq
     nixfmt
@@ -23,6 +35,7 @@ let
     protobuf
   ] ++ gcpPkgs
   ++ lspPkgs
+  ++ gitPkgs
   ++ (import ./scripts.nix super);
 
   username = "luiscm";
