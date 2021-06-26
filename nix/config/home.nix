@@ -28,8 +28,8 @@ let
         terraform-lsp
       ];
       gitPkgs = [ gitAndTools.gh gitAndTools.git-absorb gitAndTools.stgit git.doc ];
-    in [ exa fishPlugins.foreign-env httpie jq nixfmt ripgrep yarn protobuf ] ++ gcpPkgs
-    ++ lspPkgs ++ gitPkgs ++ (import ./scripts.nix super);
+    in [ exa fishPlugins.foreign-env httpie jq ripgrep ] ++ gcpPkgs ++ lspPkgs
+    ++ gitPkgs ++ (import ./scripts.nix super);
 
   username = "luiscm";
   myHomeConfig = {
