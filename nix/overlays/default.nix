@@ -1,7 +1,6 @@
 let
   overlays = [
     ./channels.nix
-    ./applications/editors/emacs.nix
     ./applications/editors/neovim.nix
     ./applications/networking/browsers/firefox.nix
     ./applications/networking/instant-messengers/telegram.nix
@@ -38,4 +37,5 @@ in fileOverlays ++ [
       '';
     });
   })
+] ++ [
 ]

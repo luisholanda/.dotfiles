@@ -60,6 +60,7 @@ let
         doomConfig = {
           source = ../../doom;
           target = ".config/doom";
+          recursive = true;
         };
         kakouneConfig = {
           source = ../../kakrc;

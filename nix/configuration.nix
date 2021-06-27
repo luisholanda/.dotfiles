@@ -3,6 +3,7 @@ super@{ config, lib, pkgs, ... }:
 with pkgs.stdenv;
 with lib;
 let
+  emacsUnstableRev = "d756e841ef2d30dcb9d831f47c2f2bc9b7eaaabf";
   channels = import ./channels;
   myUserCfg = config.home-manager.users.luiscm;
   fishEnable = myUserCfg.programs.fish.enable;
@@ -20,7 +21,7 @@ in {
   ];
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = import ./overlays;
+  nixpkgs.overlays =  import ./overlays;
   nix.nixPath = channels.nixPathStr;
 
   environment.systemPackages = with pkgs; [ cmake curl coreutils wget ];

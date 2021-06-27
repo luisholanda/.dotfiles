@@ -8,76 +8,93 @@
 ;; More information about these modules (and what flags they support) can be
 ;; found in modules/README.org.
 
-(doom! :checkers
-       (syntax +childframe)
-       (spell +everywhere +hunspell +enchant)
-       grammar
+(doom! :input
 
        :completion
        (company +childframe)
-       (ivy
-        +prescient
-        ;+childframe
-        +icons)
-
-       :editor
-       (evil +everywhere)
-       fold
-       (format +onsave)
-       multiple-cursors
-       snippets
-
-       :emacs
-       eletric
-       (ibuffer +icons)
-
-       :os
-       macos
-
-       :lang
-       (cc +lsp)
-       data
-       emacs-lisp
-       ;;(javascript +lsp)
-       latex
-       markdown
-       ;;(org
-       ;; +dragndrop
-       ;; +ipython
-       ;; +pandoc
-       ;; +present)
-       nix
-       (python +lsp +pyright +pyenv)
-       rest
-       (rust +lsp)
-       (sh +fish)
-       yaml
-
-       :tools
-       (debugger +lsp)
-       (docker +lsp)
-       lookup
-       (lsp +peek)
-       make
-       terraform
+       (ivy +prescient +icons +childframe)
 
        :ui
        doom
        doom-dashboard
        doom-quit
+       (emoji +unicode +github)
        hl-todo
-       hydra ; todo: drop this after learn the keybindings
+       hydra
        indent-guides
-       ligatures
-       (modeline +light)
-       nav-light
+       (ligatures +extra)
+       modeline
        ophints
-       (popup
-        +all
-        +defaults)
+       (popup +defaults)
        unicode
        vc-gutter
+       window-select
+       workspaces
        zen
+
+       :editor
+       (evil +everywhere)
+       file-templates
+       fold
+       (format +onsave)
+       multiple-cursors
+       (parinfer +rust)
+       snippets
+       word-wrap
+
+       :emacs
+       electric
+       (ibuffer +icons)
+       undo
+       vc
+
+       :term
+       vterm
+
+       :checkers
+       (syntax +childframe)
+       (spell +aspell +everywhere)
+       grammar
+
+       :tools
+       (debugger +lsp)
+       (docker +lsp)
+       (eval +overlay)
+       (lookup +dictionary +offline)
+       (lsp +peek)
+       magit
+       make
+       rgb
+       taskrunner
+       terraform
+
+       :os
+       (:if IS-MAC macos)
+
+
+       :lang
+       (cc +lsp)
+       data
+       emacs-lisp
+       json
+       (javascript +lsp)
+       (latex +latexmk +cdlatex +lsp +fold)
+       lua
+       (markdown +grip)
+       nix
+       (python +lsp +pyright +cython +pyenv)
+       (rust +lsp)
+       (sh +fish +lsp)
+       (web +lsp)
+       (yaml +lsp)
+
+       :email
+       ;; TODO: configure email
+       ;;(mu4e +gmail)
+       ;;notmuch
+       ;;(wanderlust +gmail)
+
+       :app
 
        :config
        ;;literate

@@ -111,6 +111,12 @@
   };
 
   services.blueman.enable = true;
+
+  services.emacs = {
+    enable = true;
+    package = pkgs.emacsOverlay.emacsPgtkGcc;
+  };
+
   services.localtime.enable = true;
   services.locate = {
     enable = true;

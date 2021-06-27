@@ -10,8 +10,8 @@
                  :repo "winterTTr/ace-jump-mode"
                  :files ("ace-jump-mode.el")))
 
-(use-package tsc
-  :straight (tsc :host github
+(package! tsc
+  :recipe (:host github
                  :repo "ubolonton/emacs-tree-sitter"
                  :files ("core/*.el")))
 
