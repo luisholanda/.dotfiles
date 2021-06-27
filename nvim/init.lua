@@ -107,3 +107,7 @@ utils.create_augroup("TriggerResizeOnEnter", {
 vim.cmd[[filetype plugin indent off]]
 vim.cmd[[packadd vim-polyglot]]
 vim.cmd[[filetype on]]
+
+_G.bclose = require("bclose")
+vim.cmd[[command! -bang -complete=buffer -nargs=? Bclose call v:lua.bclose.close_buffer(<q-bang>, <q-args>)]]
+vim.cmd[[command! -bang -complete=file -nargs=* Make ASyncRun -program=make @ <args>]]
