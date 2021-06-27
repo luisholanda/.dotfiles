@@ -60,7 +60,7 @@ in {
 
   neovim = {
     enable = true;
-    extraConfig = "luafile ~/.config/nvim/init.lua";
+    extraConfig = ''lua require("init")'';
     package = pkgs.neovim-unwrapped;
     viAlias = true;
     vimAlias = true;
